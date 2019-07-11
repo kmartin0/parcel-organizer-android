@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Parcel Tracker</string>
     <string name="parcels">Parcels</string>
-    <string name="add_parcel">Add Parcel</string>
+    <string name="create_parcel">Create Parcel</string>
 </resources>

@@ -8,6 +8,19 @@
     <fragment
         android:id="@+id/parcelsFragment"
         android:name="com.km.parceltracker.ui.parcels.ParcelsFragment"
-        android:label="HEY"
-        tools:layout="@layout/fragment_parcels" />
+        android:label="Parcels"
+        tools:layout="@layout/fragment_parcels">
+        <action
+            android:id="@+id/action_parcelsFragment_to_addParcelFragment"
+            app:destination="@id/createParcelFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/createParcelFragment"
+        android:name="com.km.parceltracker.ui.createparcel.CreateParcelFragment"
+        android:label="Create Parcel"
+        tools:layout="@layout/fragment_create_parcel" />
 </navigation>

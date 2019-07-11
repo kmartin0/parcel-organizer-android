@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_add_parcel"
+        android:id="@+id/createParcelFragment"
         android:orderInCategory="1"
-        android:title="@string/add_parcel"
+        android:title="@string/create_parcel"
         app:showAsAction="ifRoom" />
 </menu>

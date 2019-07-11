@@ -10,7 +10,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.km.parceltracker.R
 
 abstract class BaseFragment : Fragment() {
@@ -32,15 +33,15 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        val toolbar = getToolbar()
+        getToolbar()?.let {
+            // Set the support action bar.
+            (activity as AppCompatActivity).setSupportActionBar(it)
 
-        // Attach the toolbar with he navigation graph.
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        toolbar.setupWithNavController(navController, appBarConfiguration)
-
-        // Set the support action bar.
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+            // Attach the toolbar with he navigation graph.
+            val navController = findNavController()
+            val appBarConfiguration = AppBarConfiguration(navController.graph)
+            (activity as AppCompatActivity).setupActionBarWithNavController(navController, appBarConfiguration)
+        }
     }
 
     /**
@@ -61,7 +62,7 @@ abstract class BaseFragment : Fragment() {
     @LayoutRes
     abstract fun getLayoutId(): Int
 
-    abstract fun getToolbar(): Toolbar
+    abstract fun getToolbar(): Toolbar?
 
     @MenuRes
     abstract fun getMenuId(): Int?
