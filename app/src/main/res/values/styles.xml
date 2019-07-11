@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <!-- Actionbar and Toolbar theme. -->
@@ -35,5 +37,11 @@
     </style>
 
     <item name="progressBar" type="id" />
+
+    <!-- Progressbar theme. -->
+    <style name="parcelItemText">
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
 
 </resources>
