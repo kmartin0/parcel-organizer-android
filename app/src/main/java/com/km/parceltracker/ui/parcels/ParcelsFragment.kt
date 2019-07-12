@@ -2,9 +2,12 @@ package com.km.parceltracker.ui.parcels
 
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.webkit.URLUtil
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +24,7 @@ class ParcelsFragment : BaseFragment() {
 
     private val parcels = ArrayList<Parcel>()
     private val parcelsAdapter =
-        ParcelsAdapter(parcels, { onParcelClick(it) }, { onEditParcelClick(it) })
+        ParcelsAdapter(/*parcels,*/ { onParcelClick(it) }, { onEditParcelClick(it) })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,12 +36,22 @@ class ParcelsFragment : BaseFragment() {
         rvParcels.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
         parcels.apply {
-            add(Parcel(1L, "Garmin VivoMove HR", "Bol.com", "PostNL", "https://jouw.postnl.nl/#!/track-en-trace/3STUNN002038759/NL/1185ZC", "DELIVERED", Date()))
+            add(
+                Parcel(
+                    1L,
+                    "Garmin VivoMove HR",
+                    "Bol.com",
+                    "PostNL",
+                    "https://jouw.postnl.nl/#!/track-en-trace/3STUNN002038759/NL/1185ZC",
+                    "DELIVERED",
+                    Date()
+                )
+            )
             add(Parcel(1L, "Clothing", "Wehkamp", "DHL", null, "SENT", Date()))
             add(Parcel(1L, "Shoes", "Zalando", "DPD", null, "SENT", Date()))
             add(Parcel(1L, "Car", "Mercedes", "Mercedes Delivery Service", null, "ORDERED", Date()))
         }
-        parcelsAdapter.notifyDataSetChanged()
+        parcelsAdapter.setData(parcels)
     }
 
     private fun onParcelClick(parcel: Parcel) {
@@ -54,6 +67,28 @@ class ParcelsFragment : BaseFragment() {
 
     private fun onEditParcelClick(parcel: Parcel) {
         Toast.makeText(context, "onEditParcelClick: ${parcel.title}", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        val searchView = menu?.findItem(R.id.action_search)?.actionView as SearchView
+        searchView.setOnQueryTextListener(getSearchViewQueryListener())
+
+    }
+
+    private fun getSearchViewQueryListener(): SearchView.OnQueryTextListener {
+        return object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                parcelsAdapter.filter.filter(newText)
+                return true
+            }
+
+        }
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_parcels

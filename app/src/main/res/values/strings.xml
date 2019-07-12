@@ -2,4 +2,7 @@
     <string name="app_name">Parcel Tracker</string>
     <string name="parcels">Parcels</string>
     <string name="create_parcel">Create Parcel</string>
+    <string name="filter">Filter</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Title</string>
 </resources>
