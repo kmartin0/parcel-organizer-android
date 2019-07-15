@@ -4,54 +4,47 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.webkit.URLUtil
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.km.parceltracker.R
-import com.km.parceltracker.base.BaseFragment
+import com.km.parceltracker.base.BaseMVVMFragment
+import com.km.parceltracker.databinding.FragmentParcelsBinding
 import com.km.parceltracker.model.Parcel
 import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
-import java.util.*
-import kotlin.collections.ArrayList
 
-class ParcelsFragment : BaseFragment() {
+class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewModel>() {
 
     private val parcels = ArrayList<Parcel>()
     private val parcelsAdapter =
-        ParcelsAdapter(/*parcels,*/ { onParcelClick(it) }, { onEditParcelClick(it) })
+        ParcelsAdapter(parcels, { onParcelClick(it) }, { onEditParcelClick(it) })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        initObservers()
     }
 
     private fun initViews() {
         rvParcels.adapter = parcelsAdapter
         rvParcels.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+    }
 
-        parcels.apply {
-            add(
-                Parcel(
-                    1L,
-                    "Garmin VivoMove HR",
-                    "Bol.com",
-                    "PostNL",
-                    "https://jouw.postnl.nl/#!/track-en-trace/3STUNN002038759/NL/1185ZC",
-                    "DELIVERED",
-                    Date()
-                )
-            )
-            add(Parcel(1L, "Clothing", "Wehkamp", "DHL", null, "SENT", Date()))
-            add(Parcel(1L, "Shoes", "Zalando", "DPD", null, "SENT", Date()))
-            add(Parcel(1L, "Car", "Mercedes", "Mercedes Delivery Service", null, "ORDERED", Date()))
-        }
-        parcelsAdapter.setData(parcels)
+    private fun initObservers() {
+        viewModel.parcels.observe(activity as AppCompatActivity, Observer {
+            parcels.clear()
+            if (it != null) parcels.addAll(it)
+            parcelsAdapter.notifyDataSetChanged()
+        })
     }
 
     private fun onParcelClick(parcel: Parcel) {
@@ -74,7 +67,16 @@ class ParcelsFragment : BaseFragment() {
 
         val searchView = menu?.findItem(R.id.action_search)?.actionView as SearchView
         searchView.setOnQueryTextListener(getSearchViewQueryListener())
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.action_sort -> {
+                viewModel.ascending.value = if (viewModel.ascending.value == null) true else !(viewModel.ascending.value as Boolean)
+                false
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun getSearchViewQueryListener(): SearchView.OnQueryTextListener {
@@ -84,7 +86,7 @@ class ParcelsFragment : BaseFragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                parcelsAdapter.filter.filter(newText)
+                viewModel.query.value = newText
                 return true
             }
 
@@ -96,5 +98,11 @@ class ParcelsFragment : BaseFragment() {
     override fun getToolbar(): Toolbar? = defaultToolbar
 
     override fun getMenuId(): Int? = R.menu.menu_parcels
+
+    override fun initViewModelBinding() {
+        binding.viewModel = viewModel
+    }
+
+    override fun getVMClass(): Class<ParcelsViewModel> = ParcelsViewModel::class.java
 
 }

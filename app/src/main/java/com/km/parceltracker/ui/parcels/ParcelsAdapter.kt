@@ -10,13 +10,10 @@ import com.km.parceltracker.model.Parcel
 import kotlin.collections.ArrayList
 
 class ParcelsAdapter(
-    /*private val parcels: MutableList<Parcel>,*/
+    private val parcels: MutableList<Parcel>,
     private val onParcelClick: (Parcel) -> Unit,
     private val onEditParcelClick: (Parcel) -> Unit
-) : RecyclerView.Adapter<ParcelsViewHolder>(), Filterable {
-
-    private val parcels = ArrayList<Parcel>()
-    private val filteredParcels = ArrayList<Parcel>()
+) : RecyclerView.Adapter<ParcelsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParcelsViewHolder {
         return ParcelsViewHolder(
@@ -24,43 +21,9 @@ class ParcelsAdapter(
         )
     }
 
-    override fun getItemCount(): Int = filteredParcels.size
+    override fun getItemCount(): Int = parcels.size
 
     override fun onBindViewHolder(holder: ParcelsViewHolder, position: Int) =
-        holder.bind(filteredParcels[position], onParcelClick, onEditParcelClick)
+        holder.bind(parcels[position], onParcelClick, onEditParcelClick)
 
-    override fun getFilter(): Filter {
-        return object : Filter() {
-            override fun performFiltering(constraint: CharSequence?): FilterResults {
-
-                val filteredList = ArrayList<Parcel>()
-
-                if (constraint.isNullOrBlank()) filteredList.addAll(parcels)
-                else filteredList.addAll(parcels.filter {
-                    it.title.toLowerCase().contains(constraint.toString().toLowerCase())
-                })
-
-                val filterResults = FilterResults()
-                filterResults.values = filteredList
-                return filterResults
-            }
-
-            @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                filteredParcels.clear()
-                filteredParcels.addAll(results?.values as ArrayList<Parcel>)
-                notifyDataSetChanged()
-            }
-        }
-    }
-
-    fun setData(parcels: ArrayList<Parcel>) {
-        this.parcels.clear()
-        this.parcels.addAll(parcels)
-
-        this.filteredParcels.clear()
-        this.filteredParcels.addAll(parcels)
-
-        notifyDataSetChanged()
-    }
 }
