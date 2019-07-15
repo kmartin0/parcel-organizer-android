@@ -13,10 +13,10 @@ class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.tvTitle.text = parcel.title
         itemView.tvSender.text = parcel.sender
         itemView.tvCourier.text = parcel.courier
-        itemView.tvStatus.text = parcel.parcelStatus
+        itemView.tvStatus.text = parcel.parcelStatus.status
         itemView.tvLastUpdated.text = SimpleDateFormat.getDateTimeInstance().format(parcel.lastUpdated)
 
-        when (parcel.parcelStatus) {
+        when (parcel.parcelStatus.status) {
             "SENT" -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorAccent))
             "ORDERED" -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorDivider))
             "DELIVERED" -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.lightGreen))

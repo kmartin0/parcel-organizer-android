@@ -20,9 +20,6 @@ abstract class BaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Set has options menu to true if the fragment has a menu id.
-        if (getMenuId() != null) setHasOptionsMenu(true)
-
         // Inflate the layout for this fragment
         return inflater.inflate(getLayoutId(), container, false)
     }
@@ -33,6 +30,9 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun setupToolbar() {
+        // Set has options menu to true if the fragment has a menu id.
+        if (getMenuId() != null) setHasOptionsMenu(true)
+
         getToolbar()?.let {
             // Set the support action bar.
             (activity as AppCompatActivity).setSupportActionBar(it)

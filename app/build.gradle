@@ -92,4 +92,7 @@ dependencies {
     // Chrome Tabs
     implementation "com.android.support:customtabs:$chromeTabsVersion"
 
+    //Anko
+    implementation "org.jetbrains.anko:anko-commons:0.10.7"
+
 }
