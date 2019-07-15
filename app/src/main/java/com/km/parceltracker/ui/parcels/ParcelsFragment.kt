@@ -13,6 +13,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.km.parceltracker.R
@@ -45,6 +46,10 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
             if (it != null) parcels.addAll(it)
             parcelsAdapter.notifyDataSetChanged()
         })
+
+        viewModel.sortBy.observe(activity as AppCompatActivity, Observer {
+            menu?.findItem(R.id.action_sort)?.title = getString(R.string.sort_by, it.status)
+        })
     }
 
     private fun onParcelClick(parcel: Parcel) {
@@ -62,17 +67,19 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         Toast.makeText(context, "onEditParcelClick: ${parcel.title}", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
 
-        val searchView = menu?.findItem(R.id.action_search)?.actionView as SearchView
+        val searchView = menu.findItem(R.id.action_search)?.actionView as SearchView
         searchView.setOnQueryTextListener(getSearchViewQueryListener())
+
+        menu.findItem(R.id.action_sort)?.title = getString(R.string.sort_by, viewModel.sortBy.value?.status)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.action_sort -> {
-                viewModel.ascending.value = if (viewModel.ascending.value == null) true else !(viewModel.ascending.value as Boolean)
+                findNavController().navigate(R.id.sortingBottomDialogFragment)
                 false
             }
             else -> super.onOptionsItemSelected(item)
@@ -104,5 +111,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
     }
 
     override fun getVMClass(): Class<ParcelsViewModel> = ParcelsViewModel::class.java
+
+    override fun isSharedViewModel(): Boolean = true
 
 }

@@ -15,6 +15,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.km.parceltracker.R
 
 abstract class BaseFragment : Fragment() {
+
+    protected var menu : Menu? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,11 +55,13 @@ abstract class BaseFragment : Fragment() {
     }
 
     // Inflate the menu for this fragment.
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuId()?.let {
-            inflater?.inflate(it, menu)
+            inflater.inflate(it, menu)
         }
+
+        this.menu = menu
     }
 
     @LayoutRes

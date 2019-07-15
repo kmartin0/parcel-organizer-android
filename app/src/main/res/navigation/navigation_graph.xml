@@ -17,10 +17,19 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_parcelsFragment_to_sortingBottomDialogFragment"
+            app:destination="@id/sortingBottomDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/createParcelFragment"
         android:name="com.km.parceltracker.ui.createparcel.CreateParcelFragment"
         android:label="Create Parcel"
         tools:layout="@layout/fragment_create_parcel" />
+    <dialog
+        android:id="@+id/sortingBottomDialogFragment"
+        android:name="com.km.parceltracker.ui.parcels.SortingBottomDialogFragment"
+        android:label="SortingBottomDialogFragment"
+        tools:layout="@layout/bottom_sheet_parcel_sorting">
+    </dialog>
 </navigation>

@@ -4,10 +4,12 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import com.km.parceltracker.api.ParcelTrackerApi
 import com.km.parceltracker.model.Parcel
+import com.km.parceltracker.model.ParcelStatus
 import org.jetbrains.anko.doAsync
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class ParcelRepository(context: Context, val errorCallback: (Throwable) -> Unit) {
 
@@ -29,7 +31,7 @@ class ParcelRepository(context: Context, val errorCallback: (Throwable) -> Unit)
 
             override fun onResponse(call: Call<List<Parcel>>, response: Response<List<Parcel>>) {
                 if (response.isSuccessful) {
-                    response.body()?.let { insertParcels(it) }
+                    response.body()?.let { deleteAndInsert(it) }
                 } else {
                     println("RESPONSE UNSUCCESSFUL: ${response.errorBody()?.string()}")
                 }
@@ -39,12 +41,10 @@ class ParcelRepository(context: Context, val errorCallback: (Throwable) -> Unit)
         return parcelDao.getAllParcels()
     }
 
-    fun insertParcels(parcels: List<Parcel>) {
-        doAsync { clearParcelTable(); parcelDao.insertParcels(parcels) }
-    }
-
-    fun clearParcelTable() {
-        parcelDao.clearParcelTable()
+    fun deleteAndInsert(parcels: List<Parcel>) {
+        doAsync {
+            parcelDao.deleteAndInsert(parcels)
+        }
     }
 
 }
