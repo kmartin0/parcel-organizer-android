@@ -1,4 +1,4 @@
-package com.km.parceltracker.ui.parcels
+package com.km.parceltracker.ui.parcels.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

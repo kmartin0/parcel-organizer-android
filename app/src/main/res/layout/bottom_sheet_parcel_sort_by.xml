@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
+
+    <TextView
+        android:id="@+id/tv_bottom_sheet_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="@string/sort_by_no_args"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/rgSorting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:checkedButton="@id/rbTitle"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_bottom_sheet_heading">
+
+        <RadioButton
+            android:id="@+id/rbTitle"
+            style="@style/BottomSheetRadioButtonStyle"
+            android:text="@string/title" />
+
+        <RadioButton
+            android:id="@+id/rbSender"
+            style="@style/BottomSheetRadioButtonStyle"
+            android:text="@string/sender" />
+
+        <RadioButton
+            android:id="@+id/rbCourier"
+            style="@style/BottomSheetRadioButtonStyle"
+            android:text="@string/courier" />
+
+        <RadioButton
+            android:id="@+id/rbDate"
+            style="@style/BottomSheetRadioButtonStyle"
+            android:text="@string/last_updated" />
+
+        <RadioButton
+            android:id="@+id/rbStatus"
+            style="@style/BottomSheetRadioButtonStyle"
+            android:text="@string/status" />
+
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

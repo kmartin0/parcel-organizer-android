@@ -1,6 +1,6 @@
-package com.km.parceltracker.ui.parcels
+package com.km.parceltracker.enums
 
-enum class ParcelSortingEnum(val status: String) {
+enum class ParcelSortingEnum(val value: String) {
     TITLE("Title"),
     SENDER("Sender"),
     COURIER("Courier"),

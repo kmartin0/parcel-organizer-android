@@ -1,13 +1,10 @@
-package com.km.parceltracker.ui.parcels
+package com.km.parceltracker.ui.parcels.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.km.parceltracker.R
 import com.km.parceltracker.model.Parcel
-import kotlin.collections.ArrayList
 
 class ParcelsAdapter(
     private val parcels: MutableList<Parcel>,

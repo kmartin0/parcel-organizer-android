@@ -2,13 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/createParcelFragment"
-        android:icon="@drawable/ic_add_white_24dp"
-        android:orderInCategory="2"
-        android:tint="@android:color/white"
-        android:title="@string/create_parcel"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_white_24dp"
         android:orderInCategory="1"
@@ -16,9 +9,30 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_sort"
-        android:icon="@drawable/ic_sort_white_24dp"
+        android:id="@+id/createParcelFragment"
+        android:icon="@drawable/ic_add_white_24dp"
+        android:orderInCategory="2"
+        android:tint="@android:color/white"
+        android:title="@string/create_parcel"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/sortByBottomDialogFragment"
         android:orderInCategory="3"
-        android:title="@string/sort_by"
+        android:title="@string/sort_by_no_args"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/sortOrderBottomDialogFragment"
+        android:orderInCategory="4"
+        android:title="@string/sort_order_no_args"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_filter_by"
+        android:orderInCategory="5"
+        android:title="@string/filter_by_no_args"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/searchByBottomDialogFragment"
+        android:orderInCategory="6"
+        android:title="@string/search_by_no_args"
         app:showAsAction="never" />
 </menu>

@@ -5,5 +5,22 @@
     <string name="filter">Filter</string>
     <string name="search">Search</string>
     <string name="search_hint">Title</string>
+    <string name="title">Title</string>
+    <string name="sender">Sender</string>
+    <string name="courier">Courier</string>
+    <string name="last_updated">Last Updated</string>
+    <string name="status">Status</string>
+    <string name="delivered">Delivered</string>
+    <string name="sent">Sent</string>
+    <string name="ordered">Ordered</string>
+    <string name="descending">Descending</string>
+    <string name="ascending">Ascending</string>
     <string name="sort_by">Sort by: %1s</string>
+    <string name="sort_by_no_args">Sort By</string>
+    <string name="sort_order">Sort order: %1s</string>
+    <string name="sort_order_no_args">Sort Order</string>
+    <string name="filter_by">Filter by: %1s</string>
+    <string name="filter_by_no_args">Filter By: Ordered, Sent, Delivered</string>
+    <string name="search_by">Search by: %1s</string>
+    <string name="search_by_no_args">Search By</string>
 </resources>

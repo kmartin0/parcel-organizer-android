@@ -1,4 +1,4 @@
-package com.km.parceltracker.ui.parcels
+package com.km.parceltracker.ui.parcels.bottomsheets
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,14 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.km.parceltracker.R
-import kotlinx.android.synthetic.main.bottom_sheet_parcel_sorting.*
+import com.km.parceltracker.enums.ParcelSortingEnum
+import com.km.parceltracker.ui.parcels.ParcelsViewModel
+import kotlinx.android.synthetic.main.bottom_sheet_parcel_sort_by.*
 
-class SortingBottomDialogFragment : BottomSheetDialogFragment() {
+class SortByBottomDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var viewModel: ParcelsViewModel
+    private var initialButtonResId: Int = -1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.bottom_sheet_parcel_sorting, container, false)
+        return inflater.inflate(R.layout.bottom_sheet_parcel_sort_by, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,12 +33,14 @@ class SortingBottomDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun applySelection() {
-        when (rgSorting.checkedRadioButtonId) {
-            R.id.rbTitle -> viewModel.sortBy.value = ParcelSortingEnum.TITLE
-            R.id.rbSender -> viewModel.sortBy.value = ParcelSortingEnum.SENDER
-            R.id.rbCourier -> viewModel.sortBy.value = ParcelSortingEnum.COURIER
-            R.id.rbDate -> viewModel.sortBy.value = ParcelSortingEnum.DATE
-            R.id.rbStatus -> viewModel.sortBy.value = ParcelSortingEnum.STATUS
+        if (initialButtonResId != rgSorting.checkedRadioButtonId) {
+            when (rgSorting.checkedRadioButtonId) {
+                R.id.rbTitle -> viewModel.sortBy.value = ParcelSortingEnum.TITLE
+                R.id.rbSender -> viewModel.sortBy.value = ParcelSortingEnum.SENDER
+                R.id.rbCourier -> viewModel.sortBy.value = ParcelSortingEnum.COURIER
+                R.id.rbDate -> viewModel.sortBy.value = ParcelSortingEnum.DATE
+                R.id.rbStatus -> viewModel.sortBy.value = ParcelSortingEnum.STATUS
+            }
         }
     }
 
@@ -50,6 +55,7 @@ class SortingBottomDialogFragment : BottomSheetDialogFragment() {
                 null -> R.id.rbTitle
             }
         )
+        initialButtonResId = rgSorting.checkedRadioButtonId
     }
 
 }
