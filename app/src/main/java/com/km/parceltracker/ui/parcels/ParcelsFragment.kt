@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.toolbar_default.*
  * TODO: SORT BY: title, date, courier, sender, value :)
  * TODO: FILTER BY: value
  * TODO: SEARCH BY: title, courier, sender
- * TODO: SORT ORDER: ascending, descending
+ * TODO: SORT ORDER: sortOrder, descending
  */
 class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewModel>() {
 
@@ -58,7 +58,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
             updateMenuTitles()
         })
 
-        viewModel.ascending.observe(activity as AppCompatActivity, Observer {
+        viewModel.sortOrder.observe(activity as AppCompatActivity, Observer {
             updateMenuTitles()
         })
         viewModel.searchBy.observe(activity as AppCompatActivity, Observer {
@@ -111,9 +111,8 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
             viewModel.sortBy.value?.let {
                 menu.findItem(R.id.sortByBottomDialogFragment)?.title = getString(R.string.sort_by, it.value)
             }
-            viewModel.ascending.value?.let {
-                menu.findItem(R.id.sortOrderBottomDialogFragment)?.title =
-                    getString(R.string.sort_order, getString(if (it) R.string.ascending else R.string.descending))
+            viewModel.sortOrder.value?.let {
+                menu.findItem(R.id.sortOrderBottomDialogFragment)?.title = getString(R.string.sort_order, it.order)
             }
             viewModel.searchBy.value?.let {
                 menu.findItem(R.id.searchByBottomDialogFragment)?.title = getString(R.string.search_by, it.value)

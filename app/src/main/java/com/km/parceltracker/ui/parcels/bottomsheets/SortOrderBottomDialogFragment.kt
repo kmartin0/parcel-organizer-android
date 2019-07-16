@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.km.parceltracker.R
+import com.km.parceltracker.enums.SortOrderEnum
 import com.km.parceltracker.ui.parcels.ParcelsViewModel
 import kotlinx.android.synthetic.main.bottom_sheet_parcel_sort_order.*
 
@@ -35,17 +36,17 @@ class SortOrderBottomDialogFragment : BottomSheetDialogFragment() {
     private fun applySelection() {
         if (initialButtonResId != rgSorting.checkedRadioButtonId) {
             when (rgSorting.checkedRadioButtonId) {
-                R.id.rbAscending -> viewModel.ascending.value = true
-                R.id.rbDescending -> viewModel.ascending.value = false
+                R.id.rbAscending -> viewModel.sortOrder.value = SortOrderEnum.ASCENDING
+                R.id.rbDescending -> viewModel.sortOrder.value = SortOrderEnum.DESCENDING
             }
         }
     }
 
     private fun setInitialCheckedButton() {
         rgSorting.check(
-            when (viewModel.ascending.value) {
-                null, true -> R.id.rbAscending
-                false -> R.id.rbDescending
+            when (viewModel.sortOrder.value) {
+                null, SortOrderEnum.ASCENDING -> R.id.rbAscending
+                SortOrderEnum.DESCENDING -> R.id.rbDescending
             }
         )
         initialButtonResId = rgSorting.checkedRadioButtonId
