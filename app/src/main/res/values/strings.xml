@@ -23,4 +23,8 @@
     <string name="filter_by_no_args">Filter By: Ordered, Sent, Delivered</string>
     <string name="search_by">Search by: %1s</string>
     <string name="search_by_no_args">Search By</string>
+    <string name="hint_title">Give your parcel a title</string>
+    <string name="hint_sender">Who is the sender of the parcel (optional)</string>
+    <string name="hint_courier">Who is the courier of the parcel (optional)</string>
+    <string name="hint_tracking_url">What is the tracking url</string>
 </resources>

@@ -17,9 +17,9 @@ class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.tvLastUpdated.text = SimpleDateFormat.getDateTimeInstance().format(parcel.lastUpdated)
 
         when (parcel.parcelStatus.status) {
-            "SENT" -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorAccent))
-            "ORDERED" -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorDivider))
-            "DELIVERED" -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.lightGreen))
+            "SENT" -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorSent))
+            "ORDERED" -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorOrdered))
+            "DELIVERED" -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorDelivered))
         }
 
         itemView.setOnClickListener { onParcelClick(parcel) }

@@ -3,110 +3,86 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="5dp">
+    android:layout_margin="@dimen/key_line_3">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clItemParcel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="@dimen/key_line_2">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ivEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:padding="8dp"
+            android:padding="@dimen/key_line_1"
             android:src="@drawable/ic_edit_black_24dp"
             app:layout_constraintBottom_toBottomOf="@id/ivSender"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivSender" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
-            style="@style/parcelItemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ParcelItemHeader"
             android:text="Garmin VivoMove HR"
-            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivSender"
-            style="@style/parcelItemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            style="@style/ParcelItemIcon"
             android:src="@drawable/ic_shopping_cart_black_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSender"
-            style="@style/parcelItemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            style="@style/ParcelItemText"
             android:text="Bol.com"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/ivSender"
             app:layout_constraintEnd_toStartOf="@id/ivEdit"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/ivSender"
             app:layout_constraintTop_toTopOf="@id/ivSender" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivCourier"
-            style="@style/parcelItemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            style="@style/ParcelItemIcon"
             android:src="@drawable/ic_shuttle_black_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSender" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvCourier"
-            style="@style/parcelItemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            style="@style/ParcelItemText"
             android:text="PostNL"
             app:layout_constraintBottom_toBottomOf="@id/ivCourier"
             app:layout_constraintStart_toEndOf="@id/ivCourier"
             app:layout_constraintTop_toTopOf="@id/ivCourier" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivLastUpdated"
-            style="@style/parcelItemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            style="@style/ParcelItemIcon"
             android:src="@drawable/ic_time_black_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvCourier" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvLastUpdated"
-            style="@style/parcelItemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            style="@style/ParcelItemText"
             android:text="12-04-2019"
             app:layout_constraintBottom_toBottomOf="@id/ivLastUpdated"
             app:layout_constraintStart_toEndOf="@id/ivLastUpdated"
             app:layout_constraintTop_toTopOf="@id/ivLastUpdated" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvStatus"
-            style="@style/parcelItemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ParcelItemText"
+            android:layout_marginStart="0dp"
             android:text="DELIVERED"
             app:layout_constraintBottom_toBottomOf="@id/ivLastUpdated"
             app:layout_constraintEnd_toEndOf="parent"

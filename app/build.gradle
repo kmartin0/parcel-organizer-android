@@ -37,7 +37,7 @@ android {
 }
 
 ext {
-    appCompatVersion = '1.0.2'
+    appCompatVersion = '1.1.0-rc01'
     constraintLayoutVersion = '1.1.3'
     junitVersion = '4.12'
     testRunnerVersion = '1.2.0'
@@ -45,7 +45,7 @@ ext {
     lifecycleExtensionsVersion = '2.0.0'
     navigationComponentsVersion = '2.1.0-alpha06'
     retrofitVersion = '2.6.0'
-    materialVersion = '1.0.0'
+    materialVersion = '1.1.0-alpha06'
     okHttpVersion = '3.12.0'
     glideVersion = '4.9.0'
     roomVersion = "2.1.0"
@@ -56,8 +56,8 @@ ext {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation "androidx.core:core-ktx:$appCompatVersion"
+//    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+//    implementation "androidx.core:core-ktx:$appCompatVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
     // Testing

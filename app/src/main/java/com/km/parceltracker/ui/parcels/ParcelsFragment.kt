@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.webkit.URLUtil
 import android.widget.Toast
@@ -24,9 +25,9 @@ import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
  * TODO: SORT BY: title, date, courier, sender, value :)
- * TODO: FILTER BY: value
+ * TODO: FILTER BY: value :)
  * TODO: SEARCH BY: title, courier, sender
- * TODO: SORT ORDER: sortOrder, descending
+ * TODO: SORT ORDER: sortOrder, descending :)
  */
 class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewModel>() {
 
@@ -117,6 +118,24 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
             viewModel.searchBy.value?.let {
                 menu.findItem(R.id.searchByBottomDialogFragment)?.title = getString(R.string.search_by, it.value)
             }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_ordered -> {
+                item.isChecked = false
+                true
+            }
+            R.id.action_sent -> {
+                item.isChecked = false
+                true
+            }
+            R.id.action_delivered -> {
+                item.isChecked = false
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

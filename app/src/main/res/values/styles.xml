@@ -1,34 +1,43 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-
-        <!-- To change the background of options menu-->
-        <item name="android:itemBackground">@color/white</item>
+    <!--Bottom Sheets-->
+    <style name="ThemeOverlay.MyTheme.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/Animation.MyTheme.BottomSheet.Modal</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="bottomSheetStyle">@style/Widget.MyTheme.BottomSheet.Modal</item>
     </style>
 
-    <!-- Actionbar and Toolbar theme. -->
-    <style name="AppBarLayout">
+    <style name="Widget.MyTheme.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearanceOverlay">?shapeAppearanceMediumComponent</item>
+        <item name="android:paddingStart">@dimen/key_line_5</item>
+        <item name="android:paddingEnd">@dimen/key_line_5</item>
+        <item name="android:paddingBottom">@dimen/key_line_5</item>
+        <item name="android:paddingTop">@dimen/key_line_2</item>
+    </style>
+
+    <style name="BottomSheetHeaderStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?textAppearanceHeadline6</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="BottomSheetRadioButtonStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="android:paddingStart">@dimen/key_line_3</item>
+        <item name="android:paddingEnd">@dimen/key_line_3</item>
+        <item name="android:textAppearance">?textAppearanceSubtitle1</item>
     </style>
 
-    <style name="Toolbar">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?attr/actionBarSize</item>
-        <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    <style name="BottomSheetCheckBoxStyle" parent="BottomSheetRadioButtonStyle">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
     </style>
 
-
-    <!-- Progressbar theme. -->
+    <!-- Progressbar. -->
     <style name="progressBar">
         <item name="android:id">@id/progressBar</item>
         <item name="android:layout_width">wrap_content</item>
@@ -42,26 +51,37 @@
 
     <item name="progressBar" type="id" />
 
-    <!-- Progressbar theme. -->
-    <style name="parcelItemText">
-        <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+    <!-- Card View -->
+    <style name="ThemeOverlay.MyTheme.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/key_line_2</item>
+        <item name="cardElevation">@dimen/key_line_1</item>
     </style>
 
-    <!-- Bottom Sheet themes. -->
-    <style name="BottomSheetRadioButtonStyle">
+    <!-- Parcel Item styles. -->
+    <style name="ParcelItemHeader">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?textAppearanceHeadline6</item>
+    </style>
+
+    <style name="ParcelItemText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/key_line_1</item>
+        <item name="android:textAppearance">?textAppearanceBody2</item>
+    </style>
+
+    <style name="ParcelItemIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/key_line_1</item>
+    </style>
+
+    <!-- Input Edit Text styles. -->
+    <style name="SingleLineInputEditTextStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingStart">12dp</item>
-        <item name="android:paddingEnd">12dp</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-    </style>
-
-    <style name="BottomSheetCheckBoxStyle" parent="BottomSheetRadioButtonStyle">
-        <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:maxLines">1</item>
     </style>
 
 </resources>

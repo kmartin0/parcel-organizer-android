@@ -12,10 +12,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp">
+        android:padding="@dimen/key_line_3">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTitle"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -24,76 +25,70 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Give your parcel a title"
-                android:inputType="text"
-                android:maxLines="1" />
+                style="@style/SingleLineInputEditTextStyle"
+                android:hint="@string/hint_title"
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilSender"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/key_line_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilTitle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Who is the sender of the parcel (optional)"
-                android:inputType="text"
-                android:maxLines="1" />
+                style="@style/SingleLineInputEditTextStyle"
+                android:hint="@string/hint_sender"
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilCourier"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/key_line_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilSender">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etCourier"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Who is the courier of the parcel (optional)"
-                android:inputType="text"
-                android:maxLines="1" />
+                style="@style/SingleLineInputEditTextStyle"
+                android:hint="@string/hint_courier"
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTrackingUrl"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/key_line_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilCourier">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etTrackingUrl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="What is the tracking url"
-                android:inputType="text"
-                android:maxLines="1" />
+                style="@style/SingleLineInputEditTextStyle"
+                android:hint="@string/hint_tracking_url"
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:text="Create Parcel"
+            android:text="@string/create_parcel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
