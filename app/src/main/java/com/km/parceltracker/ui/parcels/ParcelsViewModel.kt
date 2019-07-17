@@ -9,6 +9,7 @@ import com.km.parceltracker.enums.ParcelSearchingEnum
 import com.km.parceltracker.enums.ParcelSortingEnum
 import com.km.parceltracker.enums.SortOrderEnum
 import com.km.parceltracker.model.Parcel
+import com.km.parceltracker.model.ParcelsSortAndFilterSelection
 
 class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
@@ -16,95 +17,67 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     private val dbParcels = parcelRepository.getParcels()
 
     var parcels = MediatorLiveData<List<Parcel>>()
-
-    val sortBy = MutableLiveData<ParcelSortingEnum>().apply { value = ParcelSortingEnum.TITLE }
-    val sortOrder = MutableLiveData<SortOrderEnum>().apply { value = SortOrderEnum.ASCENDING }
-
-    val searchQuery = MutableLiveData<String>()
-    val searchBy = MutableLiveData<ParcelSearchingEnum>().apply { value = ParcelSearchingEnum.TITLE }
+    var sortAndFilterSelection = MutableLiveData<ParcelsSortAndFilterSelection>().apply {
+        value = ParcelsSortAndFilterSelection(
+            sortBy = ParcelSortingEnum.TITLE,
+            sortOrder = SortOrderEnum.ASCENDING,
+            searchQuery = null,
+            searchBy = ParcelSearchingEnum.TITLE,
+            ordered = true,
+            sent = true,
+            delivered = true
+        )
+    }
 
     init {
         parcels.addSource(dbParcels) {
-            parcels.value = sortAndFilterParcels(it, searchQuery.value, searchBy.value, sortOrder.value, sortBy.value)
+            parcels.value = sortAndFilterParcels(it, sortAndFilterSelection.value)
         }
 
-        parcels.addSource(searchQuery) { query ->
-            parcels.value = sortAndFilterParcels(
-                dbParcels.value,
-                query,
-                searchBy.value,
-                sortOrder.value,
-                sortBy.value
-            )
-        }
-
-        parcels.addSource(searchBy) {
-            parcels.value = sortAndFilterParcels(
-                dbParcels.value,
-                searchQuery.value,
-                it,
-                sortOrder.value,
-                sortBy.value
-            )
-        }
-
-        parcels.addSource(sortOrder) { ascending ->
-            parcels.value = sortParcels(parcels.value, ascending, sortBy.value)
-        }
-
-        parcels.addSource(sortBy) {
-            parcels.value = sortParcels(parcels.value, sortOrder.value, it)
+        parcels.addSource(sortAndFilterSelection) {
+            parcels.value = sortAndFilterParcels(dbParcels.value, it)
         }
     }
 
     private fun sortAndFilterParcels(
         parcels: List<Parcel>?,
-        query: String?,
-        filterBy: ParcelSearchingEnum?,
-        sortOrder: SortOrderEnum?,
-        sortBy: ParcelSortingEnum?
+        sortAndFilterConfig: ParcelsSortAndFilterSelection?
     ): List<Parcel>? {
-        return sortParcels(
-            filterParcels(parcels, query, filterBy),
-            sortOrder,
-            sortBy
-        )
+        return sortParcels(filterParcels(parcels, sortAndFilterConfig), sortAndFilterConfig)
     }
 
     private fun sortParcels(
         parcels: List<Parcel>?,
-        sortOrder: SortOrderEnum?,
-        sortBy: ParcelSortingEnum?
+        sortAndFilterConfig: ParcelsSortAndFilterSelection?
     ): List<Parcel>? {
-        if (parcels == null || sortOrder == null || sortBy == null) return parcels
-
-        return when (sortBy) {
+        return if (parcels == null || sortAndFilterConfig == null) parcels
+        else when (sortAndFilterConfig.sortBy) {
             ParcelSortingEnum.TITLE -> {
-                when (sortOrder) {
+                when (sortAndFilterConfig.sortOrder) {
                     SortOrderEnum.ASCENDING -> parcels.sortedBy { it.title }
                     SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.title }
                 }
             }
             ParcelSortingEnum.SENDER -> {
-                when (sortOrder) {
+                when (sortAndFilterConfig.sortOrder) {
                     SortOrderEnum.ASCENDING -> parcels.sortedBy { it.sender }
                     SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.sender }
                 }
             }
             ParcelSortingEnum.COURIER -> {
-                when (sortOrder) {
+                when (sortAndFilterConfig.sortOrder) {
                     SortOrderEnum.ASCENDING -> parcels.sortedBy { it.courier }
                     SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.courier }
                 }
             }
             ParcelSortingEnum.DATE -> {
-                when (sortOrder) {
+                when (sortAndFilterConfig.sortOrder) {
                     SortOrderEnum.ASCENDING -> parcels.sortedBy { it.lastUpdated }
                     SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.lastUpdated }
                 }
             }
             ParcelSortingEnum.STATUS -> {
-                when (sortOrder) {
+                when (sortAndFilterConfig.sortOrder) {
                     SortOrderEnum.ASCENDING -> parcels.sortedBy { it.parcelStatus.status }
                     SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.parcelStatus.status }
                 }
@@ -112,22 +85,58 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
-    private fun filterParcels(parcels: List<Parcel>?, query: String?, filterBy: ParcelSearchingEnum?): List<Parcel>? {
-        return if (parcels == null || query.isNullOrBlank() || filterBy == null) parcels
-        else parcels.filter { parcel ->
-            when (filterBy) {
-                ParcelSearchingEnum.TITLE -> {
-                    parcel.title.toLowerCase().contains(query.toLowerCase())
-                }
-                ParcelSearchingEnum.SENDER -> {
-                    if (parcel.sender.isNullOrBlank()) false
-                    else parcel.sender.toLowerCase().contains(query.toLowerCase())
-                }
-                ParcelSearchingEnum.COURIER -> {
-                    if (parcel.sender.isNullOrBlank()) false
-                    else parcel.sender.toLowerCase().contains(query.toLowerCase())
+    private fun filterParcels(
+        parcels: List<Parcel>?,
+        sortAndFilterConfig: ParcelsSortAndFilterSelection?
+    ): List<Parcel>? {
+        return if (parcels == null || sortAndFilterConfig == null) parcels
+        else if (sortAndFilterConfig.searchQuery.isNullOrBlank()) filterParcelStatus(parcels, sortAndFilterConfig)
+        else {
+            parcels.filter { parcel ->
+                when (sortAndFilterConfig.searchBy) {
+                    ParcelSearchingEnum.TITLE -> {
+                        isParcelStatus(
+                            sortAndFilterConfig,
+                            parcel
+                        ) && parcel.title.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
+                    }
+                    ParcelSearchingEnum.SENDER -> {
+                        if (parcel.sender.isNullOrBlank()) false
+                        else isParcelStatus(
+                            sortAndFilterConfig,
+                            parcel
+                        ) && parcel.sender.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
+                    }
+                    ParcelSearchingEnum.COURIER -> {
+                        if (parcel.sender.isNullOrBlank()) false
+                        else isParcelStatus(
+                            sortAndFilterConfig,
+                            parcel
+                        ) && parcel.sender.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
+                    }
                 }
             }
+        }
+    }
+
+    private fun filterParcelStatus(
+        parcels: List<Parcel>?,
+        sortAndFilterConfig: ParcelsSortAndFilterSelection?
+    ): List<Parcel>? {
+        return if (parcels == null || sortAndFilterConfig == null) parcels
+        else {
+            parcels.filter { parcel ->
+                isParcelStatus(sortAndFilterConfig, parcel)
+            }
+        }
+    }
+
+    private fun isParcelStatus(sortAndFilterConfig: ParcelsSortAndFilterSelection, parcel: Parcel): Boolean {
+        return when (parcel.parcelStatus.status) {
+            "SENT" -> sortAndFilterConfig.sent
+            "ORDERED" -> sortAndFilterConfig.ordered
+            "DELIVERED" -> sortAndFilterConfig.delivered
+            else -> false
         }
     }
 }

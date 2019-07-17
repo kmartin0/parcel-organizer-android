@@ -34,19 +34,23 @@ class SortByBottomDialogFragment : BottomSheetDialogFragment() {
 
     private fun applySelection() {
         if (initialButtonResId != rgSorting.checkedRadioButtonId) {
-            when (rgSorting.checkedRadioButtonId) {
-                R.id.rbTitle -> viewModel.sortBy.value = ParcelSortingEnum.TITLE
-                R.id.rbSender -> viewModel.sortBy.value = ParcelSortingEnum.SENDER
-                R.id.rbCourier -> viewModel.sortBy.value = ParcelSortingEnum.COURIER
-                R.id.rbDate -> viewModel.sortBy.value = ParcelSortingEnum.DATE
-                R.id.rbStatus -> viewModel.sortBy.value = ParcelSortingEnum.STATUS
-            }
+            viewModel.sortAndFilterSelection.value = viewModel.sortAndFilterSelection.value
+                ?.apply {
+                    sortBy = when (rgSorting.checkedRadioButtonId) {
+                        R.id.rbTitle -> ParcelSortingEnum.TITLE
+                        R.id.rbSender -> ParcelSortingEnum.SENDER
+                        R.id.rbCourier -> ParcelSortingEnum.COURIER
+                        R.id.rbDate -> ParcelSortingEnum.DATE
+                        R.id.rbStatus -> ParcelSortingEnum.STATUS
+                        else -> ParcelSortingEnum.TITLE
+                    }
+                }
         }
     }
 
     private fun setInitialCheckedButton() {
         rgSorting.check(
-            when (viewModel.sortBy.value) {
+            when (viewModel.sortAndFilterSelection.value?.sortBy) {
                 ParcelSortingEnum.TITLE -> R.id.rbTitle
                 ParcelSortingEnum.SENDER -> R.id.rbSender
                 ParcelSortingEnum.COURIER -> R.id.rbCourier

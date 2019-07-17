@@ -10,7 +10,6 @@ import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,14 +55,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
             if (it != null) parcels.addAll(it)
             parcelsAdapter.notifyDataSetChanged()
         })
-        viewModel.sortBy.observe(activity as AppCompatActivity, Observer {
-            updateMenuTitles()
-        })
-
-        viewModel.sortOrder.observe(activity as AppCompatActivity, Observer {
-            updateMenuTitles()
-        })
-        viewModel.searchBy.observe(activity as AppCompatActivity, Observer {
+        viewModel.sortAndFilterSelection.observe(activity as AppCompatActivity, Observer {
             updateMenuTitles()
         })
     }
@@ -101,7 +93,10 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.searchQuery.value = newText
+                viewModel.sortAndFilterSelection.value = viewModel.sortAndFilterSelection.value
+                    ?.apply {
+                        searchQuery = newText
+                    }
                 return true
             }
 
@@ -110,14 +105,16 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
     private fun updateMenuTitles() {
         menu?.let { menu ->
-            viewModel.sortBy.value?.let {
-                menu.findItem(R.id.sortByBottomDialogFragment)?.title = getString(R.string.sort_by, it.value)
+            viewModel.sortAndFilterSelection.value?.let {
+                menu.findItem(R.id.sortByBottomDialogFragment)?.title = getString(R.string.sort_by, it.sortBy.value)
             }
-            viewModel.sortOrder.value?.let {
-                menu.findItem(R.id.sortOrderBottomDialogFragment)?.title = getString(R.string.sort_order, it.order)
+            viewModel.sortAndFilterSelection.value?.let {
+                menu.findItem(R.id.sortOrderBottomDialogFragment)?.title =
+                    getString(R.string.sort_order, it.sortOrder.order)
             }
-            viewModel.searchBy.value?.let {
-                menu.findItem(R.id.searchByBottomDialogFragment)?.title = getString(R.string.search_by, it.value)
+            viewModel.sortAndFilterSelection.value?.let {
+                menu.findItem(R.id.searchByBottomDialogFragment)?.title =
+                    getString(R.string.search_by, it.searchBy.value)
             }
         }
     }
