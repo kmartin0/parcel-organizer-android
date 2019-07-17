@@ -122,15 +122,27 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_ordered -> {
-                item.isChecked = false
+                item.isChecked = !item.isChecked
+                viewModel.sortAndFilterSelection.value = viewModel.sortAndFilterSelection.value
+                    ?.apply {
+                        ordered = item.isChecked
+                    }
                 true
             }
             R.id.action_sent -> {
-                item.isChecked = false
+                item.isChecked = !item.isChecked
+                viewModel.sortAndFilterSelection.value = viewModel.sortAndFilterSelection.value
+                    ?.apply {
+                        sent = item.isChecked
+                    }
                 true
             }
             R.id.action_delivered -> {
-                item.isChecked = false
+                item.isChecked = !item.isChecked
+                viewModel.sortAndFilterSelection.value = viewModel.sortAndFilterSelection.value
+                    ?.apply {
+                        delivered = item.isChecked
+                    }
                 true
             }
             else -> super.onOptionsItemSelected(item)
