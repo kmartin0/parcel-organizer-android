@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.google.android.material.appbar.MaterialToolbar
 import com.km.parceltracker.R
 
 abstract class BaseFragment : Fragment() {
@@ -67,7 +68,7 @@ abstract class BaseFragment : Fragment() {
     @LayoutRes
     abstract fun getLayoutId(): Int
 
-    abstract fun getToolbar(): Toolbar?
+    abstract fun getToolbar(): MaterialToolbar?
 
     @MenuRes
     abstract fun getMenuId(): Int?

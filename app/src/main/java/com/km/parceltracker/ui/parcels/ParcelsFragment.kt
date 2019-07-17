@@ -15,6 +15,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.MaterialToolbar
 import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentParcelsBinding
@@ -141,7 +142,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
     override fun getLayoutId(): Int = R.layout.fragment_parcels
 
-    override fun getToolbar(): Toolbar? = defaultToolbar
+    override fun getToolbar(): MaterialToolbar? = defaultToolbar
 
     override fun getMenuId(): Int? = R.menu.menu_parcels
 
