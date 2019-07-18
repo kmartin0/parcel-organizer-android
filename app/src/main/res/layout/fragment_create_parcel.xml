@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/key_line_3">
+        android:padding="@dimen/default_padding">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTitle"

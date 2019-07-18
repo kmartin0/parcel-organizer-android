@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
@@ -20,14 +21,19 @@ import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentParcelsBinding
 import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.ui.parcels.adapter.ParcelsAdapter
+import com.km.parceltracker.ui.parcels.adapter.ParcelsItemDecoration
 import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
- * TODO: SORT BY: title, date, courier, sender, value :)
- * TODO: FILTER BY: value :)
- * TODO: SEARCH BY: title, courier, sender
- * TODO: SORT ORDER: sortOrder, descending :)
+ * TODO: Login
+ * TODO: OAuth2
+ * TODO: Register
+ * TODO: Create Parcel
+ * TODO: Create Parcel from share
+ * TODO: Edit Parcel
+ * TODO: Remove Parcel
+ * TODO: Cache sort and filter configuration
  */
 class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewModel>() {
 
@@ -46,6 +52,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
     private fun initViews() {
         rvParcels.adapter = parcelsAdapter
+        rvParcels.addItemDecoration(ParcelsItemDecoration(context!!))
         rvParcels.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     }
 

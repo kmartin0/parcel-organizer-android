@@ -3,30 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/parcelsFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/parcelsFragment"
         android:name="com.km.parceltracker.ui.parcels.ParcelsFragment"
         android:label="Parcels"
-        tools:layout="@layout/fragment_parcels">
-        <action
-            android:id="@+id/action_parcelsFragment_to_addParcelFragment"
-            app:destination="@id/createParcelFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left" />
-        <action
-            android:id="@+id/action_parcelsFragment_to_sortingBottomDialogFragment"
-            app:destination="@id/sortByBottomDialogFragment" />
-        <action
-            android:id="@+id/action_parcelsFragment_to_sortOrderBottomDialogFragment"
-            app:destination="@id/sortOrderBottomDialogFragment" />
-        <action
-            android:id="@+id/action_parcelsFragment_to_searchByBottomDialogFragment"
-            app:destination="@id/searchByBottomDialogFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_parcels" />
     <fragment
         android:id="@+id/createParcelFragment"
         android:name="com.km.parceltracker.ui.createparcel.CreateParcelFragment"
@@ -41,10 +24,23 @@
         android:id="@+id/sortOrderBottomDialogFragment"
         android:name="com.km.parceltracker.ui.parcels.bottomsheets.SortOrderBottomDialogFragment"
         android:label="SortOrderBottomDialogFragment"
-        tools:layout="@layout/bottom_sheet_parcel_sort_order"/>
+        tools:layout="@layout/bottom_sheet_parcel_sort_order" />
     <dialog
         android:id="@+id/searchByBottomDialogFragment"
         android:name="com.km.parceltracker.ui.parcels.bottomsheets.SearchByBottomDialogFragment"
         android:label="SearchByBottomDialogFragment"
-        tools:layout="@layout/bottom_sheet_parcel_search_by"/>
+        tools:layout="@layout/bottom_sheet_parcel_search_by" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.km.parceltracker.ui.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_parcelsFragment"
+            app:destination="@id/parcelsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
 </navigation>
