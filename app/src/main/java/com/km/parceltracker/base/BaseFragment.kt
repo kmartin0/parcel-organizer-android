@@ -68,8 +68,8 @@ abstract class BaseFragment : Fragment() {
     @LayoutRes
     abstract fun getLayoutId(): Int
 
-    abstract fun getToolbar(): MaterialToolbar?
+    open fun getToolbar(): MaterialToolbar? = null
 
     @MenuRes
-    abstract fun getMenuId(): Int?
+    open fun getMenuId(): Int? = null
 }
