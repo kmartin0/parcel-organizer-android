@@ -4,28 +4,33 @@
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_white_24dp"
+        android:menuCategory="secondary"
         android:orderInCategory="1"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom|collapseActionView" />
     <item
         android:id="@+id/createParcelFragment"
         android:icon="@drawable/ic_add_white_24dp"
+        android:menuCategory="secondary"
         android:orderInCategory="2"
         android:title="@string/create_parcel"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/sortByBottomDialogFragment"
+        android:menuCategory="secondary"
         android:orderInCategory="3"
         android:title="@string/sort_by_no_args"
         app:showAsAction="never" />
     <item
         android:id="@+id/sortOrderBottomDialogFragment"
+        android:menuCategory="secondary"
         android:orderInCategory="4"
         android:title="@string/sort_order_no_args"
         app:showAsAction="never" />
     <item
         android:id="@+id/searchByBottomDialogFragment"
+        android:menuCategory="secondary"
         android:orderInCategory="5"
         android:title="@string/search_by_no_args"
         app:showAsAction="never" />
@@ -33,6 +38,7 @@
         android:id="@+id/action_ordered"
         android:checkable="true"
         android:checked="true"
+        android:menuCategory="secondary"
         android:orderInCategory="6"
         android:title="Ordered"
         app:showAsAction="never" />
@@ -40,6 +46,7 @@
         android:id="@+id/action_sent"
         android:checkable="true"
         android:checked="true"
+        android:menuCategory="secondary"
         android:orderInCategory="7"
         android:title="Sent"
         app:showAsAction="never" />
@@ -47,6 +54,7 @@
         android:id="@+id/action_delivered"
         android:checkable="true"
         android:checked="true"
+        android:menuCategory="secondary"
         android:orderInCategory="8"
         android:title="Delivered"
         app:showAsAction="never" />
