@@ -55,5 +55,8 @@
     <string name="no">No</string>
     <string name="dialog_delete_parcel_title">Delete %1s</string>
     <string name="dialog_delete_parcel_message">Are you sure you want to delete %1s</string>
+    <string name="submit">Submit</string>
+    <string name="update_parcel">Update Parcel</string>
+    <string name="parcel_updated">Parcel Updated Successfully</string>
 
 </resources>

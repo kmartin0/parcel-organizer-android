@@ -1,4 +1,4 @@
-package com.km.parceltracker.ui.createparcel
+package com.km.parceltracker.ui.updateparcel
 
 import android.os.Bundle
 import android.view.View
@@ -6,15 +6,18 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.appbar.MaterialToolbar
 import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
-import com.km.parceltracker.databinding.FragmentCreateParcelBinding
+import com.km.parceltracker.databinding.FragmentUpdateParcelBinding
 import com.km.parceltracker.enums.ParcelStatusEnum
 import kotlinx.android.synthetic.main.form_parcel.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
-class CreateParcelFragment : BaseMVVMFragment<FragmentCreateParcelBinding, CreateParcelViewModel>() {
+class UpdateParcelFragment : BaseMVVMFragment<FragmentUpdateParcelBinding, UpdateParcelViewModel>() {
+
+    val args: UpdateParcelFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,20 +34,22 @@ class CreateParcelFragment : BaseMVVMFragment<FragmentCreateParcelBinding, Creat
     }
 
     private fun initObservers() {
-        viewModel.parcelCreatedSuccess.observe(this, Observer {
-            Toast.makeText(context!!, getString(R.string.parcel_created), Toast.LENGTH_LONG).show()
+        viewModel.setParcelForm(args.parcel)
+
+        viewModel.parcelUpdateSuccess.observe(this, Observer {
+            Toast.makeText(context!!, getString(R.string.parcel_updated), Toast.LENGTH_LONG).show()
             findNavController().navigateUp()
         })
     }
-
-    override fun getLayoutId(): Int = R.layout.fragment_create_parcel
-
-    override fun getToolbar(): MaterialToolbar? = defaultToolbar
 
     override fun initViewModelBinding() {
         binding.viewModel = viewModel
     }
 
-    override fun getVMClass(): Class<CreateParcelViewModel> = CreateParcelViewModel::class.java
+    override fun getVMClass(): Class<UpdateParcelViewModel> = UpdateParcelViewModel::class.java
+
+    override fun getLayoutId(): Int = R.layout.fragment_update_parcel
+
+    override fun getToolbar(): MaterialToolbar? = defaultToolbar
 
 }

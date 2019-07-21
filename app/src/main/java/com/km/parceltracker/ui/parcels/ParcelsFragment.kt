@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
@@ -80,14 +81,15 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
     }
 
     private fun onEditParcelClick(parcel: Parcel) {
-        Toast.makeText(context, "onEditParcelClick: ${parcel.title}", Toast.LENGTH_SHORT).show()
+        val action = ParcelsFragmentDirections.actionParcelsFragmentToUpdateParcelFragment(parcel)
+        findNavController().navigate(action)
     }
 
     private fun onDeleteClick(parcel: Parcel) {
         AlertDialog.Builder(context!!)
             .setTitle(getString(R.string.dialog_delete_parcel_title, parcel.title))
             .setMessage(getString(R.string.dialog_delete_parcel_message, parcel.title))
-            .setPositiveButton(getString(R.string.yes)) { dialog, which -> viewModel.deleteParcel(parcel) }
+            .setPositiveButton(getString(R.string.yes)) { _, _ -> viewModel.deleteParcel(parcel) }
             .setNegativeButton(getString(R.string.no), null)
             .show()
     }

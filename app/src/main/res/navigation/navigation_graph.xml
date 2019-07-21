@@ -9,11 +9,19 @@
         android:id="@+id/parcelsFragment"
         android:name="com.km.parceltracker.ui.parcels.ParcelsFragment"
         android:label="Parcels"
-        tools:layout="@layout/fragment_parcels" />
+        tools:layout="@layout/fragment_parcels">
+        <action
+            android:id="@+id/action_parcelsFragment_to_updateParcelFragment"
+            app:destination="@id/updateParcelFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
     <fragment
         android:id="@+id/createParcelFragment"
         android:name="com.km.parceltracker.ui.createparcel.CreateParcelFragment"
-        android:label="Create Parcel"
+        android:label="@string/create_parcel"
         tools:layout="@layout/fragment_create_parcel" />
     <dialog
         android:id="@+id/sortByBottomDialogFragment"
@@ -42,5 +50,15 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateParcelFragment"
+        android:name="com.km.parceltracker.ui.updateparcel.UpdateParcelFragment"
+        android:label="@string/update_parcel"
+        tools:layout="@layout/fragment_update_parcel">
+        <argument
+            android:name="parcel"
+            app:argType="com.km.parceltracker.model.Parcel"
+            app:nullable="false" />
     </fragment>
 </navigation>

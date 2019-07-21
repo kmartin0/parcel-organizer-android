@@ -13,6 +13,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
             style="@style/ParcelItemHeader"
+            android:gravity="center"
             android:text="Garmin VivoMove HR"
             app:layout_constraintEnd_toStartOf="@id/ivDelete"
             app:layout_constraintStart_toEndOf="@id/ivEdit"

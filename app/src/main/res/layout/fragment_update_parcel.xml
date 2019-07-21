@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.km.parceltracker.ui.createparcel.CreateParcelViewModel" />
+            type="com.km.parceltracker.ui.updateparcel.UpdateParcelViewModel" />
     </data>
 
     <LinearLayout
@@ -34,8 +34,8 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.createParcel()}"
-                android:text="@string/create_parcel"
+                android:onClick="@{() -> viewModel.updateParcel()}"
+                android:text="@string/update_parcel"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
