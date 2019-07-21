@@ -4,16 +4,19 @@ import android.app.Application
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.km.parceltracker.base.BaseViewModel
-import com.km.parceltracker.database.ParcelRepository
+import com.km.parceltracker.repository.ParcelRepository
 import com.km.parceltracker.enums.ParcelSearchingEnum
 import com.km.parceltracker.enums.ParcelSortingEnum
 import com.km.parceltracker.enums.SortOrderEnum
 import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.model.ParcelsSortAndFilterSelection
+import com.km.parceltracker.model.User
+import com.km.parceltracker.repository.UserRepository
 
 class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
-    private val parcelRepository = ParcelRepository(application.applicationContext) { println("API ERROR: $it") }
+    private val parcelRepository = ParcelRepository(application.applicationContext)
+
     private val dbParcels = parcelRepository.getParcels()
 
     var parcels = MediatorLiveData<List<Parcel>>()
@@ -105,14 +108,14 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
                         else isParcelStatus(
                             sortAndFilterConfig,
                             parcel
-                        ) && parcel.sender.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
+                        ) && parcel.sender!!.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
                     }
                     ParcelSearchingEnum.COURIER -> {
                         if (parcel.sender.isNullOrBlank()) false
                         else isParcelStatus(
                             sortAndFilterConfig,
                             parcel
-                        ) && parcel.sender.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
+                        ) && parcel.sender!!.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
                     }
                 }
             }

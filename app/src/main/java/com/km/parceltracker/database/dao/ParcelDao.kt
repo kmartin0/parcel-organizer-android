@@ -1,4 +1,4 @@
-package com.km.parceltracker.database
+package com.km.parceltracker.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

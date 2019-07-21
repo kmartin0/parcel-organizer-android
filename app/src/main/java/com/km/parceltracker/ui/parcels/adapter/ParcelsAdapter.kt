@@ -9,7 +9,8 @@ import com.km.parceltracker.model.Parcel
 class ParcelsAdapter(
     private val parcels: MutableList<Parcel>,
     private val onParcelClick: (Parcel) -> Unit,
-    private val onEditParcelClick: (Parcel) -> Unit
+    private val onEditParcelClick: (Parcel) -> Unit,
+    private val onDeleteParcelClick: (Parcel) -> Unit
 ) : RecyclerView.Adapter<ParcelsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParcelsViewHolder {
@@ -21,6 +22,6 @@ class ParcelsAdapter(
     override fun getItemCount(): Int = parcels.size
 
     override fun onBindViewHolder(holder: ParcelsViewHolder, position: Int) =
-        holder.bind(parcels[position], onParcelClick, onEditParcelClick)
+        holder.bind(parcels[position], onParcelClick, onEditParcelClick, onDeleteParcelClick)
 
 }

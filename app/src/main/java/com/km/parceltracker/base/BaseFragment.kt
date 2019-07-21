@@ -48,6 +48,10 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    protected fun setTitle(title : String) {
+        (activity as AppCompatActivity).supportActionBar?.title = title
+    }
+
     /**
      * Displays a loading indicator based on [visibility]
      */

@@ -9,11 +9,11 @@ import java.util.*
 @Parcelize
 @Entity
 data class Parcel(
-    @PrimaryKey val id: Long,
-    val title: String,
-    val sender: String?,
-    val courier: String?,
-    val trackingUrl: String?,
-    val parcelStatus: ParcelStatus,
-    val lastUpdated: Date
+    var title: String,
+    var sender: String?,
+    var courier: String?,
+    var trackingUrl: String?,
+    var parcelStatus: ParcelStatus,
+    var lastUpdated: Date,
+    @PrimaryKey(autoGenerate = true) var id: Long? = null
 ) : Parcelable

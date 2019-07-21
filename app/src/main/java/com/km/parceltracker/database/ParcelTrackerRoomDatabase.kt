@@ -5,9 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.km.parceltracker.database.dao.ParcelDao
 import com.km.parceltracker.model.Parcel
+import com.km.parceltracker.model.ParcelStatus
+import org.jetbrains.anko.doAsync
+import java.util.*
+import kotlin.collections.ArrayList
 
-@Database(entities = [Parcel::class], version = 1, exportSchema = false)
+@Database(entities = [Parcel::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class ParcelTrackerRoomDatabase : RoomDatabase() {
 
@@ -28,11 +34,64 @@ abstract class ParcelTrackerRoomDatabase : RoomDatabase() {
                             ParcelTrackerRoomDatabase::class.java, DATABASE_NAME
                         )
                             .fallbackToDestructiveMigration()
+                            .addCallback(callback())
                             .build()
                     }
                 }
             }
             return INSTANCE
+        }
+
+        private fun callback(): Callback {
+            return object : RoomDatabase.Callback() {
+                override fun onOpen(db: SupportSQLiteDatabase) {
+                    super.onOpen(db)
+                    INSTANCE?.let { database ->
+                        doAsync {
+                            database.parcelDao().deleteAndInsert(
+                                arrayListOf(
+                                    Parcel(
+                                        "OnePlus 7",
+                                        "One Plus",
+                                        "PostNL",
+                                        null,
+                                        ParcelStatus(1L, "SENT"),
+                                        Date(1556020800),
+                                        1L
+                                    ),
+                                    Parcel(
+                                        "Clothes",
+                                        "Zalando",
+                                        "PostNL",
+                                        null,
+                                        ParcelStatus(1L, "SENT"),
+                                        Date(1563641640),
+                                        2L
+                                    ),
+                                    Parcel(
+                                        "Charging Cables",
+                                        "Cables.nl",
+                                        "DPD",
+                                        null,
+                                        ParcelStatus(1L, "ORDERED"),
+                                        Date(1559415000),
+                                        3L
+                                    ),
+                                    Parcel(
+                                        "Garmin Vivomove HR",
+                                        "Bol.com",
+                                        "DHL",
+                                        null,
+                                        ParcelStatus(1L, "DELIVERED"),
+                                        Date(1559315000),
+                                        4L
+                                    )
+                                )
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 

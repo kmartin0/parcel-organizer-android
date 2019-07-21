@@ -9,7 +9,12 @@ import java.text.SimpleDateFormat
 
 class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(parcel: Parcel, onParcelClick: (Parcel) -> Unit, onEditParcelClick: (Parcel) -> Unit) {
+    fun bind(
+        parcel: Parcel,
+        onParcelClick: (Parcel) -> Unit,
+        onEditParcelClick: (Parcel) -> Unit,
+        onDeleteParcelClick: (Parcel) -> Unit
+    ) {
         itemView.tvTitle.text = parcel.title
         itemView.tvSender.text = parcel.sender
         itemView.tvCourier.text = parcel.courier
@@ -24,6 +29,7 @@ class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         itemView.setOnClickListener { onParcelClick(parcel) }
         itemView.ivEdit.setOnClickListener { onEditParcelClick(parcel) }
+        itemView.ivDelete.setOnClickListener { onDeleteParcelClick(parcel) }
     }
 
 }

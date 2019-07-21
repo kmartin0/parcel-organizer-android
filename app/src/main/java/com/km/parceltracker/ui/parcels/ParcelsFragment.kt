@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
@@ -42,7 +41,8 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         ParcelsAdapter(
             parcels,
             { onParcelClick(it) },
-            { onEditParcelClick(it) })
+            { onEditParcelClick(it) },
+            { onDeleteClick(it) })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,12 +57,12 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
     }
 
     private fun initObservers() {
-        viewModel.parcels.observe(activity as AppCompatActivity, Observer {
+        viewModel.parcels.observe(this, Observer {
             parcels.clear()
             if (it != null) parcels.addAll(it)
             parcelsAdapter.notifyDataSetChanged()
         })
-        viewModel.sortAndFilterSelection.observe(activity as AppCompatActivity, Observer {
+        viewModel.sortAndFilterSelection.observe(this, Observer {
             updateMenuTitles()
         })
     }
@@ -80,6 +80,10 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
     private fun onEditParcelClick(parcel: Parcel) {
         Toast.makeText(context, "onEditParcelClick: ${parcel.title}", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onDeleteClick(parcel: Parcel) {
+        Toast.makeText(context, "onDeleteClick: ${parcel.title}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

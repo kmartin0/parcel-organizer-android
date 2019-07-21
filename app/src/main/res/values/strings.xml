@@ -2,35 +2,52 @@
     <string name="app_name">Parcel Tracker</string>
     <string name="parcels">Parcels</string>
     <string name="create_parcel">Create Parcel</string>
-    <string name="filter">Filter</string>
-    <string name="search">Search</string>
-    <string name="search_hint">Title</string>
+    <string name="parcel_created">Parcel Created Successfully</string>
+
+    <!-- Default Error Messages -->
+    <string name="error_max_characters_45">Cannot exceed 45 characters</string>
+    <string name="error_required">Required</string>
+    <string name="error_invalid_url">Invalid Url</string>
+
+    <!-- Parcel -->
     <string name="title">Title</string>
     <string name="sender">Sender</string>
     <string name="courier">Courier</string>
     <string name="last_updated">Last Updated</string>
     <string name="status">Status</string>
-    <string name="delivered">Delivered</string>
-    <string name="sent">Sent</string>
-    <string name="ordered">Ordered</string>
+
+    <!-- Search -->
+    <string name="search">Search</string>
+    <string name="search_hint">Title</string>
+
+    <!-- Sort order -->
     <string name="descending">Descending</string>
     <string name="ascending">Ascending</string>
+
+    <!-- Sorting and search configuration menu -->
     <string name="sort_by">Sort by: %1s</string>
     <string name="sort_by_no_args">Sort By</string>
     <string name="sort_order">Sort order: %1s</string>
     <string name="sort_order_no_args">Sort Order</string>
-    <string name="filter_by">Filter by: %1s</string>
-    <string name="filter_by_no_args">Filter By: Ordered, Sent, Delivered</string>
     <string name="search_by">Search by: %1s</string>
     <string name="search_by_no_args">Search By</string>
+    <string name="delivered">Delivered</string>
+    <string name="sent">Sent</string>
+    <string name="ordered">Ordered</string>
+
+    <!-- Create Parcel Input Fields -->
     <string name="hint_title">Give your parcel a title</string>
     <string name="hint_sender">Who is the sender of the parcel (optional)</string>
     <string name="hint_courier">Who is the courier of the parcel (optional)</string>
-    <string name="hint_tracking_url">What is the tracking url</string>
-    <string name="hint_password">Your password</string>
-    <string name="register_here">Register here</string>
+    <string name="hint_tracking_url">What is the tracking url (optional)</string>
+    <string name="hint_status">What is the status of the parcel</string>
+
+    <!-- Login -->
     <string name="login">Login</string>
-    <string name="hint_email">Your e-mail address</string>
-    <string name="login_subtitle">Tracking parcels made easy</string>
     <string name="login_title">Parcel Tracking</string>
+    <string name="login_subtitle">Tracking parcels made easy</string>
+    <string name="register_here">Register here</string>
+    <string name="hint_email">Your e-mail address</string>
+    <string name="hint_password">Your password</string>
+
 </resources>

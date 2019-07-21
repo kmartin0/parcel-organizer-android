@@ -1,98 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:bind="http://schemas.android.com/tools">
 
-    <include
-        android:id="@+id/toolbarLayout"
-        layout="@layout/toolbar_default" />
+    <data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+        <variable
+            name="viewModel"
+            type="com.km.parceltracker.ui.createparcel.CreateParcelViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/default_padding">
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilTitle"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <include
+            android:id="@+id/toolbarLayout"
+            layout="@layout/toolbar_default" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etTitle"
-                style="@style/SingleLineInputEditTextStyle"
-                android:hint="@string/hint_title"
-                android:inputType="text" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/default_padding">
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTitle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                bind:errorText="@{viewModel.titleError}">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilSender"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/key_line_3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilTitle">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTitle"
+                    style="@style/SingleLineInputEditTextStyle"
+                    android:hint="@string/hint_title"
+                    android:inputType="text"
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSender"
-                style="@style/SingleLineInputEditTextStyle"
-                android:hint="@string/hint_sender"
-                android:inputType="text" />
+                    android:text="@={viewModel.title}" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilCourier"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/key_line_3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilSender">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilSender"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/key_line_3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilTitle"
+                bind:errorText="@{viewModel.senderError}">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etCourier"
-                style="@style/SingleLineInputEditTextStyle"
-                android:hint="@string/hint_courier"
-                android:inputType="text" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSender"
+                    style="@style/SingleLineInputEditTextStyle"
+                    android:hint="@string/hint_sender"
+                    android:inputType="text"
+                    android:text="@={viewModel.sender}" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilTrackingUrl"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/key_line_3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilCourier">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilCourier"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/key_line_3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilSender"
+                bind:errorText="@{viewModel.courierError}">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etTrackingUrl"
-                style="@style/SingleLineInputEditTextStyle"
-                android:hint="@string/hint_tracking_url"
-                android:inputType="text" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etCourier"
+                    style="@style/SingleLineInputEditTextStyle"
+                    android:hint="@string/hint_courier"
+                    android:inputType="text"
+                    android:text="@={viewModel.courier}" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/create_parcel"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTrackingUrl"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/key_line_3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilCourier"
+                bind:errorText="@{viewModel.trackingUrlError}">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTrackingUrl"
+                    style="@style/SingleLineInputEditTextStyle"
+                    android:hint="@string/hint_tracking_url"
+                    android:inputType="text"
+                    android:text="@={viewModel.trackingUrl}" />
 
-</LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilStatus"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/key_line_3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilTrackingUrl"
+                bind:errorText="@{viewModel.trackingStatusError}">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdownStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:hint="@string/hint_status"
+                    android:text="@{viewModel.trackingStatus.name}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.createParcel()}"
+                android:text="@string/create_parcel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

@@ -23,9 +23,8 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : ViewModel> : BaseFragme
         viewModel =
             if (isSharedViewModel()) ViewModelProviders.of(activity as AppCompatActivity).get(getVMClass())
             else ViewModelProviders.of(this).get(getVMClass())
-
+        binding.lifecycleOwner = activity as AppCompatActivity
         initViewModelBinding()
-
         return binding.root
     }
 

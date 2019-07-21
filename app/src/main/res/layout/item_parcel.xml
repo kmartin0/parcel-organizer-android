@@ -10,25 +10,12 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/key_line_2">
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ivEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="@dimen/key_line_1"
-            android:src="@drawable/ic_edit_black_24dp"
-            app:layout_constraintBottom_toBottomOf="@id/ivSender"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ivSender" />
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
             style="@style/ParcelItemHeader"
             android:text="Garmin VivoMove HR"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivDelete"
+            app:layout_constraintStart_toEndOf="@id/ivEdit"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -77,6 +64,30 @@
             app:layout_constraintBottom_toBottomOf="@id/ivLastUpdated"
             app:layout_constraintStart_toEndOf="@id/ivLastUpdated"
             app:layout_constraintTop_toTopOf="@id/ivLastUpdated" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/ivDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_delete_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTitle" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/ivEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_edit_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTitle" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvStatus"

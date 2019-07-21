@@ -84,4 +84,10 @@
         <item name="android:maxLines">1</item>
     </style>
 
+    <!-- SearchView text and hint color style. -->
+    <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:textColor">@color/color_on_primary</item>
+        <item name="android:textColorHint">@color/color_on_primary</item>
+    </style>
+
 </resources>
