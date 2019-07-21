@@ -32,15 +32,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                bind:errorText="@{viewModel.titleError}">
+                bind:errorText="@{viewModel.parcelForm.titleError}">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etTitle"
                     style="@style/SingleLineInputEditTextStyle"
                     android:hint="@string/hint_title"
                     android:inputType="text"
-
-                    android:text="@={viewModel.title}" />
+                    android:text="@={viewModel.parcelForm.title}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,14 +52,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tilTitle"
-                bind:errorText="@{viewModel.senderError}">
+                bind:errorText="@{viewModel.parcelForm.senderError}">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etSender"
                     style="@style/SingleLineInputEditTextStyle"
                     android:hint="@string/hint_sender"
                     android:inputType="text"
-                    android:text="@={viewModel.sender}" />
+                    android:text="@={viewModel.parcelForm.sender}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,14 +72,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tilSender"
-                bind:errorText="@{viewModel.courierError}">
+                bind:errorText="@{viewModel.parcelForm.courierError}">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etCourier"
                     style="@style/SingleLineInputEditTextStyle"
                     android:hint="@string/hint_courier"
                     android:inputType="text"
-                    android:text="@={viewModel.courier}" />
+                    android:text="@={viewModel.parcelForm.courier}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,14 +92,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tilCourier"
-                bind:errorText="@{viewModel.trackingUrlError}">
+                bind:errorText="@{viewModel.parcelForm.trackingUrlError}">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etTrackingUrl"
                     style="@style/SingleLineInputEditTextStyle"
                     android:hint="@string/hint_tracking_url"
                     android:inputType="text"
-                    android:text="@={viewModel.trackingUrl}" />
+                    android:text="@={viewModel.parcelForm.trackingUrl}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,7 +112,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tilTrackingUrl"
-                bind:errorText="@{viewModel.trackingStatusError}">
+                bind:errorText="@{viewModel.parcelForm.trackingStatusError}">
 
                 <AutoCompleteTextView
                     android:id="@+id/dropdownStatus"
@@ -121,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:editable="false"
                     android:hint="@string/hint_status"
-                    android:text="@{viewModel.trackingStatus.name}" />
+                    android:text="@{viewModel.parcelForm.trackingStatus.name}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

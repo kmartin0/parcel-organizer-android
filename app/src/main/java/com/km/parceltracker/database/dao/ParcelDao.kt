@@ -1,11 +1,8 @@
 package com.km.parceltracker.database.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.km.parceltracker.model.Parcel
-import androidx.room.Transaction
 
 
 @Dao
@@ -19,6 +16,9 @@ interface ParcelDao {
 
     @Insert
     fun insertParcel(parcels: Parcel)
+
+    @Delete
+    fun deleteParcel(parcel: Parcel)
 
     @Query("DELETE FROM Parcel")
     fun clearParcelTable()

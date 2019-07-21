@@ -25,9 +25,9 @@ class ParcelRepository(context: Context) {
         return parcelDao.getAllParcels()
     }
 
-    fun deleteAndInsert(parcels: List<Parcel>) {
+    fun deleteParcel(parcel: Parcel) {
         doAsync {
-            parcelDao.deleteAndInsert(parcels)
+            parcelDao.deleteParcel(parcel)
         }
     }
 

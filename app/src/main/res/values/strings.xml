@@ -50,4 +50,10 @@
     <string name="hint_email">Your e-mail address</string>
     <string name="hint_password">Your password</string>
 
+    <!-- Dialogs -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="dialog_delete_parcel_title">Delete %1s</string>
+    <string name="dialog_delete_parcel_message">Are you sure you want to delete %1s</string>
+
 </resources>

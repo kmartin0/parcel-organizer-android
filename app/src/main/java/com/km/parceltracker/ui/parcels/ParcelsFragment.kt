@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.webkit.URLUtil
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.browser.customtabs.CustomTabsIntent
@@ -83,7 +84,12 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
     }
 
     private fun onDeleteClick(parcel: Parcel) {
-        Toast.makeText(context, "onDeleteClick: ${parcel.title}", Toast.LENGTH_SHORT).show()
+        AlertDialog.Builder(context!!)
+            .setTitle(getString(R.string.dialog_delete_parcel_title, parcel.title))
+            .setMessage(getString(R.string.dialog_delete_parcel_message, parcel.title))
+            .setPositiveButton(getString(R.string.yes)) { dialog, which -> viewModel.deleteParcel(parcel) }
+            .setNegativeButton(getString(R.string.no), null)
+            .show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

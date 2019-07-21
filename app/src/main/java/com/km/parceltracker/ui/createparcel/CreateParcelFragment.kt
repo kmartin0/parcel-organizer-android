@@ -28,7 +28,7 @@ class CreateParcelFragment : BaseMVVMFragment<FragmentCreateParcelBinding, Creat
         val adapter = ArrayAdapter(context!!, R.layout.dropdown_menu_popup_item, ParcelStatusEnum.values())
         dropdownStatus.setAdapter(adapter)
         dropdownStatus.setOnItemClickListener { parent, view, position, id ->
-            viewModel.trackingStatus.value = ParcelStatusEnum.valueOf(dropdownStatus.text.toString())
+            viewModel.parcelForm.trackingStatus.value = ParcelStatusEnum.valueOf(dropdownStatus.text.toString())
         }
     }
 

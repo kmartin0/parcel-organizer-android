@@ -12,6 +12,7 @@ import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.model.ParcelsSortAndFilterSelection
 import com.km.parceltracker.model.User
 import com.km.parceltracker.repository.UserRepository
+import org.jetbrains.anko.doAsync
 
 class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
@@ -39,6 +40,12 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
         parcels.addSource(sortAndFilterSelection) {
             parcels.value = sortAndFilterParcels(dbParcels.value, it)
+        }
+    }
+
+    fun deleteParcel(parcel : Parcel) {
+        doAsync {
+            parcelRepository.deleteParcel(parcel)
         }
     }
 
