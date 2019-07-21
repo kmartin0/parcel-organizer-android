@@ -12,6 +12,11 @@ class CreateParcelViewModel(application: Application) : BaseViewModel(applicatio
     val parcelForm = ParcelForm()
     val parcelCreatedSuccess = SingleLiveEvent<Unit>()
 
+    fun setTrackingUrl(url: String?) {
+        parcelForm.trackingUrl.value = url
+        parcelForm.validateTrackingUrl()
+    }
+
     fun createParcel() {
         if (parcelForm.validateInput()) {
             parcelForm.getParcel()?.let {

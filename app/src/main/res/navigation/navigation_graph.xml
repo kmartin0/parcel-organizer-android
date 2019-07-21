@@ -17,12 +17,25 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_parcelsFragment_to_createParcelFragment"
+            app:destination="@id/createParcelFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/createParcelFragment"
         android:name="com.km.parceltracker.ui.createparcel.CreateParcelFragment"
         android:label="@string/create_parcel"
-        tools:layout="@layout/fragment_create_parcel" />
+        tools:layout="@layout/fragment_create_parcel">
+        <argument
+            android:name="trackingUrl"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
     <dialog
         android:id="@+id/sortByBottomDialogFragment"
         android:name="com.km.parceltracker.ui.parcels.bottomsheets.SortByBottomDialogFragment"

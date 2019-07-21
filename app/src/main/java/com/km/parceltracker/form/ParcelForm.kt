@@ -43,7 +43,7 @@ class ParcelForm {
                 validateTrackingStatus()
     }
 
-    private fun validateTitle(): Boolean {
+    fun validateTitle(): Boolean {
         var isValid: Boolean
         title.value.let {
             titleError.value = when {
@@ -64,7 +64,7 @@ class ParcelForm {
         return isValid
     }
 
-    private fun validateSender(): Boolean {
+    fun validateSender(): Boolean {
         var isValid: Boolean
         sender.value.let {
             senderError.value = when {
@@ -85,7 +85,7 @@ class ParcelForm {
         return isValid
     }
 
-    private fun validateCourier(): Boolean {
+    fun validateCourier(): Boolean {
         var isValid: Boolean
         courier.value.let {
             courierError.value = when {
@@ -106,7 +106,7 @@ class ParcelForm {
         return isValid
     }
 
-    private fun validateTrackingUrl(): Boolean {
+    fun validateTrackingUrl(): Boolean {
         var isValid: Boolean
         trackingUrl.value.let {
             trackingUrlError.value = when {
@@ -127,7 +127,7 @@ class ParcelForm {
         return isValid
     }
 
-    private fun validateTrackingStatus(): Boolean {
+    fun validateTrackingStatus(): Boolean {
         var isValid: Boolean
         trackingStatus.value.let {
             trackingStatusError.value = when (it) {

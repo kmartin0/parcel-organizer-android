@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.appbar.MaterialToolbar
 import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
@@ -15,6 +16,8 @@ import kotlinx.android.synthetic.main.form_parcel.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 class CreateParcelFragment : BaseMVVMFragment<FragmentCreateParcelBinding, CreateParcelViewModel>() {
+
+    private val args: CreateParcelFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,6 +34,8 @@ class CreateParcelFragment : BaseMVVMFragment<FragmentCreateParcelBinding, Creat
     }
 
     private fun initObservers() {
+        viewModel.setTrackingUrl(args.trackingUrl)
+
         viewModel.parcelCreatedSuccess.observe(this, Observer {
             Toast.makeText(context!!, getString(R.string.parcel_created), Toast.LENGTH_LONG).show()
             findNavController().navigateUp()

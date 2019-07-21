@@ -1,5 +1,6 @@
 package com.km.parceltracker.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -8,12 +9,27 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.km.parceltracker.R
+import com.km.parceltracker.ui.parcels.ParcelsFragmentDirections
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        checkAppShared()
+    }
+
+    private fun checkAppShared() {
+        when {
+            intent?.action == Intent.ACTION_SEND -> {
+                if ("text/plain" == intent.type) {
+                    val action = ParcelsFragmentDirections.actionParcelsFragmentToCreateParcelFragment(
+                        intent.getStringExtra(Intent.EXTRA_TEXT)
+                    )
+                    findNavController(R.id.navHostFragment).navigate(action)
+                }
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

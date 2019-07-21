@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.toolbar_default.*
 
 class UpdateParcelFragment : BaseMVVMFragment<FragmentUpdateParcelBinding, UpdateParcelViewModel>() {
 
-    val args: UpdateParcelFragmentArgs by navArgs()
+    private val args: UpdateParcelFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
