@@ -56,6 +56,8 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         rvParcels.adapter = parcelsAdapter
         rvParcels.addItemDecoration(ParcelsItemDecoration(context!!))
         rvParcels.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+
+        fabCreateParcel.setOnClickListener { onCreateParcelClick() }
     }
 
     private fun initObservers() {
@@ -67,6 +69,10 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         viewModel.sortAndFilterSelection.observe(this, Observer {
             updateMenuTitles()
         })
+    }
+
+    private fun onCreateParcelClick() {
+        findNavController().navigate(R.id.action_parcelsFragment_to_createParcelFragment)
     }
 
     private fun onParcelClick(parcel: Parcel) {

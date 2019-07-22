@@ -32,6 +32,16 @@
             app:layout_constraintTop_toBottomOf="@id/toolbarLayout"
             tools:listitem="@layout/item_parcel" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabCreateParcel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_add_on_secondary_24dp"
+            android:layout_marginEnd="@dimen/key_line_4"
+            android:layout_marginBottom="@dimen/key_line_4"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
