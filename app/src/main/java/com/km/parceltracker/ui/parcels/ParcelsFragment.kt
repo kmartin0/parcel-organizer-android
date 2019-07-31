@@ -20,11 +20,13 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentParcelsBinding
+import com.km.parceltracker.enums.ParcelStatusEnum
 import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.ui.parcels.adapter.ParcelsAdapter
 import com.km.parceltracker.ui.parcels.adapter.ParcelsItemDecoration
 import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
+import org.jetbrains.anko.doAsync
 
 /**
  * TODO: Login
@@ -35,6 +37,7 @@ import kotlinx.android.synthetic.main.toolbar_default.*
  * TODO: Edit Parcel
  * TODO: Remove Parcel
  * TODO: Cache sort and filter configuration
+ * TODO: Bind parcel form with parcel status dropdown
  */
 class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewModel>() {
 
@@ -56,7 +59,6 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         rvParcels.adapter = parcelsAdapter
         rvParcels.addItemDecoration(ParcelsItemDecoration(context!!))
         rvParcels.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-
         fabCreateParcel.setOnClickListener { onCreateParcelClick() }
     }
 

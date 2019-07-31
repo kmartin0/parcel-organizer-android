@@ -3,6 +3,7 @@ package com.km.parceltracker.ui.parcels.adapter
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.km.parceltracker.R
+import com.km.parceltracker.enums.ParcelStatusEnum
 import com.km.parceltracker.model.Parcel
 import kotlinx.android.synthetic.main.item_parcel.view.*
 import java.text.SimpleDateFormat
@@ -18,13 +19,13 @@ class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.tvTitle.text = parcel.title
         itemView.tvSender.text = parcel.sender
         itemView.tvCourier.text = parcel.courier
-        itemView.tvStatus.text = parcel.parcelStatus.status
+        itemView.tvStatus.text = itemView.context.getString(parcel.parcelStatus.status.statusResId)
         itemView.tvLastUpdated.text = SimpleDateFormat.getDateTimeInstance().format(parcel.lastUpdated)
 
         when (parcel.parcelStatus.status) {
-            "SENT" -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorSent))
-            "ORDERED" -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorOrdered))
-            "DELIVERED" -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorDelivered))
+            ParcelStatusEnum.SENT -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorSent))
+            ParcelStatusEnum.ORDERED -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorOrdered))
+            ParcelStatusEnum.DELIVERED -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorDelivered))
         }
 
         itemView.setOnClickListener { onParcelClick(parcel) }

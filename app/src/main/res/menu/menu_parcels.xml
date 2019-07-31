@@ -33,7 +33,7 @@
         android:checked="true"
         android:menuCategory="secondary"
         android:orderInCategory="6"
-        android:title="Ordered"
+        android:title="@string/ordered"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_sent"
@@ -41,7 +41,7 @@
         android:checked="true"
         android:menuCategory="secondary"
         android:orderInCategory="7"
-        android:title="Sent"
+        android:title="@string/sent"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_delivered"
@@ -49,7 +49,7 @@
         android:checked="true"
         android:menuCategory="secondary"
         android:orderInCategory="8"
-        android:title="Delivered"
+        android:title="@string/delivered"
         app:showAsAction="never" />
 
 </menu>

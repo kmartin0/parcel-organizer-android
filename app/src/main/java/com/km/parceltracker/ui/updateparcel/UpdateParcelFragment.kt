@@ -26,15 +26,13 @@ class UpdateParcelFragment : BaseMVVMFragment<FragmentUpdateParcelBinding, Updat
     }
 
     private fun initViews() {
-        val adapter = ArrayAdapter(context!!, R.layout.dropdown_menu_popup_item, ParcelStatusEnum.values())
+        val parcelStatusList = ParcelStatusEnum.values().map { context!!.getString(it.statusResId) }
+        val adapter = ArrayAdapter(context!!, R.layout.dropdown_menu_popup_item, parcelStatusList)
         dropdownStatus.setAdapter(adapter)
-        dropdownStatus.setOnItemClickListener { _, _, _, _ ->
-            viewModel.parcelForm.trackingStatus.value = ParcelStatusEnum.valueOf(dropdownStatus.text.toString())
-        }
     }
 
     private fun initObservers() {
-        viewModel.setParcelForm(args.parcel)
+        viewModel.populateParcelForm(args.parcel)
 
         viewModel.parcelUpdateSuccess.observe(this, Observer {
             Toast.makeText(context!!, getString(R.string.parcel_updated), Toast.LENGTH_LONG).show()

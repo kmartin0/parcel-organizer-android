@@ -9,7 +9,6 @@ import com.km.parceltracker.model.ParcelStatus
 import java.util.*
 
 class ParcelForm {
-
     val title = MutableLiveData<String>()
     val sender = MutableLiveData<String>()
     val courier = MutableLiveData<String>()
@@ -29,10 +28,14 @@ class ParcelForm {
                 sender.value,
                 courier.value,
                 trackingUrl.value,
-                ParcelStatus(1L, trackingStatus.value!!.name),
+                ParcelStatus(1L, trackingStatus.value!!),
                 Date()
             )
         } else null
+    }
+
+    fun setStatus() {
+        println("TAGZ SET STATUS")
     }
 
     fun validateInput(): Boolean {

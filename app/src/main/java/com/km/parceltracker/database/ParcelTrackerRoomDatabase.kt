@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.km.parceltracker.database.dao.ParcelDao
+import com.km.parceltracker.enums.ParcelStatusEnum
 import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.model.ParcelStatus
 import org.jetbrains.anko.doAsync
@@ -55,7 +56,7 @@ abstract class ParcelTrackerRoomDatabase : RoomDatabase() {
                                         "One Plus",
                                         "PostNL",
                                         null,
-                                        ParcelStatus(1L, "SENT"),
+                                        ParcelStatus(1L, ParcelStatusEnum.SENT),
                                         Date(1556020800),
                                         1L
                                     ),
@@ -64,7 +65,7 @@ abstract class ParcelTrackerRoomDatabase : RoomDatabase() {
                                         "Zalando",
                                         "PostNL",
                                         null,
-                                        ParcelStatus(1L, "SENT"),
+                                        ParcelStatus(1L, ParcelStatusEnum.SENT),
                                         Date(1563641640),
                                         2L
                                     ),
@@ -73,7 +74,7 @@ abstract class ParcelTrackerRoomDatabase : RoomDatabase() {
                                         "Cables.nl",
                                         "DPD",
                                         null,
-                                        ParcelStatus(1L, "ORDERED"),
+                                        ParcelStatus(1L, ParcelStatusEnum.ORDERED),
                                         Date(1559415000),
                                         3L
                                     ),
@@ -82,7 +83,7 @@ abstract class ParcelTrackerRoomDatabase : RoomDatabase() {
                                         "Bol.com",
                                         "DHL",
                                         null,
-                                        ParcelStatus(1L, "DELIVERED"),
+                                        ParcelStatus(1L, ParcelStatusEnum.DELIVERED),
                                         Date(1559315000),
                                         4L
                                     )

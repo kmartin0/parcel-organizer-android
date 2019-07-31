@@ -2,7 +2,6 @@ package com.km.parceltracker.ui.updateparcel
 
 import android.app.Application
 import com.km.parceltracker.base.BaseViewModel
-import com.km.parceltracker.enums.ParcelStatusEnum
 import com.km.parceltracker.form.ParcelForm
 import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.repository.ParcelRepository
@@ -16,14 +15,14 @@ class UpdateParcelViewModel(application: Application) : BaseViewModel(applicatio
     val parcelForm = ParcelForm()
     val parcelUpdateSuccess = SingleLiveEvent<Unit>()
 
-    fun setParcelForm(parcel: Parcel) {
+    fun populateParcelForm(parcel: Parcel) {
         parcelToUpdate = parcel
         parcelForm.apply {
             title.value = parcel.title
             sender.value = parcel.sender
             courier.value = parcel.courier
             trackingUrl.value = parcel.trackingUrl
-            trackingStatus.value = ParcelStatusEnum.valueOf(parcel.parcelStatus.status)
+            trackingStatus.value = parcel.parcelStatus.status
         }
     }
 

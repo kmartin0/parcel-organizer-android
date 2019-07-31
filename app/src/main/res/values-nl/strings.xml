@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Parcel Tracker</string>
+    <string name="ascending">Oplopend</string>
+    <string name="courier">Koerier</string>
+    <string name="create_parcel">Maak pakket aan</string>
+    <string name="delivered">Afgeleverd</string>
+    <string name="descending">Aflopend</string>
+    <string name="dialog_delete_parcel_message">Weet je zeker dat je %1s wilt verwijderen</string>
+    <string name="dialog_delete_parcel_title">Verwijder %1s</string>
+    <string name="error_invalid_url">Ongeldige url</string>
+    <string name="error_max_characters_45">Mag niet meer dan 45 karakters bevatten</string>
+    <string name="error_required">Verplicht</string>
+    <string name="hint_courier">"Wie is de koerier "</string>
+    <string name="hint_email">Uw e-mail</string>
+    <string name="hint_password">Uw wachtwoord</string>
+    <string name="hint_sender">Wie is de zender van het pakket (optioneel)</string>
+    <string name="hint_status">Wat is de pakketstatus</string>
+    <string name="hint_title">Geef uw pakket een titel</string>
+    <string name="hint_tracking_url">Wat is de tracking url (optioneel)</string>
+    <string name="last_updated">Laatst geupdatet</string>
+    <string name="login">Login</string>
+    <string name="login_subtitle">Orden uw pakketten gemakkelijk</string>
+    <string name="login_title">Pakketen tracking</string>
+    <string name="no">Nee</string>
+    <string name="ordered">Besteld</string>
+    <string name="parcel_created">Pakket succesvol aangemaakt</string>
+    <string name="parcel_updated">Pakket succesvol geupdatet</string>
+    <string name="parcels">Pakketten</string>
+    <string name="register_here">Registreer hier</string>
+    <string name="search">Zoeken</string>
+    <string name="search_by">Zoek op: %1s</string>
+    <string name="search_by_no_args">Zoek op</string>
+    <string name="search_hint">Titel</string>
+    <string name="sender">Zender</string>
+    <string name="sent">Verzonden</string>
+    <string name="sort_by">Sorteer op: %1s</string>
+    <string name="sort_by_no_args">Sorteer op</string>
+    <string name="sort_order">Sorteer volgorde: %1s</string>
+    <string name="sort_order_no_args">Sorteer volgorde</string>
+    <string name="status">Status</string>
+    <string name="submit">Bevestig</string>
+    <string name="title">Titel</string>
+    <string name="update_parcel">Update pakket</string>
+    <string name="yes">Ja</string>
+</resources>

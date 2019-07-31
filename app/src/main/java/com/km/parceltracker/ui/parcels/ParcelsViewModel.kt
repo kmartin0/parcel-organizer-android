@@ -7,6 +7,7 @@ import com.km.parceltracker.base.BaseViewModel
 import com.km.parceltracker.repository.ParcelRepository
 import com.km.parceltracker.enums.ParcelSearchingEnum
 import com.km.parceltracker.enums.ParcelSortingEnum
+import com.km.parceltracker.enums.ParcelStatusEnum
 import com.km.parceltracker.enums.SortOrderEnum
 import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.model.ParcelsSortAndFilterSelection
@@ -64,20 +65,20 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
         else when (sortAndFilterConfig.sortBy) {
             ParcelSortingEnum.TITLE -> {
                 when (sortAndFilterConfig.sortOrder) {
-                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.title }
-                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.title }
+                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.title.toLowerCase() }
+                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.title.toLowerCase() }
                 }
             }
             ParcelSortingEnum.SENDER -> {
                 when (sortAndFilterConfig.sortOrder) {
-                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.sender }
-                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.sender }
+                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.sender?.toLowerCase() }
+                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.sender?.toLowerCase() }
                 }
             }
             ParcelSortingEnum.COURIER -> {
                 when (sortAndFilterConfig.sortOrder) {
-                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.courier }
-                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.courier }
+                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.courier?.toLowerCase() }
+                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.courier?.toLowerCase() }
                 }
             }
             ParcelSortingEnum.DATE -> {
@@ -143,10 +144,9 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
     private fun isParcelStatus(sortAndFilterConfig: ParcelsSortAndFilterSelection, parcel: Parcel): Boolean {
         return when (parcel.parcelStatus.status) {
-            "SENT" -> sortAndFilterConfig.sent
-            "ORDERED" -> sortAndFilterConfig.ordered
-            "DELIVERED" -> sortAndFilterConfig.delivered
-            else -> false
+            ParcelStatusEnum.SENT -> sortAndFilterConfig.sent
+            ParcelStatusEnum.ORDERED -> sortAndFilterConfig.ordered
+            ParcelStatusEnum.DELIVERED -> sortAndFilterConfig.delivered
         }
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -17,12 +16,12 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTitle"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            errorText="@{parcelForm.titleError}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            bind:errorText="@{parcelForm.titleError}">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etTitle"
@@ -36,13 +35,13 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilSender"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            errorText="@{parcelForm.senderError}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/key_line_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilTitle"
-            bind:errorText="@{parcelForm.senderError}">
+            app:layout_constraintTop_toBottomOf="@id/tilTitle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSender"
@@ -56,13 +55,13 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilCourier"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            errorText="@{parcelForm.courierError}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/key_line_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilSender"
-            bind:errorText="@{parcelForm.courierError}">
+            app:layout_constraintTop_toBottomOf="@id/tilSender">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etCourier"
@@ -76,13 +75,13 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTrackingUrl"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            errorText="@{parcelForm.trackingUrlError}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/key_line_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilCourier"
-            bind:errorText="@{parcelForm.trackingUrlError}">
+            app:layout_constraintTop_toBottomOf="@id/tilCourier">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etTrackingUrl"
@@ -96,21 +95,23 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilStatus"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            errorText="@{parcelForm.trackingStatusError}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/key_line_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilTrackingUrl"
-            bind:errorText="@{parcelForm.trackingStatusError}">
+            app:layout_constraintTop_toBottomOf="@id/tilTrackingUrl">
 
             <AutoCompleteTextView
                 android:id="@+id/dropdownStatus"
+                setParcelStatusDropdownListener="@{parcelForm.trackingStatus}"
+                setParcelStatusDropdownText="@{parcelForm.trackingStatus}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:editable="false"
                 android:hint="@string/hint_status"
-                android:text="@{parcelForm.trackingStatus.name}" />
+                android:imeOptions="actionDone" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
