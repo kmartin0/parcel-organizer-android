@@ -10,41 +10,33 @@ import com.km.parceltracker.enums.ParcelSortingEnum
 import com.km.parceltracker.enums.ParcelStatusEnum
 import com.km.parceltracker.enums.SortOrderEnum
 import com.km.parceltracker.model.Parcel
-import com.km.parceltracker.model.ParcelsSortAndFilterSelection
-import com.km.parceltracker.model.User
-import com.km.parceltracker.repository.UserRepository
+import com.km.parceltracker.model.ParcelsSortAndFilterConfig
+import com.km.parceltracker.repository.SettingsRepository
 import org.jetbrains.anko.doAsync
 
 class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
     private val parcelRepository = ParcelRepository(application.applicationContext)
+    private val settingsRepository = SettingsRepository(application.applicationContext)
 
     private val dbParcels = parcelRepository.getParcels()
 
     var parcels = MediatorLiveData<List<Parcel>>()
-    var sortAndFilterSelection = MutableLiveData<ParcelsSortAndFilterSelection>().apply {
-        value = ParcelsSortAndFilterSelection(
-            sortBy = ParcelSortingEnum.TITLE,
-            sortOrder = SortOrderEnum.ASCENDING,
-            searchQuery = null,
-            searchBy = ParcelSearchingEnum.TITLE,
-            ordered = true,
-            sent = true,
-            delivered = true
-        )
+    var sortAndFilterConfig = MutableLiveData<ParcelsSortAndFilterConfig>().apply {
+        value = settingsRepository.getSortAndFilterSettings()
     }
 
     init {
         parcels.addSource(dbParcels) {
-            parcels.value = sortAndFilterParcels(it, sortAndFilterSelection.value)
+            parcels.value = sortAndFilterParcels(it, sortAndFilterConfig.value)
         }
 
-        parcels.addSource(sortAndFilterSelection) {
+        parcels.addSource(sortAndFilterConfig) {
             parcels.value = sortAndFilterParcels(dbParcels.value, it)
         }
     }
 
-    fun deleteParcel(parcel : Parcel) {
+    fun deleteParcel(parcel: Parcel) {
         doAsync {
             parcelRepository.deleteParcel(parcel)
         }
@@ -52,14 +44,14 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
     private fun sortAndFilterParcels(
         parcels: List<Parcel>?,
-        sortAndFilterConfig: ParcelsSortAndFilterSelection?
+        sortAndFilterConfig: ParcelsSortAndFilterConfig?
     ): List<Parcel>? {
         return sortParcels(filterParcels(parcels, sortAndFilterConfig), sortAndFilterConfig)
     }
 
     private fun sortParcels(
         parcels: List<Parcel>?,
-        sortAndFilterConfig: ParcelsSortAndFilterSelection?
+        sortAndFilterConfig: ParcelsSortAndFilterConfig?
     ): List<Parcel>? {
         return if (parcels == null || sortAndFilterConfig == null) parcels
         else when (sortAndFilterConfig.sortBy) {
@@ -98,7 +90,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
     private fun filterParcels(
         parcels: List<Parcel>?,
-        sortAndFilterConfig: ParcelsSortAndFilterSelection?
+        sortAndFilterConfig: ParcelsSortAndFilterConfig?
     ): List<Parcel>? {
         return if (parcels == null || sortAndFilterConfig == null) parcels
         else if (sortAndFilterConfig.searchQuery.isNullOrBlank()) filterParcelStatus(parcels, sortAndFilterConfig)
@@ -132,7 +124,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
     private fun filterParcelStatus(
         parcels: List<Parcel>?,
-        sortAndFilterConfig: ParcelsSortAndFilterSelection?
+        sortAndFilterConfig: ParcelsSortAndFilterConfig?
     ): List<Parcel>? {
         return if (parcels == null || sortAndFilterConfig == null) parcels
         else {
@@ -142,11 +134,16 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
-    private fun isParcelStatus(sortAndFilterConfig: ParcelsSortAndFilterSelection, parcel: Parcel): Boolean {
+    private fun isParcelStatus(sortAndFilterConfig: ParcelsSortAndFilterConfig, parcel: Parcel): Boolean {
         return when (parcel.parcelStatus.status) {
             ParcelStatusEnum.SENT -> sortAndFilterConfig.sent
             ParcelStatusEnum.ORDERED -> sortAndFilterConfig.ordered
             ParcelStatusEnum.DELIVERED -> sortAndFilterConfig.delivered
         }
+    }
+
+    fun setSortingAndFilterConfig(sortAndFilterConfig: ParcelsSortAndFilterConfig) {
+        settingsRepository.setSortAndFilterSettings(sortAndFilterConfig)
+        this.sortAndFilterConfig.value = sortAndFilterConfig
     }
 }

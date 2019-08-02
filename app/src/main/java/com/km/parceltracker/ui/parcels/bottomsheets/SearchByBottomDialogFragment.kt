@@ -34,21 +34,21 @@ class SearchByBottomDialogFragment : BottomSheetDialogFragment() {
 
     private fun applySelection() {
         if (initialButtonResId != rgSorting.checkedRadioButtonId) {
-            viewModel.sortAndFilterSelection.value = viewModel.sortAndFilterSelection.value
-                ?.apply {
-                    searchBy = when (rgSorting.checkedRadioButtonId) {
-                        R.id.rbTitle -> ParcelSearchingEnum.TITLE
-                        R.id.rbSender -> ParcelSearchingEnum.SENDER
-                        R.id.rbCourier -> ParcelSearchingEnum.COURIER
-                        else -> ParcelSearchingEnum.TITLE
-                    }
+            viewModel.sortAndFilterConfig.value?.let {
+                it.searchBy = when (rgSorting.checkedRadioButtonId) {
+                    R.id.rbTitle -> ParcelSearchingEnum.TITLE
+                    R.id.rbSender -> ParcelSearchingEnum.SENDER
+                    R.id.rbCourier -> ParcelSearchingEnum.COURIER
+                    else -> ParcelSearchingEnum.TITLE
                 }
+                viewModel.setSortingAndFilterConfig(it)
+            }
         }
     }
 
     private fun setInitialCheckedButton() {
         rgSorting.check(
-            when (viewModel.sortAndFilterSelection.value?.searchBy) {
+            when (viewModel.sortAndFilterConfig.value?.searchBy) {
                 null, ParcelSearchingEnum.TITLE -> R.id.rbTitle
                 ParcelSearchingEnum.SENDER -> R.id.rbSender
                 ParcelSearchingEnum.COURIER -> R.id.rbCourier

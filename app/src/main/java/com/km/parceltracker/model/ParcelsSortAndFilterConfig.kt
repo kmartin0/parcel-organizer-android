@@ -4,7 +4,7 @@ import com.km.parceltracker.enums.ParcelSearchingEnum
 import com.km.parceltracker.enums.ParcelSortingEnum
 import com.km.parceltracker.enums.SortOrderEnum
 
-data class ParcelsSortAndFilterSelection(
+data class ParcelsSortAndFilterConfig(
     // Sorting options
     var sortBy: ParcelSortingEnum,
     var sortOrder: SortOrderEnum,

@@ -9,7 +9,6 @@ import android.view.View
 import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Observer
@@ -20,24 +19,20 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentParcelsBinding
-import com.km.parceltracker.enums.ParcelStatusEnum
 import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.ui.parcels.adapter.ParcelsAdapter
 import com.km.parceltracker.ui.parcels.adapter.ParcelsItemDecoration
 import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
-import org.jetbrains.anko.doAsync
 
 /**
- * TODO: Login
- * TODO: OAuth2
- * TODO: Register
- * TODO: Create Parcel
- * TODO: Create Parcel from share
- * TODO: Edit Parcel
- * TODO: Remove Parcel
- * TODO: Cache sort and filter configuration
- * TODO: Bind parcel form with parcel status dropdown
+ * TODO: Login Api
+ * TODO: OAuth2 Api
+ * TODO: Register Api
+ * TODO: Get parcels Api
+ * TODO: Create Parcel Api
+ * TODO: Edit Parcel Api
+ * TODO: Remove Parcel Api
  */
 class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewModel>() {
 
@@ -68,7 +63,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
             if (it != null) parcels.addAll(it)
             parcelsAdapter.notifyDataSetChanged()
         })
-        viewModel.sortAndFilterSelection.observe(this, Observer {
+        viewModel.sortAndFilterConfig.observe(this, Observer {
             updateMenuTitles()
         })
     }
@@ -120,7 +115,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.sortAndFilterSelection.value = viewModel.sortAndFilterSelection.value
+                viewModel.sortAndFilterConfig.value = viewModel.sortAndFilterConfig.value
                     ?.apply {
                         searchQuery = newText
                     }
@@ -132,16 +127,15 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
     private fun updateMenuTitles() {
         menu?.let { menu ->
-            viewModel.sortAndFilterSelection.value?.let {
+            viewModel.sortAndFilterConfig.value?.let {
                 menu.findItem(R.id.sortByBottomDialogFragment)?.title = getString(R.string.sort_by, it.sortBy.value)
-            }
-            viewModel.sortAndFilterSelection.value?.let {
                 menu.findItem(R.id.sortOrderBottomDialogFragment)?.title =
                     getString(R.string.sort_order, it.sortOrder.order)
-            }
-            viewModel.sortAndFilterSelection.value?.let {
                 menu.findItem(R.id.searchByBottomDialogFragment)?.title =
                     getString(R.string.search_by, it.searchBy.value)
+                menu.findItem(R.id.action_ordered)?.isChecked = it.ordered
+                menu.findItem(R.id.action_sent)?.isChecked = it.sent
+                menu.findItem(R.id.action_delivered)?.isChecked = it.delivered
             }
         }
     }
@@ -150,26 +144,26 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         return when (item.itemId) {
             R.id.action_ordered -> {
                 item.isChecked = !item.isChecked
-                viewModel.sortAndFilterSelection.value = viewModel.sortAndFilterSelection.value
-                    ?.apply {
-                        ordered = item.isChecked
-                    }
+                viewModel.sortAndFilterConfig.value?.let {
+                    it.ordered = item.isChecked
+                    viewModel.setSortingAndFilterConfig(it)
+                }
                 true
             }
             R.id.action_sent -> {
                 item.isChecked = !item.isChecked
-                viewModel.sortAndFilterSelection.value = viewModel.sortAndFilterSelection.value
-                    ?.apply {
-                        sent = item.isChecked
-                    }
+                viewModel.sortAndFilterConfig.value?.let {
+                    it.sent = item.isChecked
+                    viewModel.setSortingAndFilterConfig(it)
+                }
                 true
             }
             R.id.action_delivered -> {
                 item.isChecked = !item.isChecked
-                viewModel.sortAndFilterSelection.value = viewModel.sortAndFilterSelection.value
-                    ?.apply {
-                        delivered = item.isChecked
-                    }
+                viewModel.sortAndFilterConfig.value?.let {
+                    it.delivered = item.isChecked
+                    viewModel.setSortingAndFilterConfig(it)
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
