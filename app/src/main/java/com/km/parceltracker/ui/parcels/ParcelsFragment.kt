@@ -162,11 +162,15 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
     private fun updateMenuTitles() {
         menu?.let { menu ->
             viewModel.sortAndFilterConfig.value?.let {
-                menu.findItem(R.id.sortByBottomDialogFragment)?.title = getString(R.string.sort_by, it.sortBy.value)
+                menu.findItem(R.id.sortByBottomDialogFragment)?.title =
+                    getString(R.string.sort_by, getString(it.sortBy.stringResId))
+
                 menu.findItem(R.id.sortOrderBottomDialogFragment)?.title =
-                    getString(R.string.sort_order, it.sortOrder.order)
+                    getString(R.string.sort_order, getString(it.sortOrder.stringResId))
+
                 menu.findItem(R.id.searchByBottomDialogFragment)?.title =
-                    getString(R.string.search_by, it.searchBy.value)
+                    getString(R.string.search_by, getString(it.searchBy.stringResId))
+
                 menu.findItem(R.id.action_ordered)?.isChecked = it.ordered
                 menu.findItem(R.id.action_sent)?.isChecked = it.sent
                 menu.findItem(R.id.action_delivered)?.isChecked = it.delivered

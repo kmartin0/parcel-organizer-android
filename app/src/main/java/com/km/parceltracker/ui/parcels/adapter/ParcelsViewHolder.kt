@@ -22,7 +22,7 @@ class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.tvTitle.text = parcel.title
         itemView.tvSender.text = parcel.sender
         itemView.tvCourier.text = parcel.courier
-        itemView.tvStatus.text = itemView.context.getString(parcel.parcelStatus.status.statusResId)
+        itemView.tvStatus.text = itemView.context.getString(parcel.parcelStatus.status.stringResId)
         itemView.tvLastUpdated.text = SimpleDateFormat.getDateTimeInstance().format(parcel.lastUpdated)
 
         when (parcel.parcelStatus.status) {

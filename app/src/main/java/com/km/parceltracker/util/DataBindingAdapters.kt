@@ -39,7 +39,7 @@ fun setParcelStatusDropdownText(
 ) {
     try {
         view.setText(trackingStatusLiveData?.value?.let {
-            view.context.getString(it.statusResId)
+            view.context.getString(it.stringResId)
         }, false)
 
     } catch (ex: Resources.NotFoundException) {

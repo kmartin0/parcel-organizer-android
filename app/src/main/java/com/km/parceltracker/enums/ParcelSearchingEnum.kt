@@ -1,7 +1,9 @@
 package com.km.parceltracker.enums
 
-enum class ParcelSearchingEnum(val value: String) {
-    TITLE("Title"),
-    SENDER("Sender"),
-    COURIER("Courier"),
+import com.km.parceltracker.R
+
+enum class ParcelSearchingEnum(val stringResId: Int) {
+    TITLE(R.string.title),
+    SENDER(R.string.sender),
+    COURIER(R.string.courier),
 }

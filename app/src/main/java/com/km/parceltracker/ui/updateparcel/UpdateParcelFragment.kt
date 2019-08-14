@@ -27,7 +27,7 @@ class UpdateParcelFragment : BaseMVVMFragment<FragmentUpdateParcelBinding, Updat
 
     private fun initViews() {
         // Set the parcel status dropdown values using ParcelStatusEnum.
-        val parcelStatusList = ParcelStatusEnum.values().map { context!!.getString(it.statusResId) }
+        val parcelStatusList = ParcelStatusEnum.values().map { context!!.getString(it.stringResId) }
         val adapter = ArrayAdapter(context!!, R.layout.dropdown_menu_popup_item, parcelStatusList)
         dropdownStatus.setAdapter(adapter)
     }

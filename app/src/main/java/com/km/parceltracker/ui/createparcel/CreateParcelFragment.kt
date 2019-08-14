@@ -2,7 +2,6 @@ package com.km.parceltracker.ui.createparcel
 
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -13,7 +12,6 @@ import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentCreateParcelBinding
 import com.km.parceltracker.enums.ParcelStatusEnum
-import com.km.parceltracker.model.ParcelStatus
 import kotlinx.android.synthetic.main.form_parcel.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
@@ -30,7 +28,7 @@ class CreateParcelFragment : BaseMVVMFragment<FragmentCreateParcelBinding, Creat
 
     private fun initViews() {
         // Initialize the options for the Parcel Status dropdown.
-        val parcelStatusList = ParcelStatusEnum.values().map { context!!.getString(it.statusResId) }
+        val parcelStatusList = ParcelStatusEnum.values().map { context!!.getString(it.stringResId) }
         val adapter = ArrayAdapter(context!!, R.layout.dropdown_menu_popup_item, parcelStatusList)
         dropdownStatus.setAdapter(adapter)
     }

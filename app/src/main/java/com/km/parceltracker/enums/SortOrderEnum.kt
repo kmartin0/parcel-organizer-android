@@ -1,6 +1,8 @@
 package com.km.parceltracker.enums
 
-enum class SortOrderEnum(val order: String) {
-    ASCENDING("Ascending"),
-    DESCENDING("Descending")
+import com.km.parceltracker.R
+
+enum class SortOrderEnum(val stringResId: Int) {
+    ASCENDING(R.string.ascending),
+    DESCENDING(R.string.descending)
 }
