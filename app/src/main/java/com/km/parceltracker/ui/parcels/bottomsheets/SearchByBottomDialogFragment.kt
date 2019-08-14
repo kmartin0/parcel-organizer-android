@@ -27,11 +27,23 @@ class SearchByBottomDialogFragment : BottomSheetDialogFragment() {
         setInitialCheckedButton()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        applySelection()
+    /**
+     * Set the checked state for the a radio button using the searchBy attribute from sortAndFilterConfig attribute from the [viewModel].
+     */
+    private fun setInitialCheckedButton() {
+        rgSorting.check(
+            when (viewModel.sortAndFilterConfig.value?.searchBy) {
+                null, ParcelSearchingEnum.TITLE -> R.id.rbTitle
+                ParcelSearchingEnum.SENDER -> R.id.rbSender
+                ParcelSearchingEnum.COURIER -> R.id.rbCourier
+            }
+        )
+        initialButtonResId = rgSorting.checkedRadioButtonId
     }
 
+    /**
+     * Change the searchBy attribute from sortAndFilterConfig of the [viewModel] to the value of the selected radio button.
+     */
     private fun applySelection() {
         if (initialButtonResId != rgSorting.checkedRadioButtonId) {
             viewModel.sortAndFilterConfig.value?.let {
@@ -46,15 +58,12 @@ class SearchByBottomDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun setInitialCheckedButton() {
-        rgSorting.check(
-            when (viewModel.sortAndFilterConfig.value?.searchBy) {
-                null, ParcelSearchingEnum.TITLE -> R.id.rbTitle
-                ParcelSearchingEnum.SENDER -> R.id.rbSender
-                ParcelSearchingEnum.COURIER -> R.id.rbCourier
-            }
-        )
-        initialButtonResId = rgSorting.checkedRadioButtonId
+    /**
+     * When the bottom dialog is destroyed apply the selection.
+     */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        applySelection()
     }
 
 }

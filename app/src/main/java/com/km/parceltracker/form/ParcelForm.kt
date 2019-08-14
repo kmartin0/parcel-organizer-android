@@ -21,7 +21,7 @@ class ParcelForm {
     val trackingUrlError = MutableLiveData<Int>()
     val trackingStatusError = MutableLiveData<Int>()
 
-    fun getParcel(): Parcel? {
+    fun createParcelObject(): Parcel? {
         return if (validateInput()) {
             Parcel(
                 title.value!!,
@@ -34,10 +34,9 @@ class ParcelForm {
         } else null
     }
 
-    fun setStatus() {
-        println("TAGZ SET STATUS")
-    }
-
+    /**
+     * @return [Boolean] is the parcel form input correct.
+     */
     fun validateInput(): Boolean {
         return validateTitle() and
                 validateSender() and
@@ -46,6 +45,10 @@ class ParcelForm {
                 validateTrackingStatus()
     }
 
+    /**
+     * Validate the [title] value. Set [titleError] if not valid.
+     * @return [Boolean] is [title] not empty and has less than 46 characters
+     */
     fun validateTitle(): Boolean {
         var isValid: Boolean
         title.value.let {
@@ -67,6 +70,10 @@ class ParcelForm {
         return isValid
     }
 
+    /**
+     * Validate the [sender] value. Set [senderError] if not valid.
+     * @return [Boolean] is [sender] has less than 46 characters
+     */
     fun validateSender(): Boolean {
         var isValid: Boolean
         sender.value.let {
@@ -88,6 +95,10 @@ class ParcelForm {
         return isValid
     }
 
+    /**
+     * Validate the [courier] value. Set [courierError] if not valid.
+     * @return [Boolean] is [courier] has less than 46 characters
+     */
     fun validateCourier(): Boolean {
         var isValid: Boolean
         courier.value.let {
@@ -109,6 +120,10 @@ class ParcelForm {
         return isValid
     }
 
+    /**
+     * Validate the [trackingUrl] value. Set [trackingUrlError] if not valid.
+     * @return [Boolean] is [trackingUrl] a valid url.
+     */
     fun validateTrackingUrl(): Boolean {
         var isValid: Boolean
         trackingUrl.value.let {
@@ -130,6 +145,10 @@ class ParcelForm {
         return isValid
     }
 
+    /**
+     * Validate the [trackingStatus] value. Set [trackingStatusError] if not valid.
+     * @return [Boolean] is [trackingStatus] not empty.
+     */
     fun validateTrackingStatus(): Boolean {
         var isValid: Boolean
         trackingStatus.value.let {

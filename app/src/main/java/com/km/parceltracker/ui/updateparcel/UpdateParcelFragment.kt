@@ -26,14 +26,17 @@ class UpdateParcelFragment : BaseMVVMFragment<FragmentUpdateParcelBinding, Updat
     }
 
     private fun initViews() {
+        // Set the parcel status dropdown values using ParcelStatusEnum.
         val parcelStatusList = ParcelStatusEnum.values().map { context!!.getString(it.statusResId) }
         val adapter = ArrayAdapter(context!!, R.layout.dropdown_menu_popup_item, parcelStatusList)
         dropdownStatus.setAdapter(adapter)
     }
 
     private fun initObservers() {
+        // Populate the parcel form using the parcel retrieved from args
         viewModel.populateParcelForm(args.parcel)
 
+        // When parcel is updated successfully then display a toast message and navigate to the previous fragment.
         viewModel.parcelUpdateSuccess.observe(this, Observer {
             Toast.makeText(context!!, getString(R.string.parcel_updated), Toast.LENGTH_LONG).show()
             findNavController().navigateUp()

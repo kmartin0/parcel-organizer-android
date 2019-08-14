@@ -27,11 +27,26 @@ class SortByBottomDialogFragment : BottomSheetDialogFragment() {
         setInitialCheckedButton()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        applySelection()
+    /**
+     * Set the checked state for the a radio button using the sortBy attribute from sortAndFilterConfig attribute from the [viewModel].
+     */
+    private fun setInitialCheckedButton() {
+        rgSorting.check(
+            when (viewModel.sortAndFilterConfig.value?.sortBy) {
+                ParcelSortingEnum.TITLE -> R.id.rbTitle
+                ParcelSortingEnum.SENDER -> R.id.rbSender
+                ParcelSortingEnum.COURIER -> R.id.rbCourier
+                ParcelSortingEnum.DATE -> R.id.rbDate
+                ParcelSortingEnum.STATUS -> R.id.rbStatus
+                null -> R.id.rbTitle
+            }
+        )
+        initialButtonResId = rgSorting.checkedRadioButtonId
     }
 
+    /**
+     * Change the sortBy attribute from sortAndFilterConfig of the [viewModel] to the value of the selected radio button.
+     */
     private fun applySelection() {
         if (initialButtonResId != rgSorting.checkedRadioButtonId) {
             viewModel.sortAndFilterConfig.value?.let {
@@ -48,18 +63,12 @@ class SortByBottomDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun setInitialCheckedButton() {
-        rgSorting.check(
-            when (viewModel.sortAndFilterConfig.value?.sortBy) {
-                ParcelSortingEnum.TITLE -> R.id.rbTitle
-                ParcelSortingEnum.SENDER -> R.id.rbSender
-                ParcelSortingEnum.COURIER -> R.id.rbCourier
-                ParcelSortingEnum.DATE -> R.id.rbDate
-                ParcelSortingEnum.STATUS -> R.id.rbStatus
-                null -> R.id.rbTitle
-            }
-        )
-        initialButtonResId = rgSorting.checkedRadioButtonId
+    /**
+     * When the bottom dialog is destroyed apply the selection.
+     */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        applySelection()
     }
 
 }

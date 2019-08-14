@@ -14,6 +14,9 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     val password = MutableLiveData<String>()
     val loginSuccess = SingleLiveEvent<Unit>()
 
+    /**
+     * Login the user using [userRepository] using [email] and [password]
+     */
     fun login() {
         if (email.value.isNullOrBlank() || password.value.isNullOrBlank()) return
         userRepository.loginUser(User(1L, email.value!!, email.value!!, password.value!!))

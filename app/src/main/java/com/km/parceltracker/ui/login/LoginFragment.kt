@@ -18,6 +18,7 @@ class LoginFragment : BaseMVVMFragment<FragmentLoginBinding, LoginViewModel>() {
     }
 
     private fun initObservers() {
+        // When login is successful then navigate to the ParcelsFragment.
         viewModel.loginSuccess.observe(this, Observer {
             findNavController().navigate(R.id.action_loginFragment_to_parcelsFragment)
         })

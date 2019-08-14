@@ -10,6 +10,9 @@ import com.km.parceltracker.util.SharedPreferencesUtils
 
 class SettingsRepository(val context: Context) {
 
+    /**
+     * Store [sortAndFilterConfig] in Shared Preferences.
+     */
     fun setSortAndFilterSettings(sortAndFilterConfig: ParcelsSortAndFilterConfig) {
         SharedPreferencesUtils.getSharedPreferences(context).edit().run {
             putString(SharedPreferencesUtils.SORT_AND_FILTER_SETTINGS_KEY, Gson().toJson(sortAndFilterConfig))
@@ -17,6 +20,12 @@ class SettingsRepository(val context: Context) {
         }
     }
 
+    /**
+     * Retrieve [ParcelsSortAndFilterConfig] from Shared Preferences. If no config is present store and return the default.
+     * Sort and filter preferences.
+     *
+     * @return [ParcelsSortAndFilterConfig] retrieved from Shared Preferences.
+     */
     fun getSortAndFilterSettings(): ParcelsSortAndFilterConfig {
         SharedPreferencesUtils.getSharedPreferences(context).run {
             val gSon = getString(SharedPreferencesUtils.SORT_AND_FILTER_SETTINGS_KEY, null)

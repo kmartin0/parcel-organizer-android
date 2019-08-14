@@ -8,6 +8,10 @@ import com.km.parceltracker.R
 
 class ParcelsItemDecoration(private val context: Context) : RecyclerView.ItemDecoration() {
 
+    /**
+     * Set the spacing between parcel items. Add extra space to the bottom of the last item so that the last item
+     * won't be covered by a floating action button.
+     */
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         val position = parent.getChildAdapterPosition(view)
         val spacing = context.resources.getDimension(R.dimen.default_padding)

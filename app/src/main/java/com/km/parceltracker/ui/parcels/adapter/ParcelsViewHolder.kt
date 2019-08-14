@@ -10,6 +10,9 @@ import java.text.SimpleDateFormat
 
 class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    /**
+     * Bind the data to the view.
+     */
     fun bind(
         parcel: Parcel,
         onParcelClick: (Parcel) -> Unit,

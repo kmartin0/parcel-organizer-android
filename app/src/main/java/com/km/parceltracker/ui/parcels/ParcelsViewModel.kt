@@ -7,7 +7,6 @@ import com.km.parceltracker.base.BaseViewModel
 import com.km.parceltracker.repository.ParcelRepository
 import com.km.parceltracker.enums.ParcelSearchingEnum
 import com.km.parceltracker.enums.ParcelSortingEnum
-import com.km.parceltracker.enums.ParcelStatusEnum
 import com.km.parceltracker.enums.SortOrderEnum
 import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.model.ParcelsSortAndFilterConfig
@@ -27,21 +26,29 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     }
 
     init {
+        // When the value of dbParcels is changed then sort and filter the list and set the value of parcels to it
         parcels.addSource(dbParcels) {
             parcels.value = sortAndFilterParcels(it, sortAndFilterConfig.value)
         }
 
+        // When the value of sortAndFilterConfig is changed then sort and filter dbParcels and set the value of parcels to it
         parcels.addSource(sortAndFilterConfig) {
             parcels.value = sortAndFilterParcels(dbParcels.value, it)
         }
     }
 
+    /**
+     * Delete the [parcel] from the [parcelRepository]
+     */
     fun deleteParcel(parcel: Parcel) {
         doAsync {
             parcelRepository.deleteParcel(parcel)
         }
     }
 
+    /**
+     * @return List<Parcel> sorted and filtered parcels list using [sortAndFilterConfig] for the sorting and filter options
+     */
     private fun sortAndFilterParcels(
         parcels: List<Parcel>?,
         sortAndFilterConfig: ParcelsSortAndFilterConfig?
@@ -49,10 +56,16 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
         return sortParcels(filterParcels(parcels, sortAndFilterConfig), sortAndFilterConfig)
     }
 
+    /**
+     * @return List<Parcel> Sorted parcels list using [sortAndFilterConfig] for sorting options.
+     */
     private fun sortParcels(
         parcels: List<Parcel>?,
         sortAndFilterConfig: ParcelsSortAndFilterConfig?
     ): List<Parcel>? {
+        // Return the parcels list if no parcels or sorting configuration is provided.
+        // Otherwise use the sortBy attribute of the sortAndFilterConfig to determine by which attribute the list
+        // should be sorted. Then use the sortOrder attribute to determine the sort order.
         return if (parcels == null || sortAndFilterConfig == null) parcels
         else when (sortAndFilterConfig.sortBy) {
             ParcelSortingEnum.TITLE -> {
@@ -88,40 +101,43 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
+    /**
+     * @return List<Parcel> Filtered parcels list using [sortAndFilterConfig] for filter options.
+     */
     private fun filterParcels(
         parcels: List<Parcel>?,
         sortAndFilterConfig: ParcelsSortAndFilterConfig?
     ): List<Parcel>? {
+        // Return the parcels list if no parcels or sorting configuration is provided.
+        // If no search query is provided only filter by parcel status.
+        // Otherwise filter by search query and parcel status.
         return if (parcels == null || sortAndFilterConfig == null) parcels
         else if (sortAndFilterConfig.searchQuery.isNullOrBlank()) filterParcelStatus(parcels, sortAndFilterConfig)
         else {
             parcels.filter { parcel ->
-                when (sortAndFilterConfig.searchBy) {
+                when (sortAndFilterConfig.searchBy) { // Find the attribute to filter by. Then use the searchQuery and parcel status to filter.
                     ParcelSearchingEnum.TITLE -> {
-                        isParcelStatus(
-                            sortAndFilterConfig,
-                            parcel
-                        ) && parcel.title.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
+                        sortAndFilterConfig.isParcelStatusSelected(parcel) &&
+                                parcel.title.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
                     }
                     ParcelSearchingEnum.SENDER -> {
                         if (parcel.sender.isNullOrBlank()) false
-                        else isParcelStatus(
-                            sortAndFilterConfig,
-                            parcel
-                        ) && parcel.sender!!.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
+                        else sortAndFilterConfig.isParcelStatusSelected(parcel) &&
+                                parcel.sender!!.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
                     }
                     ParcelSearchingEnum.COURIER -> {
                         if (parcel.sender.isNullOrBlank()) false
-                        else isParcelStatus(
-                            sortAndFilterConfig,
-                            parcel
-                        ) && parcel.sender!!.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
+                        else sortAndFilterConfig.isParcelStatusSelected(parcel) &&
+                                parcel.sender!!.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
                     }
                 }
             }
         }
     }
 
+    /**
+     * @return List<Parcel> Filtered parcels list by Parcel Status.
+     */
     private fun filterParcelStatus(
         parcels: List<Parcel>?,
         sortAndFilterConfig: ParcelsSortAndFilterConfig?
@@ -129,16 +145,8 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
         return if (parcels == null || sortAndFilterConfig == null) parcels
         else {
             parcels.filter { parcel ->
-                isParcelStatus(sortAndFilterConfig, parcel)
+                sortAndFilterConfig.isParcelStatusSelected(parcel)
             }
-        }
-    }
-
-    private fun isParcelStatus(sortAndFilterConfig: ParcelsSortAndFilterConfig, parcel: Parcel): Boolean {
-        return when (parcel.parcelStatus.status) {
-            ParcelStatusEnum.SENT -> sortAndFilterConfig.sent
-            ParcelStatusEnum.ORDERED -> sortAndFilterConfig.ordered
-            ParcelStatusEnum.DELIVERED -> sortAndFilterConfig.delivered
         }
     }
 

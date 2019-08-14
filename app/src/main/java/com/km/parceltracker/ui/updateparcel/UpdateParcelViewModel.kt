@@ -15,6 +15,9 @@ class UpdateParcelViewModel(application: Application) : BaseViewModel(applicatio
     val parcelForm = ParcelForm()
     val parcelUpdateSuccess = SingleLiveEvent<Unit>()
 
+    /**
+     * Populate the [parcelForm] using [parcel]
+     */
     fun populateParcelForm(parcel: Parcel) {
         parcelToUpdate = parcel
         parcelForm.apply {
@@ -26,9 +29,12 @@ class UpdateParcelViewModel(application: Application) : BaseViewModel(applicatio
         }
     }
 
+    /**
+     * If the input is valid then [parcelRepository] is used to update the [parcelToUpdate]
+     */
     fun updateParcel() {
         if (parcelForm.validateInput()) {
-            parcelForm.getParcel()?.let {
+            parcelForm.createParcelObject()?.let {
                 it.id = parcelToUpdate.id
                 it.lastUpdated = Date()
                 parcelRepository.updateParcel(it)

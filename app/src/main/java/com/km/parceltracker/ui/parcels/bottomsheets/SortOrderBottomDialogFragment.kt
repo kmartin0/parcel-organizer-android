@@ -28,11 +28,22 @@ class SortOrderBottomDialogFragment : BottomSheetDialogFragment() {
         setInitialCheckedButton()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        applySelection()
+    /**
+     * Set the checked state for the a radio button using the sortOrder attribute from sortAndFilterConfig attribute from the [viewModel].
+     */
+    private fun setInitialCheckedButton() {
+        rgSorting.check(
+            when (viewModel.sortAndFilterConfig.value?.sortOrder) {
+                null, SortOrderEnum.ASCENDING -> R.id.rbAscending
+                SortOrderEnum.DESCENDING -> R.id.rbDescending
+            }
+        )
+        initialButtonResId = rgSorting.checkedRadioButtonId
     }
 
+    /**
+     * Change the sortOrder attribute from sortAndFilterConfig of the [viewModel] to the value of the selected radio button.
+     */
     private fun applySelection() {
         if (initialButtonResId != rgSorting.checkedRadioButtonId) {
             viewModel.sortAndFilterConfig.value?.let {
@@ -46,14 +57,12 @@ class SortOrderBottomDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun setInitialCheckedButton() {
-        rgSorting.check(
-            when (viewModel.sortAndFilterConfig.value?.sortOrder) {
-                null, SortOrderEnum.ASCENDING -> R.id.rbAscending
-                SortOrderEnum.DESCENDING -> R.id.rbDescending
-            }
-        )
-        initialButtonResId = rgSorting.checkedRadioButtonId
+    /**
+     * When the bottom dialog is destroyed apply the selection.
+     */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        applySelection()
     }
 
 }

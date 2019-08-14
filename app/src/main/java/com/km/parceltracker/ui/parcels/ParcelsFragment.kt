@@ -25,7 +25,9 @@ import com.km.parceltracker.ui.parcels.adapter.ParcelsItemDecoration
 import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
+
 /**
+ * TODO: Re-design parcel list item layout
  * TODO: Login Api
  * TODO: OAuth2 Api
  * TODO: Register Api
@@ -33,6 +35,7 @@ import kotlinx.android.synthetic.main.toolbar_default.*
  * TODO: Create Parcel Api
  * TODO: Edit Parcel Api
  * TODO: Remove Parcel Api
+ * TODO: Dependency Injection (Koin/Dagger)
  */
 class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewModel>() {
 
@@ -51,27 +54,39 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
     }
 
     private fun initViews() {
+        // Initialize the recycler view adapter, item decoration and layout manager.
         rvParcels.adapter = parcelsAdapter
         rvParcels.addItemDecoration(ParcelsItemDecoration(context!!))
         rvParcels.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+
+        // When the floating action button is clicked navigate to CreateParcelFragment
         fabCreateParcel.setOnClickListener { onCreateParcelClick() }
     }
 
     private fun initObservers() {
+        // When parcels list from [viewModel] is changed then clear replace the items from the recycler view with it.
         viewModel.parcels.observe(this, Observer {
             parcels.clear()
             if (it != null) parcels.addAll(it)
             parcelsAdapter.notifyDataSetChanged()
         })
+
+        // Update the menu titles when the sort and filter configuration is changed.
         viewModel.sortAndFilterConfig.observe(this, Observer {
             updateMenuTitles()
         })
     }
 
+    /**
+     * Navigate to CreateParcelFragment.
+     */
     private fun onCreateParcelClick() {
         findNavController().navigate(R.id.action_parcelsFragment_to_createParcelFragment)
     }
 
+    /**
+     * Open a Chrome Custom Tabs using the tracking url. If the url is not valid display a toast message.
+     */
     private fun onParcelClick(parcel: Parcel) {
         if (parcel.trackingUrl != null && URLUtil.isValidUrl(parcel.trackingUrl)) {
             val builder = CustomTabsIntent.Builder()
@@ -83,11 +98,18 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         }
     }
 
+    /**
+     * Navigate to UpdateParcelFragment with [parcel] as args.
+     */
     private fun onEditParcelClick(parcel: Parcel) {
         val action = ParcelsFragmentDirections.actionParcelsFragmentToUpdateParcelFragment(parcel)
         findNavController().navigate(action)
     }
 
+    /**
+     * Open an alert dialog prompting if the user is sure he wants to delete the parcel.
+     * when the user clicks yes then the parcel is deleted using the [viewModel].
+     */
     private fun onDeleteClick(parcel: Parcel) {
         AlertDialog.Builder(context!!)
             .setTitle(getString(R.string.dialog_delete_parcel_title, parcel.title))
@@ -97,24 +119,33 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
             .show()
     }
 
+    /**
+     * Initialize the search view and menu titles.
+     */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         initSearchView()
         updateMenuTitles()
     }
 
+    /**
+     * Initialize the search view by setting the query text listener.
+     */
     private fun initSearchView() {
         val searchView = menu?.findItem(R.id.action_search)?.actionView as SearchView
         searchView.setOnQueryTextListener(getSearchViewQueryListener())
     }
 
+    /**
+     * @return [SearchView.OnQueryTextListener] A query text listener which listens to a search view.
+     */
     private fun getSearchViewQueryListener(): SearchView.OnQueryTextListener {
         return object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
+            override fun onQueryTextSubmit(query: String?): Boolean { // Do nothing on submit.
                 return false
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
+            override fun onQueryTextChange(newText: String?): Boolean { // When the query changes, use the viewModel to filter the list using the query.
                 viewModel.sortAndFilterConfig.value = viewModel.sortAndFilterConfig.value
                     ?.apply {
                         searchQuery = newText
@@ -125,6 +156,9 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         }
     }
 
+    /**
+     * Update the menu titles with the selected sort and filter configuration.
+     */
     private fun updateMenuTitles() {
         menu?.let { menu ->
             viewModel.sortAndFilterConfig.value?.let {
@@ -140,9 +174,12 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         }
     }
 
+    /**
+     * Listen for options item selections.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_ordered -> {
+            R.id.action_ordered -> { // Invert the ordered checkbox and change it in the sort and filter config
                 item.isChecked = !item.isChecked
                 viewModel.sortAndFilterConfig.value?.let {
                     it.ordered = item.isChecked
@@ -150,7 +187,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
                 }
                 true
             }
-            R.id.action_sent -> {
+            R.id.action_sent -> { // Invert the sent checkbox and change it in the sort and filter config
                 item.isChecked = !item.isChecked
                 viewModel.sortAndFilterConfig.value?.let {
                     it.sent = item.isChecked
@@ -158,7 +195,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
                 }
                 true
             }
-            R.id.action_delivered -> {
+            R.id.action_delivered -> { // Invert the delivered checkbox and change it in the sort and filter config
                 item.isChecked = !item.isChecked
                 viewModel.sortAndFilterConfig.value?.let {
                     it.delivered = item.isChecked

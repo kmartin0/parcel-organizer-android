@@ -27,15 +27,19 @@ class CreateParcelFragment : BaseMVVMFragment<FragmentCreateParcelBinding, Creat
         initObservers()
     }
 
+
     private fun initViews() {
+        // Initialize the options for the Parcel Status dropdown.
         val parcelStatusList = ParcelStatusEnum.values().map { context!!.getString(it.statusResId) }
         val adapter = ArrayAdapter(context!!, R.layout.dropdown_menu_popup_item, parcelStatusList)
         dropdownStatus.setAdapter(adapter)
     }
 
     private fun initObservers() {
+        // Set the tracking url from the args.
         viewModel.setTrackingUrl(args.trackingUrl)
 
+        // When a parcel has been created display a toast message and return to the previous fragment.
         viewModel.parcelCreatedSuccess.observe(this, Observer {
             Toast.makeText(context!!, getString(R.string.parcel_created), Toast.LENGTH_LONG).show()
             findNavController().navigateUp()

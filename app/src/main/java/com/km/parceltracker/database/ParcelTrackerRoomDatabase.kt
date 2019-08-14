@@ -47,50 +47,50 @@ abstract class ParcelTrackerRoomDatabase : RoomDatabase() {
             return object : RoomDatabase.Callback() {
                 override fun onOpen(db: SupportSQLiteDatabase) {
                     super.onOpen(db)
-                    INSTANCE?.let { database ->
-                        doAsync {
-                            database.parcelDao().deleteAndInsert(
-                                arrayListOf(
-                                    Parcel(
-                                        "OnePlus 7",
-                                        "One Plus",
-                                        "PostNL",
-                                        null,
-                                        ParcelStatus(1L, ParcelStatusEnum.SENT),
-                                        Date(1556020800),
-                                        1L
-                                    ),
-                                    Parcel(
-                                        "Clothes",
-                                        "Zalando",
-                                        "PostNL",
-                                        null,
-                                        ParcelStatus(1L, ParcelStatusEnum.SENT),
-                                        Date(1563641640),
-                                        2L
-                                    ),
-                                    Parcel(
-                                        "Charging Cables",
-                                        "Cables.nl",
-                                        "DPD",
-                                        null,
-                                        ParcelStatus(1L, ParcelStatusEnum.ORDERED),
-                                        Date(1559415000),
-                                        3L
-                                    ),
-                                    Parcel(
-                                        "Garmin Vivomove HR",
-                                        "Bol.com",
-                                        "DHL",
-                                        null,
-                                        ParcelStatus(1L, ParcelStatusEnum.DELIVERED),
-                                        Date(1559315000),
-                                        4L
-                                    )
-                                )
-                            )
-                        }
-                    }
+//                    INSTANCE?.let { database ->
+//                        doAsync {
+//                            database.parcelDao().deleteAndInsert(
+//                                arrayListOf(
+//                                    Parcel(
+//                                        "OnePlus 7",
+//                                        "One Plus",
+//                                        "PostNL",
+//                                        null,
+//                                        ParcelStatus(1L, ParcelStatusEnum.SENT),
+//                                        Date(1556020800),
+//                                        1L
+//                                    ),
+//                                    Parcel(
+//                                        "Clothes",
+//                                        "Zalando",
+//                                        "PostNL",
+//                                        null,
+//                                        ParcelStatus(1L, ParcelStatusEnum.SENT),
+//                                        Date(1563641640),
+//                                        2L
+//                                    ),
+//                                    Parcel(
+//                                        "Charging Cables",
+//                                        "Cables.nl",
+//                                        "DPD",
+//                                        null,
+//                                        ParcelStatus(1L, ParcelStatusEnum.ORDERED),
+//                                        Date(1559415000),
+//                                        3L
+//                                    ),
+//                                    Parcel(
+//                                        "Garmin Vivomove HR",
+//                                        "Bol.com",
+//                                        "DHL",
+//                                        null,
+//                                        ParcelStatus(1L, ParcelStatusEnum.DELIVERED),
+//                                        Date(1559315000),
+//                                        4L
+//                                    )
+//                                )
+//                            )
+//                        }
+//                    }
                 }
             }
         }
