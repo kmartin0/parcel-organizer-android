@@ -15,8 +15,8 @@
             style="@style/ParcelItemHeader"
             android:gravity="center"
             android:text="Garmin VivoMove HR"
-            app:layout_constraintEnd_toStartOf="@id/ivDelete"
-            app:layout_constraintStart_toEndOf="@id/ivEdit"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -31,7 +31,7 @@
             style="@style/ParcelItemText"
             android:text="Bol.com"
             app:layout_constraintBottom_toBottomOf="@id/ivSender"
-            app:layout_constraintEnd_toStartOf="@id/ivEdit"
+            app:layout_constraintEnd_toStartOf="@id/tvStatus"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/ivSender"
             app:layout_constraintTop_toTopOf="@id/ivSender" />
@@ -48,6 +48,8 @@
             style="@style/ParcelItemText"
             android:text="PostNL"
             app:layout_constraintBottom_toBottomOf="@id/ivCourier"
+            app:layout_constraintEnd_toStartOf="@id/tvStatus"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/ivCourier"
             app:layout_constraintTop_toTopOf="@id/ivCourier" />
 
@@ -63,6 +65,8 @@
             style="@style/ParcelItemText"
             android:text="12-04-2019"
             app:layout_constraintBottom_toBottomOf="@id/ivLastUpdated"
+            app:layout_constraintEnd_toStartOf="@id/tvStatus"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/ivLastUpdated"
             app:layout_constraintTop_toTopOf="@id/ivLastUpdated" />
 
@@ -74,30 +78,29 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_delete_black_24dp"
-            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvTitle" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ivEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/key_line_2"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_edit_black_24dp"
-            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvTitle" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivDelete" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvStatus"
             style="@style/ParcelItemText"
             android:layout_marginStart="0dp"
             android:text="DELIVERED"
-            app:layout_constraintBottom_toBottomOf="@id/ivLastUpdated"
+            app:layout_constraintBottom_toBottomOf="@id/tvSender"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ivLastUpdated" />
+            app:layout_constraintTop_toTopOf="@id/tvSender" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

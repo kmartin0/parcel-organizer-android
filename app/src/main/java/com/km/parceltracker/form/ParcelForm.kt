@@ -154,7 +154,7 @@ class ParcelForm {
         trackingStatus.value.let {
             trackingStatusError.value = when (it) {
                 null -> {
-                    isValid = true
+                    isValid = false
                     R.string.error_required
                 }
                 else -> {
