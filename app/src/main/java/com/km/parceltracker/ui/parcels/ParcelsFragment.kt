@@ -61,6 +61,23 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
         // When the floating action button is clicked navigate to CreateParcelFragment
         fabCreateParcel.setOnClickListener { onCreateParcelClick() }
+
+        srlParcels.setOnRefreshListener {
+            if (viewModel.isLoading.value == false) {
+                removeObservers()
+                viewModel.refresh()
+                initObservers()
+                srlParcels.isRefreshing = false
+            }
+        }
+    }
+
+    private fun removeObservers() {
+        viewModel.apply {
+            parcels.removeObservers(this@ParcelsFragment)
+            sortAndFilterConfig.removeObservers(this@ParcelsFragment)
+            error.removeObservers(this@ParcelsFragment)
+        }
     }
 
     private fun initObservers() {
@@ -78,7 +95,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
         // Display the error message as a toast.
         viewModel.error.observe(this, Observer {
-           if (!it.isNullOrBlank()) Toast.makeText(context!!, it, Toast.LENGTH_SHORT).show()
+            if (!it.isNullOrBlank()) Toast.makeText(context!!, it, Toast.LENGTH_SHORT).show()
         })
     }
 

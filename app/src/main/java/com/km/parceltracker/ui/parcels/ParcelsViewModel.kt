@@ -21,7 +21,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     private val parcelRepository = ParcelRepository(application.applicationContext)
     private val settingsRepository = SettingsRepository(application.applicationContext)
 
-    private val dbParcels = parcelRepository.getParcels()
+    private var dbParcels = parcelRepository.getParcels()
 
     var parcels = MediatorLiveData<List<Parcel>>()
     var sortAndFilterConfig = MutableLiveData<ParcelsSortAndFilterConfig>().apply {
@@ -30,6 +30,10 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     var error = SingleLiveEvent<String>()
 
     init {
+        setupParcelSources()
+    }
+
+    private fun setupParcelSources() {
         // When the value of dbParcels is changed then sort and filter the list and set the value of parcels to it
         parcels.addSource(dbParcels) {
             when (it) {
@@ -169,5 +173,13 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     fun setSortingAndFilterConfig(sortAndFilterConfig: ParcelsSortAndFilterConfig) {
         settingsRepository.setSortAndFilterSettings(sortAndFilterConfig)
         this.sortAndFilterConfig.value = sortAndFilterConfig
+    }
+
+    fun refresh() {
+        if (isLoading.value == false) {
+            dbParcels = parcelRepository.getParcels()
+            parcels = MediatorLiveData()
+            setupParcelSources()
+        }
     }
 }
