@@ -11,7 +11,7 @@
     <string name="error_invalid_url">Ongeldige url</string>
     <string name="error_max_characters_45">Mag niet meer dan 45 karakters bevatten</string>
     <string name="error_required">Verplicht</string>
-    <string name="hint_courier">"Wie is de koerier "</string>
+    <string name="hint_courier">"Wie is de koerier (Optioneel)"</string>
     <string name="hint_email">Uw e-mail</string>
     <string name="hint_password">Uw wachtwoord</string>
     <string name="hint_sender">Wie is de zender van het pakket (optioneel)</string>
