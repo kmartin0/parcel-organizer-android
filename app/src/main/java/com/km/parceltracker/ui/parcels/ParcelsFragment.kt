@@ -75,6 +75,11 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         viewModel.sortAndFilterConfig.observe(this, Observer {
             updateMenuTitles()
         })
+
+        // Display the error message as a toast.
+        viewModel.error.observe(this, Observer {
+           if (!it.isNullOrBlank()) Toast.makeText(context!!, it, Toast.LENGTH_SHORT).show()
+        })
     }
 
     /**

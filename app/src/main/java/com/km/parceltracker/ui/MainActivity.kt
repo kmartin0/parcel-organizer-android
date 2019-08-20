@@ -3,6 +3,8 @@ package com.km.parceltracker.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -30,6 +32,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    fun showLoading(visibility: Boolean) {
+        findViewById<ProgressBar>(R.id.progressBar)?.visibility = if (visibility) View.VISIBLE else View.GONE
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

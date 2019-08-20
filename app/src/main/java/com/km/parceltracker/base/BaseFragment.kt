@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.appbar.MaterialToolbar
 import com.km.parceltracker.R
+import com.km.parceltracker.ui.MainActivity
 
 abstract class BaseFragment : Fragment() {
 
@@ -56,7 +57,7 @@ abstract class BaseFragment : Fragment() {
      * Displays a loading indicator based on [visibility]
      */
     fun showLoading(visibility: Boolean) {
-        activity?.findViewById<ProgressBar>(R.id.progressBar)?.visibility = if (visibility) View.VISIBLE else View.GONE
+        (activity as MainActivity?)?.showLoading(visibility)
     }
 
     // Inflate the menu for this fragment.

@@ -1,6 +1,7 @@
 package com.km.parceltracker.ui.parcels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.km.parceltracker.base.BaseViewModel
@@ -11,6 +12,8 @@ import com.km.parceltracker.enums.SortOrderEnum
 import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.model.ParcelsSortAndFilterConfig
 import com.km.parceltracker.repository.SettingsRepository
+import com.km.parceltracker.util.Resource
+import com.km.parceltracker.util.SingleLiveEvent
 import org.jetbrains.anko.doAsync
 
 class ParcelsViewModel(application: Application) : BaseViewModel(application) {
@@ -24,16 +27,29 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     var sortAndFilterConfig = MutableLiveData<ParcelsSortAndFilterConfig>().apply {
         value = settingsRepository.getSortAndFilterSettings()
     }
+    var error = SingleLiveEvent<String>()
 
     init {
         // When the value of dbParcels is changed then sort and filter the list and set the value of parcels to it
         parcels.addSource(dbParcels) {
-            parcels.value = sortAndFilterParcels(it, sortAndFilterConfig.value)
+            when (it) {
+                is Resource.Loading -> startLoading()
+                is Resource.Success -> {
+                    parcels.value = sortAndFilterParcels(it.data, sortAndFilterConfig.value)
+                    stopLoading()
+                }
+                is Resource.Failure -> {
+                    error.value = it.throwable.message
+                    stopLoading()
+                }
+            }
         }
 
         // When the value of sortAndFilterConfig is changed then sort and filter dbParcels and set the value of parcels to it
         parcels.addSource(sortAndFilterConfig) {
-            parcels.value = sortAndFilterParcels(dbParcels.value, it)
+            dbParcels.value?.let { resource ->
+                if (resource is Resource.Success) parcels.value = sortAndFilterParcels(resource.data, it)
+            }
         }
     }
 
