@@ -3,6 +3,7 @@ package com.km.parceltracker.api
 import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
+import com.km.parceltracker.repository.TokenRepository
 import com.km.parceltracker.repository.UserRepository
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -60,16 +61,18 @@ class ParcelTrackerApi {
         }
 
         private fun getAccessTokenInterceptor(context: Context): Interceptor {
-            val userRepository = UserRepository(context)
-            val accessToken = userRepository.getLoggedInUser()?.authorization?.accessToken
+            val tokenRepository = TokenRepository(context)
+            val accessToken = tokenRepository.getUserAuthentication()?.accessToken
 
             // TODO: Test what happens in calls that don't need auth header (i.e. register)
             return Interceptor {
-                val request = it.request().newBuilder()
-                    .addHeader("Authorization", "Bearer $accessToken")
-                    .build()
+                val newRequest = if (accessToken != null) {
+                    it.request().newBuilder()
+                        .addHeader("Authorization", "Bearer $accessToken")
+                        .build()
+                } else it.request()
 
-                it.proceed(request)
+                it.proceed(newRequest)
             }
         }
 
@@ -90,10 +93,11 @@ class ParcelTrackerApi {
                     val body = response.body()?.string()
                     val responseBody = Gson().fromJson(body, ApiError::class.java)
                     return if (responseBody.error == "invalid_token") {
-                        val userRepository = UserRepository(context)
-                        val refreshToken = userRepository.getLoggedInUser()?.authorization?.refreshToken ?: return null
-                        val newAuth = userRepository.refreshAccessToken(refreshToken).blockingGet()
-                        userRepository.setUserAuthentication(newAuth)
+                        val tokenRepository = TokenRepository(context)
+                        val refreshToken = tokenRepository.getUserAuthentication()?.refreshToken ?: return null
+
+                        val newAuth = tokenRepository.refreshAccessToken(refreshToken).blockingGet()
+                        tokenRepository.setUserAuthentication(newAuth)
 
                         response.request().newBuilder()
                             .header("Authorization", "Bearer ${newAuth.accessToken}")

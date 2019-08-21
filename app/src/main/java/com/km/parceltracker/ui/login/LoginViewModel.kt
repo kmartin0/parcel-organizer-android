@@ -19,8 +19,11 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
      */
     fun login() {
         if (email.value.isNullOrBlank() || password.value.isNullOrBlank()) return
-//        userRepository.loginUser(User(1L, email.value!!, email.value!!, password.value!!))
+//        userRepository.persistUser(User(1L, email.value!!, email.value!!, password.value!!))
         loginSuccess.call()
+
+        userRepository.authenticateUser(email.value!!, password.value!!)
+
     }
 
 }

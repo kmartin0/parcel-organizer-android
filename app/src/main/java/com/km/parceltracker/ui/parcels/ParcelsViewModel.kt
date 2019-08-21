@@ -20,7 +20,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     private val parcelRepository = ParcelRepository(application.applicationContext)
     private val settingsRepository = SettingsRepository(application.applicationContext)
 
-    private var dbParcels = parcelRepository.getParcels()
+    private var apiParcels = parcelRepository.getParcels()
 
     var parcels = MediatorLiveData<List<Parcel>>()
     var sortAndFilterConfig = MutableLiveData<ParcelsSortAndFilterConfig>().apply {
@@ -33,8 +33,8 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     }
 
     private fun setupParcelSources() {
-        // When the value of dbParcels is changed then sort and filter the list and set the value of parcels to it
-        parcels.addSource(dbParcels) {
+        // When the value of apiParcels is changed then sort and filter the list and set the value of parcels to it
+        parcels.addSource(apiParcels) {
             when (it) {
                 is Resource.Loading -> startLoading()
                 is Resource.Success -> {
@@ -48,9 +48,9 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
             }
         }
 
-        // When the value of sortAndFilterConfig is changed then sort and filter dbParcels and set the value of parcels to it
+        // When the value of sortAndFilterConfig is changed then sort and filter apiParcels and set the value of parcels to it
         parcels.addSource(sortAndFilterConfig) {
-            dbParcels.value?.let { resource ->
+            apiParcels.value?.let { resource ->
                 if (resource is Resource.Success) parcels.value = sortAndFilterParcels(resource.data, it)
             }
         }
@@ -176,7 +176,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
     fun refresh() {
         if (isLoading.value == false) {
-            dbParcels = parcelRepository.getParcels()
+            apiParcels = parcelRepository.getParcels()
             parcels = MediatorLiveData()
             setupParcelSources()
         }

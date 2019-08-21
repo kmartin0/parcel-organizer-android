@@ -8,7 +8,6 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.google.gson.Gson
 import com.km.parceltracker.R
@@ -58,12 +57,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun loginTestUser() {
         val authorization= Gson().fromJson("{\n" +
-                "    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjYzNzk5NjksInVzZXJfbmFtZSI6ImtldiIsImp0aSI6ImUzOWJlZjk3LWY1MzEtNDUxMy1hOTAxLTgzOTg1NjI2ODY3NyIsImNsaWVudF9pZCI6InBhcmNlbC10cmFja2VyLWFuZHJvaWQiLCJzY29wZSI6WyJhbGwiXX0.WWm5JEPQdtUMjXvXnm79k_vtiHLliyK1C4_XCwWEOUU\",\n" +
+                "    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjY0NDY0NTcsInVzZXJfbmFtZSI6ImtldiIsImp0aSI6IjY3ZGFjN2I5LTliNDMtNGJiMC1iNWZiLTc2Yjc0NzM1YTM4YiIsImNsaWVudF9pZCI6InBhcmNlbC10cmFja2VyLWFuZHJvaWQiLCJzY29wZSI6WyJhbGwiXX0.LZooikEnnKBmGWnTRwbnJ0EfGikO5BhpsIEkzWg_-p0\",\n" +
                 "    \"token_type\": \"bearer\",\n" +
-                "    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjYzNzk5NjksInVzZXJfbmFtZSI6ImtldiIsImp0aSI6Ijk1NTU0MzM0LTNiMjAtNDY1My1hM2E0LTRmZmU0ZmU4ZGMzMyIsImNsaWVudF9pZCI6InBhcmNlbC10cmFja2VyLWFuZHJvaWQiLCJzY29wZSI6WyJhbGwiXSwiYXRpIjoiZTM5YmVmOTctZjUzMS00NTEzLWE5MDEtODM5ODU2MjY4Njc3In0.1pZOeqrV_Gc4PhlAZTwQFj5mqy7ExVGMnyat-8sZkcA\",\n" +
-                "    \"expires_in\": 4,\n" +
+                "    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjY2NTI3NTcsInVzZXJfbmFtZSI6ImtldiIsImp0aSI6IjA0NDdlODk1LWIwYzktNDk2MC1iNzNlLWNkYjA1MjgxYTY0YiIsImNsaWVudF9pZCI6InBhcmNlbC10cmFja2VyLWFuZHJvaWQiLCJzY29wZSI6WyJhbGwiXSwiYXRpIjoiNjdkYWM3YjktOWI0My00YmIwLWI1ZmItNzZiNzQ3MzVhMzhiIn0.rkeuD9F04J1Fd_3dtDGf-HJCn5gOHzhwFTiQNXbxjHk\",\n" +
+                "    \"expires_in\": 49999,\n" +
                 "    \"scope\": \"all\",\n" +
-                "    \"jti\": \"e39bef97-f531-4513-a901-839856268677\"\n" +
+                "    \"jti\": \"67dac7b9-9b43-4bb0-b5fb-76b74735a38b\"\n" +
                 "}", Authorization::class.java)
 
                 val userRepository = UserRepository(this)
@@ -74,6 +73,6 @@ class MainActivity : AppCompatActivity() {
             "pass123",
             authorization
         )
-        userRepository.loginUser(user)
+        userRepository.persistUser(user)
     }
 }
