@@ -58,5 +58,8 @@
     <string name="submit">Submit</string>
     <string name="update_parcel">Update Parcel</string>
     <string name="parcel_updated">Parcel Updated Successfully</string>
+    <string name="ok">OK</string>
+    <string name="error_internet_title">Could not establish a connection</string>
+    <string name="error_internet_message">Please check your internet connection and try again.</string>
 
 </resources>

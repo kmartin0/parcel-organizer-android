@@ -1,7 +1,6 @@
 package com.km.parceltracker.ui.parcels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.km.parceltracker.base.BaseViewModel
@@ -43,7 +42,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
                     stopLoading()
                 }
                 is Resource.Failure -> {
-                    error.value = it.throwable.message
+                    handleApiError(it.throwable)
                     stopLoading()
                 }
             }

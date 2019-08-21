@@ -43,4 +43,7 @@
     <string name="title">Titel</string>
     <string name="update_parcel">Update pakket</string>
     <string name="yes">Ja</string>
+    <string name="ok">OK</string>
+    <string name="error_internet_title">Kon geen verbinding maken</string>
+    <string name="error_internet_message">Controleer uw internet verbinding en probeer opnieuw.</string>
 </resources>

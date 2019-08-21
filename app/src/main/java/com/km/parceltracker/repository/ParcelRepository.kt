@@ -18,7 +18,7 @@ import org.jetbrains.anko.doAsync
 class ParcelRepository(context: Context) {
 
     private val parcelDao: ParcelDao
-    private val api = ParcelTrackerApi.createApi()
+    private val api = ParcelTrackerApi.createApi(context)
 
     init {
         val database = ParcelTrackerRoomDatabase.getDatabase(context)

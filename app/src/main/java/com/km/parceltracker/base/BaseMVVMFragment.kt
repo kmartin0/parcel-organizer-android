@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import com.km.parceltracker.R
 
 abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFragment() {
 
@@ -32,11 +35,30 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeLoading()
+        observeNoInternetConnection()
+        observeLogout()
     }
 
     private fun observeLoading() {
         viewModel.isLoading.observe(this, Observer {
             showLoading(it)
+        })
+    }
+
+    private fun observeNoInternetConnection() {
+        viewModel.noInternetConnection.observe(this, Observer {
+            AlertDialog.Builder(context!!)
+                .setTitle(getString(R.string.error_internet_title))
+                .setMessage(getString(R.string.error_internet_message))
+                .setNeutralButton(getString(R.string.ok), null)
+                .show()
+        })
+    }
+
+    private fun observeLogout() {
+        // TODO: Logout functionality
+        viewModel.logout.observe(this, Observer {
+            Toast.makeText(context, "Logout called!", Toast.LENGTH_LONG).show()
         })
     }
 

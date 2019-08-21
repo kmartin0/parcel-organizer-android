@@ -27,11 +27,8 @@ import kotlinx.android.synthetic.main.toolbar_default.*
 
 
 /**
- * TODO: Re-design parcel list item layout
  * TODO: Login Api
- * TODO: OAuth2 Api
  * TODO: Register Api
- * TODO: Get parcels Api
  * TODO: Create Parcel Api
  * TODO: Edit Parcel Api
  * TODO: Remove Parcel Api
@@ -67,8 +64,8 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
                 removeObservers()
                 viewModel.refresh()
                 initObservers()
-                srlParcels.isRefreshing = false
             }
+            srlParcels.isRefreshing = false
         }
     }
 
