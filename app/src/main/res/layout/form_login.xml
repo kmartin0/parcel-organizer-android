@@ -50,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
+                android:imeOptions="actionDone"
                 android:maxLines="1"
                 android:text="@={loginForm.password}" />
 
