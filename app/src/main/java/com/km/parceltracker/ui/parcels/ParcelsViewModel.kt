@@ -41,7 +41,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
                     stopLoading()
                 }
                 is Resource.Failure -> {
-                    handleGlobalApiError(it.throwable)
+                    handleApiError(it.throwable)
                     stopLoading()
                 }
             }

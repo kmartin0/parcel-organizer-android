@@ -46,11 +46,12 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
 
                     override fun onError(e: Throwable) {
                         stopLoading()
-                        val apiError = handleGlobalApiError(e)
-                        when (apiError?.error) { // TODO: Check if I can add a function in handleGlobalApiError which will run the block inside the when of handleGlobalApiError
-                            "invalid_grant" -> {
-                                loginForm.emailError.value = R.string.error_login_credentials
-                                loginForm.passwordError.value = R.string.error_login_credentials
+                        handleApiError(e) {
+                            when (it?.error) {
+                                "invalid_grant" -> {
+                                    loginForm.emailError.value = R.string.error_login_credentials
+                                    loginForm.passwordError.value = R.string.error_login_credentials
+                                }
                             }
                         }
                     }

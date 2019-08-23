@@ -29,19 +29,26 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
      * @return [ApiError?] If the error is not handled and is an instance of [ApiError] then
      * the [ApiError] is returned. If the error was consumed then null is returned.
      */
-    protected fun handleGlobalApiError(error: Throwable) : ApiError? {
+    protected fun handleApiError(error: Throwable, apiErrorHandler: ((ApiError?) -> Unit)? = null): ApiError? {
         return when (error) {
             is HttpException -> {
+                // Parse the HttpException into an ApiError object.
                 val apiError = parseApiError(error)
-                return when (apiError?.error) {
-                    "invalid_token" -> { // Refresh Token Expired.
-                        logout.call()
-                        null
-                    }
-                    else -> apiError
+
+                // If an error handler is supplied use it to handle the api error.
+                if (apiErrorHandler != null) {
+                    apiErrorHandler(apiError)
                 }
+
+                // Handle these errors globally.
+                when (apiError?.error) {
+                    "invalid_token" -> logout.call()  // Refresh Token Expired.
+                }
+
+                // Return the api error object.
+                apiError
             }
-            is SocketTimeoutException -> {
+            is SocketTimeoutException -> { // Server can't be reached.
                 noInternetConnection.call()
                 null
             }
@@ -49,7 +56,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    private fun parseApiError(error: Throwable): ApiError? {
+    fun parseApiError(error: Throwable): ApiError? {
         return when (error) {
             is HttpException -> {
                 val body = error.response()?.errorBody()?.string()
