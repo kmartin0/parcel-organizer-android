@@ -20,6 +20,7 @@ import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentParcelsBinding
 import com.km.parceltracker.model.Parcel
+import com.km.parceltracker.repository.UserRepository
 import com.km.parceltracker.ui.parcels.adapter.ParcelsAdapter
 import com.km.parceltracker.ui.parcels.adapter.ParcelsItemDecoration
 import kotlinx.android.synthetic.main.fragment_parcels.*
@@ -66,6 +67,13 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
                 initObservers()
             }
             srlParcels.isRefreshing = false
+        }
+
+        // Dummy logout button
+        val userRepository = UserRepository(context!!)
+        fabLogout.setOnClickListener {
+            userRepository.logoutUser()
+            findNavController().navigate(R.id.action_parcelsFragment_to_loginFragment)
         }
     }
 

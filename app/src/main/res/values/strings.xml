@@ -6,6 +6,8 @@
 
     <!-- Default Error Messages -->
     <string name="error_max_characters_45">Cannot exceed 45 characters</string>
+    <string name="error_min_characters_6">Must be minimum of 6 characters</string>
+    <string name="error_confirm_password">Input doesn\'t match password</string>
     <string name="error_required">Required</string>
     <string name="error_invalid_url">Invalid Url</string>
 
@@ -62,5 +64,13 @@
     <string name="error_internet_title">Could not establish a connection</string>
     <string name="error_internet_message">Please check your internet connection and try again.</string>
     <string name="error_login_credentials">Email/password combination incorrect.</string>
-
+    <string name="error_invalid_email">Invalid email</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="register_success_title">Successfully registered your account</string>
+    <string name="register_success_message">Press OK to return to login.</string>
+    <string name="already_exists">Already exists</string>
+    <string name="error_internal_title">Oops something went wrong</string>
+    <string name="error_internal_message">Something went wrong while processing your request, please try again later.</string>
 </resources>

@@ -7,12 +7,20 @@ import androidx.navigation.fragment.findNavController
 import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentLoginBinding
+import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : BaseMVVMFragment<FragmentLoginBinding, LoginViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViews()
         initObservers()
+    }
+
+    private fun initViews() {
+        btnRegister.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
     }
 
     private fun initObservers() {

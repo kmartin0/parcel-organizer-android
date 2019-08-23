@@ -23,4 +23,7 @@ interface ParcelTrackerApiService {
 
     @GET(Endpoints.USERS)
     fun getUser(@Header("Authorization") accessToken : String) : Single<User>
+
+    @POST(Endpoints.USERS)
+    fun registerUser(@Body registerRequest: RegisterRequest) : Single<User>
 }

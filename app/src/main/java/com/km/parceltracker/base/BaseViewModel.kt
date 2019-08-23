@@ -11,8 +11,9 @@ import java.net.SocketTimeoutException
 
 abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
     val isLoading = MutableLiveData<Boolean>()
-    val noInternetConnection = SingleLiveEvent<Any>()
-    val logout = SingleLiveEvent<Any>()
+    val noInternetConnection = SingleLiveEvent<Unit>()
+    val logout = SingleLiveEvent<Unit>()
+    val internalServerError = SingleLiveEvent<Unit>()
 
     protected fun startLoading() {
         isLoading.value = true
@@ -42,7 +43,8 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
 
                 // Handle these errors globally.
                 when (apiError?.error) {
-                    "invalid_token" -> logout.call()  // Refresh Token Expired.
+                    ApiError.TOKEN_EXPIRED -> logout.call()  // Refresh Token Expired.
+                    ApiError.INTERNAL_SERVER_ERROR -> internalServerError.call()
                 }
 
                 // Return the api error object.

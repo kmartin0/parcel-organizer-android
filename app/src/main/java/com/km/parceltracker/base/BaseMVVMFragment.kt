@@ -36,6 +36,7 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
         observeLoading()
         observeNoInternetConnection()
         observeLogout()
+        observeInternalServerError()
     }
 
     private fun observeLoading() {
@@ -58,6 +59,16 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
         // TODO: Logout functionality
         viewModel.logout.observe(this, Observer {
             Toast.makeText(context, "Logout called!", Toast.LENGTH_LONG).show()
+        })
+    }
+
+    private fun observeInternalServerError() {
+        viewModel.internalServerError.observe(this, Observer {
+            AlertDialog.Builder(context!!)
+                .setTitle(getString(R.string.error_internal_title))
+                .setMessage(getString(R.string.error_internal_message))
+                .setNeutralButton(getString(R.string.ok), null)
+                .show()
         })
     }
 
