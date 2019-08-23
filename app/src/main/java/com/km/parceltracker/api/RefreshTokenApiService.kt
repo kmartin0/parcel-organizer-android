@@ -1,15 +1,14 @@
 package com.km.parceltracker.api
 
-import com.km.parceltracker.model.Authorization
+import com.km.parceltracker.model.OAuth2Credentials
+import com.km.parceltracker.util.Endpoints
 import io.reactivex.Single
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface RefreshTokenApiService {
 
-    @POST("/oauth/token")
+    @POST(Endpoints.OAUTH_TOKEN)
     @FormUrlEncoded
-    fun refreshToken(@Field("grant_type") grantType: String = "refresh_token", @Field("refresh_token") refreshToken: String): Single<Authorization>
+    fun refreshToken(@Field("refresh_token") refreshToken: String, @Field("grant_type") grantType: String = "refresh_token"): Single<OAuth2Credentials>
 
 }

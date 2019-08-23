@@ -25,13 +25,13 @@ import com.km.parceltracker.ui.parcels.adapter.ParcelsItemDecoration
 import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
-
 /**
- * TODO: Login Api
+ * TODO: Bottom nav bar with user profile
  * TODO: Register Api
  * TODO: Create Parcel Api
  * TODO: Edit Parcel Api
  * TODO: Remove Parcel Api
+ * TODO: Maybe look into converting shared prefs into Single
  * TODO: Dependency Injection (Koin/Dagger)
  */
 class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewModel>() {

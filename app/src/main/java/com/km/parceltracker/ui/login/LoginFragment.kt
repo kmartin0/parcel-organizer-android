@@ -2,13 +2,11 @@ package com.km.parceltracker.ui.login
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentLoginBinding
-import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : BaseMVVMFragment<FragmentLoginBinding, LoginViewModel>() {
 

@@ -1,50 +1,43 @@
 package com.km.parceltracker.repository
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.km.parceltracker.api.ParcelTrackerApi
-import com.km.parceltracker.model.Authorization
+import com.km.parceltracker.model.OAuth2Credentials
 import com.km.parceltracker.model.User
-import com.km.parceltracker.util.Resource
 import com.km.parceltracker.util.SharedPreferencesUtils
-import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.Single
+
 
 class UserRepository(val context: Context) {
 
     private val parcelTrackerApi = ParcelTrackerApi.createApi(context)
 
-    fun authenticateUser(email: String, password: String): MutableLiveData<Resource<Authorization>> {
-        val state = MutableLiveData<Resource<Authorization>>()
+    fun loginUser(email: String, password: String): Single<User> {
+        return authenticateUser(email, password)
+            .flatMap { oAuth2Credentials ->
+                getUser("Bearer ${oAuth2Credentials.accessToken}")
+                    .map { user ->
+                        user.also {
+                            it.OAuth2Credentials = oAuth2Credentials
+                            persistUser(it)
+                        }
+                    }
+            }
+    }
 
-        parcelTrackerApi.authenticateUser(email, password)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : SingleObserver<Authorization> {
-                override fun onSuccess(t: Authorization) {
-                    state.value = Resource.Success(t)
-                }
+    private fun authenticateUser(email: String, password: String): Single<OAuth2Credentials> {
+        return parcelTrackerApi.authenticateUser(email, password)
+    }
 
-                override fun onSubscribe(d: Disposable) {
-                    state.value = Resource.Loading()
-                }
-
-                override fun onError(e: Throwable) {
-                    state.value = Resource.Failure(e)
-                }
-            })
-
-        return state
-
+    private fun getUser(token: String): Single<User> {
+        return parcelTrackerApi.getUser(token)
     }
 
     /**
      * Store [user] in Shared Preferences.
      */
-    fun persistUser(user: User) {
+    private fun persistUser(user: User) {
         SharedPreferencesUtils.getSharedPreferences(context).edit().run {
             putString(SharedPreferencesUtils.USER_KEY, Gson().toJson(user))
             apply()

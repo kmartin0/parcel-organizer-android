@@ -1,8 +1,6 @@
 package com.km.parceltracker.repository
 
 import android.content.Context
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.km.parceltracker.api.ParcelTrackerApi
 import com.km.parceltracker.database.ParcelTrackerRoomDatabase
@@ -40,17 +38,14 @@ class ParcelRepository(context: Context) {
             .subscribe(object : SingleObserver<List<Parcel>> {
                 override fun onSuccess(t: List<Parcel>) {
                     state.value = Resource.Success(t)
-                    Log.i("TAGZ", "Success: ${state.value}")
                 }
 
                 override fun onSubscribe(d: Disposable) {
                     state.value = Resource.Loading()
-                    Log.i("TAGZ", "Subscribing ${state.value}")
                 }
 
                 override fun onError(e: Throwable) {
                     state.value = Resource.Failure(e)
-                    Log.i("TAGZ", "Error: ${state.value}")
                 }
             })
 

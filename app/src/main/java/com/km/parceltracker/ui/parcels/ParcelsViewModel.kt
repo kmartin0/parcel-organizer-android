@@ -20,8 +20,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     private val parcelRepository = ParcelRepository(application.applicationContext)
     private val settingsRepository = SettingsRepository(application.applicationContext)
 
-    private var apiParcels = parcelRepository.getParcels()
-
+    private var repoParcels = parcelRepository.getParcels()
     var parcels = MediatorLiveData<List<Parcel>>()
     var sortAndFilterConfig = MutableLiveData<ParcelsSortAndFilterConfig>().apply {
         value = settingsRepository.getSortAndFilterSettings()
@@ -33,8 +32,8 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     }
 
     private fun setupParcelSources() {
-        // When the value of apiParcels is changed then sort and filter the list and set the value of parcels to it
-        parcels.addSource(apiParcels) {
+        // When the value of repoParcels is changed then sort and filter the list and set the value of parcels to it
+        parcels.addSource(repoParcels) {
             when (it) {
                 is Resource.Loading -> startLoading()
                 is Resource.Success -> {
@@ -42,15 +41,15 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
                     stopLoading()
                 }
                 is Resource.Failure -> {
-                    handleApiError(it.throwable)
+                    handleGlobalApiError(it.throwable)
                     stopLoading()
                 }
             }
         }
 
-        // When the value of sortAndFilterConfig is changed then sort and filter apiParcels and set the value of parcels to it
+        // When the value of sortAndFilterConfig is changed then sort and filter repoParcels and set the value of parcels to it
         parcels.addSource(sortAndFilterConfig) {
-            apiParcels.value?.let { resource ->
+            repoParcels.value?.let { resource ->
                 if (resource is Resource.Success) parcels.value = sortAndFilterParcels(resource.data, it)
             }
         }
@@ -176,7 +175,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
     fun refresh() {
         if (isLoading.value == false) {
-            apiParcels = parcelRepository.getParcels()
+            repoParcels = parcelRepository.getParcels()
             parcels = MediatorLiveData()
             setupParcelSources()
         }

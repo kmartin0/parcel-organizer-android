@@ -3,7 +3,7 @@ package com.km.parceltracker.model
 data class User(
     val id: Long,
     val email: String,
-    val userName: String,
+    val name: String,
     val password: String,
-    var authorization: Authorization?
+    var OAuth2Credentials: OAuth2Credentials?
 )

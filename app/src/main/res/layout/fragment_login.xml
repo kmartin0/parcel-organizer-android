@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -42,26 +43,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilEmail"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+        <include
+            android:id="@+id/loginFormLayout"
+            layout="@layout/form_login"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/key_line_2"
-            app:layout_constraintBottom_toTopOf="@id/guideline"
+            app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={viewModel.email}"
-                android:hint="@string/hint_email"
-                android:inputType="text"
-                android:maxLines="1" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline"
+            bind:loginForm="@{viewModel.loginForm}" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -70,26 +61,6 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPassword"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/key_line_2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={viewModel.password}"
-                android:hint="@string/hint_password"
-                android:inputType="textPassword"
-                android:maxLines="1" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.button.MaterialButton
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
@@ -97,7 +68,7 @@
             android:layout_marginTop="@dimen/key_line_2"
             android:text="@string/register_here"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilPassword" />
+            app:layout_constraintTop_toBottomOf="@id/loginFormLayout" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"

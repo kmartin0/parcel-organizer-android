@@ -2,7 +2,7 @@ package com.km.parceltracker.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Authorization(
+data class OAuth2Credentials(
     @SerializedName("access_token") var accessToken: String,
     @SerializedName("token_type") var tokenType: String,
     @SerializedName("refresh_token") var refreshToken: String,

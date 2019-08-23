@@ -1,10 +1,9 @@
 package com.km.parceltracker.api
 
 import android.content.Context
-import android.util.Log
 import com.google.gson.Gson
 import com.km.parceltracker.repository.TokenRepository
-import com.km.parceltracker.repository.UserRepository
+import com.km.parceltracker.util.Endpoints
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -32,11 +31,11 @@ class ParcelTrackerApi {
             return numbersApi.create(ParcelTrackerApiService::class.java)
         }
 
-        fun createRefreshTokenApi(): RefreshTokenApiService {
+        fun createRefreshTokenApi(context : Context): RefreshTokenApiService {
             // Create the Retrofit instance
             val numbersApi = Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .client(getOkHttpClientRefreshTokenApi())
+                .client(getOkHttpClientRefreshTokenApi(context))
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
@@ -48,40 +47,37 @@ class ParcelTrackerApi {
         private fun getOkHttpClientApi(context: Context): OkHttpClient {
             return OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .addInterceptor(getAccessTokenInterceptor(context))
+                .addInterceptor(authHeaderInterceptor(context))
                 .authenticator(getRefreshTokenAuthenticator(context))
                 .build()
         }
 
-        private fun getOkHttpClientRefreshTokenApi(): OkHttpClient {
+        private fun getOkHttpClientRefreshTokenApi(context: Context): OkHttpClient {
             return OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .addInterceptor(getBasicAuthInterceptor())
+                .addInterceptor(authHeaderInterceptor(context))
                 .build()
         }
 
-        private fun getAccessTokenInterceptor(context: Context): Interceptor {
-            val tokenRepository = TokenRepository(context)
-            val accessToken = tokenRepository.getUserAuthentication()?.accessToken
-
-            // TODO: Test what happens in calls that don't need auth header (i.e. register)
+        private fun authHeaderInterceptor(context: Context): Interceptor {
             return Interceptor {
-                val newRequest = if (accessToken != null) {
-                    it.request().newBuilder()
-                        .addHeader("Authorization", "Bearer $accessToken")
-                        .build()
-                } else it.request()
+                val request = it.request()
+                val requestBuilder = request.newBuilder()
 
-                it.proceed(newRequest)
-            }
-        }
+                if (Endpoints.shouldBasicAuth(request)) {
+                    val basic = Credentials.basic("parcel-tracker-android", "secret")
+                    requestBuilder.addHeader("Authorization", basic)
 
-        private fun getBasicAuthInterceptor(): Interceptor {
-            val basic = Credentials.basic("parcel-tracker-android", "secret")
-            return Interceptor {
-                val request = it.request().newBuilder()
-                    .addHeader("Authorization", basic)
-                    .build()
+                    return@Interceptor it.proceed(requestBuilder.build())
+                }
+
+                if (Endpoints.shouldBearerTokenAuth(request)) {
+                    val tokenRepository = TokenRepository(context)
+                    val accessToken = tokenRepository.getUserOAuth2Credentials()?.accessToken
+                    requestBuilder.addHeader("Authorization", "Bearer $accessToken")
+
+                    return@Interceptor it.proceed(requestBuilder.build())
+                }
 
                 it.proceed(request)
             }
@@ -90,20 +86,19 @@ class ParcelTrackerApi {
         private fun getRefreshTokenAuthenticator(context: Context): Authenticator {
             return object : Authenticator {
                 override fun authenticate(route: Route?, response: Response): Request? {
-                    val body = response.body()?.string()
+                    val body = response.peekBody(Long.MAX_VALUE).string()
                     val responseBody = Gson().fromJson(body, ApiError::class.java)
                     return if (responseBody.error == "invalid_token") {
                         val tokenRepository = TokenRepository(context)
-                        val refreshToken = tokenRepository.getUserAuthentication()?.refreshToken ?: return null
+                        val refreshToken = tokenRepository.getUserOAuth2Credentials()?.refreshToken ?: return null
 
                         val newAuth = tokenRepository.refreshAccessToken(refreshToken).blockingGet()
-                        tokenRepository.setUserAuthentication(newAuth)
+                        tokenRepository.setUserOAuth2Credentials(newAuth)
 
                         response.request().newBuilder()
                             .header("Authorization", "Bearer ${newAuth.accessToken}")
                             .build()
                     } else {
-                        // TODO: Test with other authentication errors such as login
                         null
                     }
                 }

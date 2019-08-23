@@ -2,15 +2,12 @@ package com.km.parceltracker.base
 
 import android.os.Bundle
 import android.view.*
-import android.widget.ProgressBar
 import androidx.annotation.LayoutRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.appbar.MaterialToolbar
 import com.km.parceltracker.R
@@ -44,7 +41,7 @@ abstract class BaseFragment : Fragment() {
 
             // Attach the toolbar with he navigation graph.
             val navController = findNavController()
-            val appBarConfiguration = AppBarConfiguration(navController.graph)
+            val appBarConfiguration = AppBarConfiguration(setOf(R.id.loginFragment, R.id.parcelsFragment))
             (activity as AppCompatActivity).setupActionBarWithNavController(navController, appBarConfiguration)
         }
     }

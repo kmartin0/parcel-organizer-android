@@ -1,7 +1,6 @@
 package com.km.parceltracker.base
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
@@ -23,16 +22,40 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
         isLoading.value = false
     }
 
-    protected fun handleApiError(error: Throwable) {
-        when (error) {
+    /**
+     * TODO: Look into moving this code someplace else.
+     * Handles an [Throwable] thrown by retrofit.
+     *
+     * @return [ApiError?] If the error is not handled and is an instance of [ApiError] then
+     * the [ApiError] is returned. If the error was consumed then null is returned.
+     */
+    protected fun handleGlobalApiError(error: Throwable) : ApiError? {
+        return when (error) {
             is HttpException -> {
-                val body = error.response()?.errorBody()?.string()
-                val apiError = Gson().fromJson(body, ApiError::class.java)
-                when (apiError.error) {
-                    "invalid_token" -> logout.call() // Refresh Token Expired.
+                val apiError = parseApiError(error)
+                return when (apiError?.error) {
+                    "invalid_token" -> { // Refresh Token Expired.
+                        logout.call()
+                        null
+                    }
+                    else -> apiError
                 }
             }
-            is SocketTimeoutException -> noInternetConnection.call()
+            is SocketTimeoutException -> {
+                noInternetConnection.call()
+                null
+            }
+            else -> null
+        }
+    }
+
+    private fun parseApiError(error: Throwable): ApiError? {
+        return when (error) {
+            is HttpException -> {
+                val body = error.response()?.errorBody()?.string()
+                Gson().fromJson(body, ApiError::class.java)
+            }
+            else -> null
         }
     }
 

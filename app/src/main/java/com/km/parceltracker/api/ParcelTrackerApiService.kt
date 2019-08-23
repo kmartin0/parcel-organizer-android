@@ -1,22 +1,26 @@
 package com.km.parceltracker.api
 
-import com.km.parceltracker.model.Authorization
+import com.km.parceltracker.model.OAuth2Credentials
 import com.km.parceltracker.model.Parcel
+import com.km.parceltracker.model.User
+import com.km.parceltracker.util.Endpoints
+import io.reactivex.Observable
 import io.reactivex.Single
-import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ParcelTrackerApiService {
 
-    @GET("/parcels")
+    @GET(Endpoints.PARCELS)
     fun getParcels(): Single<List<Parcel>>
 
-    @POST("/oauth/token")
+    @POST(Endpoints.OAUTH_TOKEN)
+    @FormUrlEncoded
     fun authenticateUser(
         @Field("username") username: String,
         @Field("password") password: String,
         @Field("grant_type") grantType: String = "password"
-    ): Single<Authorization>
+    ): Single<OAuth2Credentials>
+
+    @GET(Endpoints.USERS)
+    fun getUser(@Header("Authorization") accessToken : String) : Single<User>
 }
