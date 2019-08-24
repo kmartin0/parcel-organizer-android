@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class RegisterViewModel(application: Application) : BaseViewModel(application) {
-    val userRepository = UserRepository(application.applicationContext)
+    private val userRepository = UserRepository(application.applicationContext)
     val registerForm = RegisterForm()
     val registerSuccess = SingleLiveEvent<Unit>()
     val alreadyExists = SingleLiveEvent<Unit>()
@@ -34,6 +34,7 @@ class RegisterViewModel(application: Application) : BaseViewModel(application) {
                     }
 
                     override fun onSubscribe(d: Disposable) {
+                        disposables.add(d)
                         startLoading()
                     }
 

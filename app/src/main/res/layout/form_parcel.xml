@@ -95,7 +95,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilStatus"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            errorText="@{parcelForm.trackingStatusError}"
+            errorText="@{parcelForm.parcelStatusEnumError}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/key_line_3"
@@ -105,8 +105,8 @@
 
             <AutoCompleteTextView
                 android:id="@+id/dropdownStatus"
-                setParcelStatusDropdownListener="@{parcelForm.trackingStatus}"
-                setParcelStatusDropdownText="@{parcelForm.trackingStatus}"
+                setParcelStatusDropdownListener="@{parcelForm.parcelStatusEnum}"
+                setParcelStatusDropdownText="@{parcelForm.parcelStatusEnum}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:editable="false"

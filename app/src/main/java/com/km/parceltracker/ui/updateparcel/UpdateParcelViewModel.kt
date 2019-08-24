@@ -25,7 +25,7 @@ class UpdateParcelViewModel(application: Application) : BaseViewModel(applicatio
             sender.value = parcel.sender
             courier.value = parcel.courier
             trackingUrl.value = parcel.trackingUrl
-            trackingStatus.value = parcel.parcelStatus.status
+            parcelStatusEnum.value = parcel.parcelStatus.status
         }
     }
 

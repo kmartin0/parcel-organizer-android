@@ -41,7 +41,8 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                     }
 
                     override fun onSubscribe(d: Disposable) {
-                        stopLoading()
+                        disposables.add(d)
+                        startLoading()
                     }
 
                     override fun onError(e: Throwable) {

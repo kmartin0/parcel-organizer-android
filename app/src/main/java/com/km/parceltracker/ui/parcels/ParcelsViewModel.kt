@@ -42,6 +42,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
                 }
 
                 override fun onSubscribe(d: Disposable) {
+                    disposables.add(d)
                     startLoading()
                 }
 

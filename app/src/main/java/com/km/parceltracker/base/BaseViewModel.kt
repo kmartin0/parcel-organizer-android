@@ -7,12 +7,13 @@ import com.google.gson.Gson
 import com.km.parceltracker.api.ApiError
 import com.km.parceltracker.repository.UserRepository
 import com.km.parceltracker.util.SingleLiveEvent
+import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
-import java.lang.IllegalArgumentException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 
 abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
+    protected val disposables = CompositeDisposable()
     val isLoading = MutableLiveData<Boolean>().apply { value = false }
     val noInternetConnection = SingleLiveEvent<Unit>()
     val logout = SingleLiveEvent<Unit>()
@@ -74,6 +75,11 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
 
     fun logout() {
         userRepository.logoutUser()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
     }
 
 }

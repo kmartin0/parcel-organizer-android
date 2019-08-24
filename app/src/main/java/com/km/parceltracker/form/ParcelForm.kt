@@ -5,33 +5,22 @@ import androidx.lifecycle.MutableLiveData
 import com.km.parceltracker.R
 import com.km.parceltracker.enums.ParcelStatusEnum
 import com.km.parceltracker.model.Parcel
-import com.km.parceltracker.model.ParcelStatus
-import java.util.*
 
 class ParcelForm {
     val title = MutableLiveData<String>()
     val sender = MutableLiveData<String>()
     val courier = MutableLiveData<String>()
     val trackingUrl = MutableLiveData<String>()
-    val trackingStatus = MutableLiveData<ParcelStatusEnum>()
+    val parcelStatusEnum = MutableLiveData<ParcelStatusEnum>()
 
     val titleError = MutableLiveData<Int>()
     val senderError = MutableLiveData<Int>()
     val courierError = MutableLiveData<Int>()
     val trackingUrlError = MutableLiveData<Int>()
-    val trackingStatusError = MutableLiveData<Int>()
+    val parcelStatusEnumError = MutableLiveData<Int>()
 
     fun createParcelObject(): Parcel? {
-        return if (validateInput()) {
-            Parcel(
-                title.value!!,
-                sender.value,
-                courier.value,
-                trackingUrl.value,
-                ParcelStatus(1L, trackingStatus.value!!),
-                Date()
-            )
-        } else null
+        return null
     }
 
     /**
@@ -146,13 +135,13 @@ class ParcelForm {
     }
 
     /**
-     * Validate the [trackingStatus] value. Set [trackingStatusError] if not valid.
-     * @return [Boolean] is [trackingStatus] not empty.
+     * Validate the [parcelStatus] value. Set [parcelStatusError] if not valid.
+     * @return [Boolean] is [parcelStatus] not empty.
      */
     fun validateTrackingStatus(): Boolean {
         var isValid: Boolean
-        trackingStatus.value.let {
-            trackingStatusError.value = when (it) {
+        parcelStatusEnum.value.let {
+            parcelStatusEnumError.value = when (it) {
                 null -> {
                     isValid = false
                     R.string.error_required

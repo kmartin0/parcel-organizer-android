@@ -3,12 +3,11 @@ package com.km.parceltracker.repository
 import android.content.Context
 import com.google.gson.Gson
 import com.km.parceltracker.api.ParcelTrackerApi
-import com.km.parceltracker.api.RegisterRequest
+import com.km.parceltracker.api.request.RegisterRequestBody
 import com.km.parceltracker.model.OAuth2Credentials
 import com.km.parceltracker.model.User
 import com.km.parceltracker.util.SharedPreferencesUtils
 import io.reactivex.Single
-
 
 class UserRepository(val context: Context) {
 
@@ -36,7 +35,7 @@ class UserRepository(val context: Context) {
     }
 
     fun registerUser(email: String, name: String, password: String): Single<User> {
-        return parcelTrackerApi.registerUser(RegisterRequest(email, name, password))
+        return parcelTrackerApi.registerUser(RegisterRequestBody(email, name, password))
     }
 
     /**

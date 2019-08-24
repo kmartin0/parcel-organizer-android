@@ -28,8 +28,6 @@ import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
- * TODO: Create Parcel Api
- * TODO: In the Api add translation for get parcel statuses
  * TODO: Dispose Disposables
  * TODO: Edit Parcel Api
  * TODO: Remove Parcel Api
