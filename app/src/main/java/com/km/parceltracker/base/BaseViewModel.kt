@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.km.parceltracker.api.ApiError
+import com.km.parceltracker.repository.UserRepository
 import com.km.parceltracker.util.SingleLiveEvent
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -14,6 +15,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     val noInternetConnection = SingleLiveEvent<Unit>()
     val logout = SingleLiveEvent<Unit>()
     val internalServerError = SingleLiveEvent<Unit>()
+    private val userRepository = UserRepository(application.applicationContext)
 
     protected fun startLoading() {
         isLoading.value = true
@@ -43,7 +45,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
 
                 // Handle these errors globally.
                 when (apiError?.error) {
-                    ApiError.TOKEN_EXPIRED -> logout.call()  // Refresh Token Expired.
+                    ApiError.TOKEN_EXPIRED, ApiError.INVALID_GRANT -> logout.call()  // Refresh Token Expired or Bad Credentials.
                     ApiError.INTERNAL_SERVER_ERROR -> internalServerError.call()
                 }
 
@@ -66,6 +68,10 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
             }
             else -> null
         }
+    }
+
+    fun logout() {
+        userRepository.logoutUser()
     }
 
 }

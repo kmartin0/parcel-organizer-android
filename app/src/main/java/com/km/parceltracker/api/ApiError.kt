@@ -10,7 +10,8 @@ data class ApiError(
 ) {
     companion object {
         const val TOKEN_EXPIRED = "invalid_token"
-       const val ALREADY_EXISTS = "ALREADY_EXISTS"
+        const val ALREADY_EXISTS = "ALREADY_EXISTS"
         const val INTERNAL_SERVER_ERROR = "INTERNAL"
+        const val INVALID_GRANT = "invalid_grant"
     }
 }

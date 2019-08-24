@@ -73,4 +73,6 @@
     <string name="already_exists">Already exists</string>
     <string name="error_internal_title">Oops something went wrong</string>
     <string name="error_internal_message">Something went wrong while processing your request, please try again later.</string>
+    <string name="error_authentication_title">Authentication failed</string>
+    <string name="error_authentication_message">Please login again.</string>
 </resources>

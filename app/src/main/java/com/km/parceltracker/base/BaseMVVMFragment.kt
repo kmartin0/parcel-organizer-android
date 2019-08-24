@@ -11,6 +11,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
+import androidx.navigation.NavOptionsBuilder
+import androidx.navigation.fragment.findNavController
 import com.km.parceltracker.R
 
 abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFragment() {
@@ -56,10 +59,23 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
     }
 
     private fun observeLogout() {
-        // TODO: Logout functionality
         viewModel.logout.observe(this, Observer {
-            Toast.makeText(context, "Logout called!", Toast.LENGTH_LONG).show()
+            AlertDialog.Builder(context!!)
+                .setTitle(getString(R.string.error_authentication_title))
+                .setMessage(getString(R.string.error_authentication_message))
+                .setNeutralButton(getString(R.string.ok)) { _, _ -> logout() }
+                .setCancelable(false)
+                .show()
         })
+    }
+
+    protected fun logout() {
+        viewModel.logout()
+        findNavController().navigate(
+            R.id.loginFragment,
+            null,
+            NavOptions.Builder().setPopUpTo(R.id.navigation_graph, true).build()
+        )
     }
 
     private fun observeInternalServerError() {

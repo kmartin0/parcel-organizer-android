@@ -27,11 +27,12 @@ import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
- * TODO: Bottom nav bar with user profile
- * TODO: Register Api
+ * TODO: Refactor ParcelsViewModel
+ * TODO: HTTP Basic
  * TODO: Create Parcel Api
  * TODO: Edit Parcel Api
  * TODO: Remove Parcel Api
+ * TODO: Bottom nav bar with user profile
  * TODO: Maybe look into converting shared prefs into Single
  * TODO: Dependency Injection (Koin/Dagger)
  */
@@ -70,11 +71,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         }
 
         // Dummy logout button
-        val userRepository = UserRepository(context!!)
-        fabLogout.setOnClickListener {
-            userRepository.logoutUser()
-            findNavController().navigate(R.id.action_parcelsFragment_to_loginFragment)
-        }
+        fabLogout.setOnClickListener { logout() }
     }
 
     private fun removeObservers() {
