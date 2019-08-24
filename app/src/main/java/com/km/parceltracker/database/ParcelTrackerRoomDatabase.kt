@@ -7,12 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.km.parceltracker.database.dao.ParcelDao
-import com.km.parceltracker.enums.ParcelStatusEnum
 import com.km.parceltracker.model.Parcel
-import com.km.parceltracker.model.ParcelStatus
-import org.jetbrains.anko.doAsync
-import java.util.*
-import kotlin.collections.ArrayList
 
 @Database(entities = [Parcel::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)

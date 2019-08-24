@@ -8,10 +8,12 @@ import com.km.parceltracker.api.ApiError
 import com.km.parceltracker.repository.UserRepository
 import com.km.parceltracker.util.SingleLiveEvent
 import retrofit2.HttpException
+import java.lang.IllegalArgumentException
+import java.net.ConnectException
 import java.net.SocketTimeoutException
 
 abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
-    val isLoading = MutableLiveData<Boolean>()
+    val isLoading = MutableLiveData<Boolean>().apply { value = false }
     val noInternetConnection = SingleLiveEvent<Unit>()
     val logout = SingleLiveEvent<Unit>()
     val internalServerError = SingleLiveEvent<Unit>()
@@ -52,7 +54,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
                 // Return the api error object.
                 apiError
             }
-            is SocketTimeoutException -> { // Server can't be reached.
+            is SocketTimeoutException, is ConnectException -> { // Server can't be reached.
                 noInternetConnection.call()
                 null
             }

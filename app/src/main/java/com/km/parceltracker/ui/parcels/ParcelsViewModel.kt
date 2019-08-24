@@ -30,10 +30,6 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     }
     var error = SingleLiveEvent<String>()
 
-    init {
-        setupParcelSources()
-    }
-
     private fun setupParcelSources() {
         // Retrieve the parcels from the repository and add the value in repoParcels
         parcelRepository.getParcels()

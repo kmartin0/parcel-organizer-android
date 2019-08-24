@@ -2,6 +2,7 @@ package com.km.parceltracker.ui.parcels
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -27,11 +28,13 @@ import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
- * TODO: Refactor ParcelsViewModel
- * TODO: HTTP Basic
  * TODO: Create Parcel Api
+ * TODO: In the Api add translation for get parcel statuses
+ * TODO: Dispose Disposables
  * TODO: Edit Parcel Api
  * TODO: Remove Parcel Api
+ * TODO: When sharing with the app handle user not logged in yet.
+ * TODO: Replace ugly error dialogs with something else
  * TODO: Bottom nav bar with user profile
  * TODO: Maybe look into converting shared prefs into Single
  * TODO: Dependency Injection (Koin/Dagger)
@@ -62,24 +65,12 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         fabCreateParcel.setOnClickListener { onCreateParcelClick() }
 
         srlParcels.setOnRefreshListener {
-            if (viewModel.isLoading.value == false) {
-                removeObservers()
-                viewModel.refresh()
-                initObservers()
-            }
+            viewModel.refresh()
             srlParcels.isRefreshing = false
         }
 
         // Dummy logout button
         fabLogout.setOnClickListener { logout() }
-    }
-
-    private fun removeObservers() {
-        viewModel.apply {
-            parcels.removeObservers(this@ParcelsFragment)
-            sortAndFilterConfig.removeObservers(this@ParcelsFragment)
-            error.removeObservers(this@ParcelsFragment)
-        }
     }
 
     private fun initObservers() {
@@ -248,5 +239,10 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
     override fun getVMClass(): Class<ParcelsViewModel> = ParcelsViewModel::class.java
 
     override fun isSharedViewModel(): Boolean = true
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.refresh()
+    }
 
 }
