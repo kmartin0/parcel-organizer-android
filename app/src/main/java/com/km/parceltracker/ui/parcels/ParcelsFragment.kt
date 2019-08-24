@@ -26,11 +26,11 @@ import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
- * TODO: Edit Parcel Api
  * TODO: Remove Parcel Api
  * TODO: When sharing with the app handle user not logged in yet.
+ * TODO: Add Nothing to show here when parcels list is empty.
  * TODO: Replace ugly error dialogs with something else
- * TODO: Bottom nav bar with user profile
+ * TODO: Bottom nav bar/expandable floating action button with user profile
  * TODO: Maybe look into converting shared prefs into Single
  * TODO: Dependency Injection (Koin/Dagger)
  */

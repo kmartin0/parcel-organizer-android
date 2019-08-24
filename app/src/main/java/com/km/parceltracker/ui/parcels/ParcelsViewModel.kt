@@ -1,8 +1,10 @@
 package com.km.parceltracker.ui.parcels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.km.parceltracker.api.ApiError
 import com.km.parceltracker.base.BaseViewModel
 import com.km.parceltracker.repository.ParcelRepository
 import com.km.parceltracker.enums.ParcelSearchingEnum
@@ -16,7 +18,6 @@ import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import org.jetbrains.anko.doAsync
 
 class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
@@ -69,9 +70,22 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
      * Delete the [parcel] from the [parcelRepository]
      */
     fun deleteParcel(parcel: Parcel) {
-        doAsync {
-            parcelRepository.deleteParcel(parcel)
-        }
+        parcelRepository.deleteParcel(parcel.id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+                disposables.add(it)
+                startLoading()
+            }
+            .doOnComplete {
+                stopLoading()
+                refresh()
+            }
+            .doOnError {
+                stopLoading()
+                handleApiError(it)
+            }
+            .subscribe()
     }
 
     /**

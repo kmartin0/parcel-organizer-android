@@ -8,6 +8,7 @@ import com.km.parceltracker.database.ParcelTrackerRoomDatabase
 import com.km.parceltracker.database.dao.ParcelDao
 import com.km.parceltracker.enums.ParcelStatusEnum
 import com.km.parceltracker.model.Parcel
+import io.reactivex.Completable
 import io.reactivex.Single
 import org.jetbrains.anko.doAsync
 
@@ -34,6 +35,10 @@ class ParcelRepository(context: Context) {
         }
     }
 
+    fun getParcels(): Single<List<Parcel>> {
+        return api.getParcels()
+    }
+
     fun updateParcel(
         id: Long,
         title: String,
@@ -47,14 +52,8 @@ class ParcelRepository(context: Context) {
         }
     }
 
-    fun getParcels(): Single<List<Parcel>> {
-        return api.getParcels()
-    }
-
-    fun deleteParcel(parcel: Parcel) {
-        doAsync {
-            parcelDao.deleteParcel(parcel)
-        }
+    fun deleteParcel(id: Long): Completable {
+        return api.deleteParcel(id)
     }
 
 }

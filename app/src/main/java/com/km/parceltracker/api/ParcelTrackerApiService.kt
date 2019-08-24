@@ -9,19 +9,26 @@ import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.model.ParcelStatus
 import com.km.parceltracker.model.User
 import com.km.parceltracker.util.Endpoints
+import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
 
 interface ParcelTrackerApiService {
 
-    @GET(Endpoints.PARCELS)
-    fun getParcels(): Single<List<Parcel>>
-
     @POST(Endpoints.PARCELS)
     fun saveParcel(@Body registerParcelRequestBody: RegisterParcelRequestBody): Single<Parcel>
 
+    @GET(Endpoints.PARCELS)
+    fun getParcels(): Single<List<Parcel>>
+
     @PUT(Endpoints.PARCELS)
     fun updateParcel(@Body updateParcelRequestBody: UpdateParcelRequestBody): Single<Parcel>
+
+    @DELETE(Endpoints.DELETE_PARCEL)
+    fun deleteParcel(@Path("id") id: Long): Completable
+
+    @GET(Endpoints.GET_PARCEL_STATUS_BY_STATUS)
+    fun getParcelStatusByStatus(@Path("status") parcelStatusEnum: ParcelStatusEnum): Single<ParcelStatus>
 
     @POST(Endpoints.OAUTH_TOKEN)
     @FormUrlEncoded
@@ -36,7 +43,4 @@ interface ParcelTrackerApiService {
 
     @POST(Endpoints.USERS)
     fun registerUser(@Body registerRequestBody: RegisterRequestBody): Single<User>
-
-    @GET(Endpoints.GET_PARCEL_STATUS_BY_STATUS)
-    fun getParcelStatusByStatus(@Path("status") parcelStatusEnum: ParcelStatusEnum): Single<ParcelStatus>
 }
