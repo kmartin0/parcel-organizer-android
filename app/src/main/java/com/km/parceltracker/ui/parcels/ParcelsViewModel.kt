@@ -11,8 +11,11 @@ import com.km.parceltracker.enums.SortOrderEnum
 import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.model.ParcelsSortAndFilterConfig
 import com.km.parceltracker.repository.SettingsRepository
-import com.km.parceltracker.util.Resource
 import com.km.parceltracker.util.SingleLiveEvent
+import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.doAsync
 
 class ParcelsViewModel(application: Application) : BaseViewModel(application) {
@@ -20,7 +23,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     private val parcelRepository = ParcelRepository(application.applicationContext)
     private val settingsRepository = SettingsRepository(application.applicationContext)
 
-    private var repoParcels = parcelRepository.getParcels()
+    private var repoParcels = MutableLiveData<List<Parcel>>()
     var parcels = MediatorLiveData<List<Parcel>>()
     var sortAndFilterConfig = MutableLiveData<ParcelsSortAndFilterConfig>().apply {
         value = settingsRepository.getSortAndFilterSettings()
@@ -32,25 +35,35 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     }
 
     private fun setupParcelSources() {
+        // Retrieve the parcels from the repository and add the value in repoParcels
+        parcelRepository.getParcels()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : SingleObserver<List<Parcel>> {
+                override fun onSuccess(t: List<Parcel>) {
+                    stopLoading()
+                    repoParcels.value = t
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                    startLoading()
+                }
+
+                override fun onError(e: Throwable) {
+                    stopLoading()
+                    handleApiError(e)
+                }
+            })
+
         // When the value of repoParcels is changed then sort and filter the list and set the value of parcels to it
         parcels.addSource(repoParcels) {
-            when (it) {
-                is Resource.Loading -> startLoading()
-                is Resource.Success -> {
-                    parcels.value = sortAndFilterParcels(it.data, sortAndFilterConfig.value)
-                    stopLoading()
-                }
-                is Resource.Failure -> {
-                    handleApiError(it.throwable)
-                    stopLoading()
-                }
-            }
+            parcels.value = sortAndFilterParcels(it, sortAndFilterConfig.value)
         }
 
         // When the value of sortAndFilterConfig is changed then sort and filter repoParcels and set the value of parcels to it
-        parcels.addSource(sortAndFilterConfig) {
-            repoParcels.value?.let { resource ->
-                if (resource is Resource.Success) parcels.value = sortAndFilterParcels(resource.data, it)
+        parcels.addSource(sortAndFilterConfig) { config ->
+            repoParcels.value?.let { parcels ->
+                this@ParcelsViewModel.parcels.value = sortAndFilterParcels(parcels, config)
             }
         }
     }
@@ -175,8 +188,8 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
     fun refresh() {
         if (isLoading.value == false) {
-            repoParcels = parcelRepository.getParcels()
-            parcels = MediatorLiveData()
+            parcels.removeSource(repoParcels)
+            parcels.removeSource(sortAndFilterConfig)
             setupParcelSources()
         }
     }

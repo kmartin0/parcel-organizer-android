@@ -1,16 +1,11 @@
 package com.km.parceltracker.repository
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
 import com.km.parceltracker.api.ParcelTrackerApi
 import com.km.parceltracker.database.ParcelTrackerRoomDatabase
 import com.km.parceltracker.database.dao.ParcelDao
 import com.km.parceltracker.model.Parcel
-import com.km.parceltracker.util.Resource
-import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.Single
 import org.jetbrains.anko.doAsync
 
 class ParcelRepository(context: Context) {
@@ -29,27 +24,8 @@ class ParcelRepository(context: Context) {
         }
     }
 
-    fun getParcels(): MutableLiveData<Resource<List<Parcel>>> {
-        val state = MutableLiveData<Resource<List<Parcel>>>()
-
-        api.getParcels()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : SingleObserver<List<Parcel>> {
-                override fun onSuccess(t: List<Parcel>) {
-                    state.value = Resource.Success(t)
-                }
-
-                override fun onSubscribe(d: Disposable) {
-                    state.value = Resource.Loading()
-                }
-
-                override fun onError(e: Throwable) {
-                    state.value = Resource.Failure(e)
-                }
-            })
-
-        return state
+    fun getParcels(): Single<List<Parcel>> {
+        return api.getParcels()
     }
 
     fun updateParcel(parcel: Parcel) {
