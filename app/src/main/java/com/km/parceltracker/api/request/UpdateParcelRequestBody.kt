@@ -5,7 +5,8 @@ import com.km.parceltracker.model.ParcelStatus
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class RegisterParcelRequestBody(
+data class UpdateParcelRequestBody(
+    var id: Long,
     var title: String,
     var sender: String?,
     var courier: String?,

@@ -15,5 +15,5 @@ data class Parcel(
     var trackingUrl: String?,
     var parcelStatus: ParcelStatus,
     var lastUpdated: Date,
-    @PrimaryKey(autoGenerate = true) var id: Long? = null
+    @PrimaryKey(autoGenerate = true) var id: Long
 ) : Parcelable

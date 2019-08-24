@@ -2,6 +2,7 @@ package com.km.parceltracker.ui.updateparcel
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -10,6 +11,8 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentUpdateParcelBinding
+import com.km.parceltracker.enums.ParcelStatusEnum
+import kotlinx.android.synthetic.main.form_parcel.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 class UpdateParcelFragment : BaseMVVMFragment<FragmentUpdateParcelBinding, UpdateParcelViewModel>() {
@@ -18,16 +21,16 @@ class UpdateParcelFragment : BaseMVVMFragment<FragmentUpdateParcelBinding, Updat
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        initViews()
+        initViews()
         initObservers()
     }
 
-//    private fun initViews() {
-//        // Set the parcel status dropdown values using ParcelStatusEnum.
-//        val parcelStatusList = ParcelStatusEnum.values().map { context!!.getString(it.stringResId) }
-//        val adapter = ArrayAdapter(context!!, R.layout.dropdown_menu_popup_item, parcelStatusList)
-//        dropdownStatus.setAdapter(adapter)
-//    }
+    private fun initViews() {
+        // Set the parcel status dropdown values using ParcelStatusEnum.
+        val parcelStatusList = ParcelStatusEnum.values().map { context!!.getString(it.stringResId) }
+        val adapter = ArrayAdapter(context!!, R.layout.dropdown_menu_popup_item, parcelStatusList)
+        dropdownStatus.setAdapter(adapter)
+    }
 
     private fun initObservers() {
         // Populate the parcel form using the parcel retrieved from args

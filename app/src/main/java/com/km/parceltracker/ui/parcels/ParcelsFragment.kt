@@ -2,7 +2,6 @@ package com.km.parceltracker.ui.parcels
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -21,14 +20,12 @@ import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentParcelsBinding
 import com.km.parceltracker.model.Parcel
-import com.km.parceltracker.repository.UserRepository
 import com.km.parceltracker.ui.parcels.adapter.ParcelsAdapter
 import com.km.parceltracker.ui.parcels.adapter.ParcelsItemDecoration
 import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
- * TODO: Dispose Disposables
  * TODO: Edit Parcel Api
  * TODO: Remove Parcel Api
  * TODO: When sharing with the app handle user not logged in yet.
@@ -57,7 +54,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         // Initialize the recycler view adapter, item decoration and layout manager.
         rvParcels.adapter = parcelsAdapter
         rvParcels.addItemDecoration(ParcelsItemDecoration(context!!))
-        rvParcels.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        rvParcels.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false) as RecyclerView.LayoutManager
 
         // When the floating action button is clicked navigate to CreateParcelFragment
         fabCreateParcel.setOnClickListener { onCreateParcelClick() }

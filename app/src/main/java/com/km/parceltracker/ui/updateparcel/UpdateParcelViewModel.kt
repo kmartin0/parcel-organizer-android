@@ -6,7 +6,10 @@ import com.km.parceltracker.form.ParcelForm
 import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.repository.ParcelRepository
 import com.km.parceltracker.util.SingleLiveEvent
-import java.util.*
+import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 class UpdateParcelViewModel(application: Application) : BaseViewModel(application) {
     private val parcelRepository = ParcelRepository(application.applicationContext)
@@ -34,11 +37,33 @@ class UpdateParcelViewModel(application: Application) : BaseViewModel(applicatio
      */
     fun updateParcel() {
         if (parcelForm.validateInput()) {
-            parcelForm.createParcelObject()?.let {
-                it.id = parcelToUpdate.id
-                it.lastUpdated = Date()
-                parcelRepository.updateParcel(it)
-                parcelUpdateSuccess.call()
+            parcelForm.apply {
+                parcelRepository.updateParcel(
+                    parcelToUpdate.id,
+                    title.value!!,
+                    sender.value,
+                    courier.value,
+                    trackingUrl.value,
+                    parcelStatusEnum.value!!
+                )
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(object : SingleObserver<Parcel> {
+                        override fun onSuccess(t: Parcel) {
+                            stopLoading()
+                            parcelUpdateSuccess.call()
+                        }
+
+                        override fun onSubscribe(d: Disposable) {
+                            disposables.add(d)
+                            startLoading()
+                        }
+
+                        override fun onError(e: Throwable) {
+                            stopLoading()
+                            handleApiError(e)
+                        }
+                    })
             }
         }
     }

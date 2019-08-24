@@ -2,6 +2,7 @@ package com.km.parceltracker.api
 
 import com.km.parceltracker.api.request.RegisterParcelRequestBody
 import com.km.parceltracker.api.request.RegisterRequestBody
+import com.km.parceltracker.api.request.UpdateParcelRequestBody
 import com.km.parceltracker.enums.ParcelStatusEnum
 import com.km.parceltracker.model.OAuth2Credentials
 import com.km.parceltracker.model.Parcel
@@ -17,7 +18,10 @@ interface ParcelTrackerApiService {
     fun getParcels(): Single<List<Parcel>>
 
     @POST(Endpoints.PARCELS)
-    fun saveParcel(@Body registerParcelRequestBodyBody: RegisterParcelRequestBody): Single<Parcel>
+    fun saveParcel(@Body registerParcelRequestBody: RegisterParcelRequestBody): Single<Parcel>
+
+    @PUT(Endpoints.PARCELS)
+    fun updateParcel(@Body updateParcelRequestBody: UpdateParcelRequestBody): Single<Parcel>
 
     @POST(Endpoints.OAUTH_TOKEN)
     @FormUrlEncoded
