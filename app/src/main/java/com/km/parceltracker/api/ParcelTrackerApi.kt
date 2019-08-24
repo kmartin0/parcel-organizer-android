@@ -1,6 +1,8 @@
 package com.km.parceltracker.api
 
 import android.content.Context
+import android.content.res.Resources
+import androidx.core.os.ConfigurationCompat
 import com.google.gson.Gson
 import com.km.parceltracker.repository.TokenRepository
 import com.km.parceltracker.util.Endpoints
@@ -31,7 +33,7 @@ class ParcelTrackerApi {
             return numbersApi.create(ParcelTrackerApiService::class.java)
         }
 
-        fun createRefreshTokenApi(context : Context): RefreshTokenApiService {
+        fun createRefreshTokenApi(context: Context): RefreshTokenApiService {
             // Create the Retrofit instance
             val numbersApi = Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -48,6 +50,7 @@ class ParcelTrackerApi {
             return OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .addInterceptor(authHeaderInterceptor(context))
+                .addInterceptor(langHeaderInterceptor())
                 .authenticator(getRefreshTokenAuthenticator(context))
                 .build()
         }
@@ -56,6 +59,7 @@ class ParcelTrackerApi {
             return OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .addInterceptor(authHeaderInterceptor(context))
+                .addInterceptor(langHeaderInterceptor())
                 .build()
         }
 
@@ -80,6 +84,19 @@ class ParcelTrackerApi {
                 }
 
                 it.proceed(request)
+            }
+        }
+
+        private fun langHeaderInterceptor(): Interceptor {
+            return Interceptor {
+                val locale = ConfigurationCompat.getLocales(Resources.getSystem().configuration).get(0)
+                val request = it.request()
+
+                it.proceed(
+                    request.newBuilder()
+                        .addHeader("Accept-Language", locale.language)
+                        .build()
+                )
             }
         }
 
