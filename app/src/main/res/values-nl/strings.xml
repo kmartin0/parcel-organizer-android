@@ -1,67 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Parcel Tracker</string>
-    <string name="ascending">Oplopend</string>
-    <string name="courier">Koerier</string>
-    <string name="create_parcel">Maak pakket aan</string>
-    <string name="delivered">Afgeleverd</string>
-    <string name="descending">Aflopend</string>
-    <string name="dialog_delete_parcel_message">Weet je zeker dat je %1s wilt verwijderen</string>
-    <string name="dialog_delete_parcel_title">Verwijder %1s</string>
-    <string name="error_invalid_url">Ongeldige url</string>
+
+    <!-- Default Error Messages -->
     <string name="error_max_characters_45">Mag niet meer dan 45 karakters bevatten</string>
-    <string name="error_required">Verplicht</string>
-    <string name="hint_courier">"Wie is de koerier (Optioneel)"</string>
-    <string name="hint_email">Uw e-mail</string>
-    <string name="hint_password">Uw wachtwoord</string>
-    <string name="hint_sender">Wie is de zender van het pakket (optioneel)</string>
-    <string name="hint_status">Wat is de pakketstatus</string>
-    <string name="hint_title">Geef uw pakket een titel</string>
-    <string name="hint_tracking_url">Wat is de tracking url (optioneel)</string>
-    <string name="last_updated">Laatst geupdatet</string>
-    <string name="login">Login</string>
-    <string name="login_subtitle">Orden uw pakketten gemakkelijk</string>
-    <string name="login_title">Pakketen tracking</string>
-    <string name="no">Nee</string>
-    <string name="ordered">Besteld</string>
-    <string name="parcel_created">Pakket succesvol aangemaakt</string>
-    <string name="parcel_updated">Pakket succesvol geupdatet</string>
-    <string name="parcels">Pakketten</string>
-    <string name="register_here">Registreer hier</string>
-    <string name="search">Zoeken</string>
-    <string name="search_by">Zoek op: %1s</string>
-    <string name="search_by_no_args">Zoek op</string>
-    <string name="search_hint">Titel</string>
-    <string name="sender">Zender</string>
-    <string name="sent">Verzonden</string>
-    <string name="sort_by">Sorteer op: %1s</string>
-    <string name="sort_by_no_args">Sorteer op</string>
-    <string name="sort_order">Sorteer volgorde: %1s</string>
-    <string name="sort_order_no_args">Sorteer volgorde</string>
-    <string name="status">Status</string>
-    <string name="submit">Bevestig</string>
-    <string name="title">Titel</string>
-    <string name="update_parcel">Update pakket</string>
-    <string name="yes">Ja</string>
-    <string name="ok">OK</string>
-    <string name="error_internet_title">Kon geen verbinding maken</string>
-    <string name="error_internet_message">Controleer uw internet verbinding en probeer opnieuw.</string>
-    <string name="error_login_credentials">Combinatie email/wachtwoord incorrect.</string>
-    <string name="error_invalid_email">Onjuist email adres</string>
     <string name="error_min_characters_6">Minimaal 6 karakters</string>
-    <string name="error_confirm_password">Komt niet overeen met wachtwoord</string>
-    <string name="hint_name">Naam</string>
-    <string name="hint_confirm_password">Verifieer Wachtwoord</string>
-    <string name="register">Registreer</string>
-    <string name="register_success_title">Account succesvol geregisteerd</string>
-    <string name="register_success_message">Klik op OK om naar de login pagina terug te gaan.</string>
-    <string name="already_exists">Is al in gebruik</string>
+    <string name="error_required">Verplicht</string>
+
+    <!-- Global Error Dialogs -->
     <string name="error_internal_title">Er ging iets verkeerd</string>
     <string name="error_internal_message">Er ging iets verkeerd tijdens het verwerken van uw verzoek. Probeer het later opnieuw.</string>
     <string name="error_authentication_title">Authenticatie mislukt</string>
     <string name="error_authentication_message">Probeer opnieuw in te loggen.</string>
+    <string name="error_internet_title">Kon geen verbinding maken</string>
+    <string name="error_internet_message">Controleer uw internet verbinding en probeer opnieuw.</string>
+
+    <!-- Dialog Buttons -->
+    <string name="ok">OK</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+
+    <!-- Search -->
+    <string name="search">Zoeken</string>
+    <string name="search_hint">Titel</string>
+
+    <!-- Sorting and search-->
+    <string name="sort_by">Sorteer op: %1s</string>
+    <string name="sort_by_no_args">Sorteer op</string>
+    <string name="sort_order">Sorteer volgorde: %1s</string>
+    <string name="sort_order_no_args">Sorteer volgorde</string>
+    <string name="search_by">Zoek op: %1s</string>
+    <string name="search_by_no_args">Zoek op</string>
+    <string name="delivered">Afgeleverd</string>
+    <string name="sent">Verzonden</string>
+    <string name="ordered">Besteld</string>
+    <string name="descending">Aflopend</string>
+    <string name="ascending">Oplopend</string>
+
+    <!-- Create/Update Parcel -->
+    <string name="create_parcel">Maak pakket aan</string>
+    <string name="update_parcel">Update pakket</string>
+    <string name="hint_title">Geef uw pakket een titel</string>
+    <string name="hint_sender">Wie is de zender van het pakket (optioneel)</string>
+    <string name="hint_courier">"Wie is de koerier (Optioneel)"</string>
+    <string name="hint_tracking_url">Wat is de tracking url (optioneel)</string>
+    <string name="hint_status">Wat is de pakketstatus</string>
+    <string name="error_invalid_url">Ongeldige url</string>
+
+    <!-- Parcels -->
+    <string name="parcels">Pakketten</string>
+    <string name="title">Titel</string>
+    <string name="sender">Zender</string>
+    <string name="courier">Koerier</string>
+    <string name="last_updated">Laatst geupdatet</string>
+    <string name="status">Status</string>
     <string name="parcels_empty_state_title">Geen pakketten gevonden</string>
     <string name="parcels_empty_state_message">Probeer de pagina te verversen door naar beneden te slepen of voeg een pakket toe door op de plus knop te drukken. Het is ook mogelijk om een pakket aan te maken door een track en trace url met de app te delen.</string>
+
+    <!-- Delete Parcel -->
+    <string name="dialog_delete_parcel_title">Verwijder %1s</string>
+    <string name="dialog_delete_parcel_message">Weet je zeker dat je %1s wilt verwijderen</string>
+
+    <!-- Login -->
+    <string name="login">Login</string>
+    <string name="login_title">Pakketen tracking</string>
+    <string name="login_subtitle">Orden uw pakketten gemakkelijk</string>
+    <string name="register_here">Registreer hier</string>
+    <string name="hint_email">Uw e-mail</string>
+    <string name="hint_password">Uw wachtwoord</string>
+    <string name="error_login_credentials">Combinatie email/wachtwoord incorrect.</string>
+    <string name="error_invalid_email">Onjuist email adres</string>
+
+    <!-- Register -->
+    <string name="register">Registreer</string>
+    <string name="hint_name">Naam</string>
+    <string name="hint_confirm_password">Verifieer Wachtwoord</string>
+    <string name="already_exists">Is al in gebruik</string>
+    <string name="error_confirm_password">Komt niet overeen met wachtwoord</string>
+
+    <!-- Logout -->
     <string name="logout">Afmelden</string>
     <string name="dialog_logout_title">Weet je het zeker?</string>
     <string name="dialog_logout_message">Als je zeker weet dat je wilt uitloggen druk dan op ja.</string>

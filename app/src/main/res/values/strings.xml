@@ -1,32 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Parcel Tracker</string>
-    <string name="parcels">Parcels</string>
-    <string name="create_parcel">Create Parcel</string>
-    <string name="parcel_created">Parcel Created Successfully</string>
 
     <!-- Default Error Messages -->
     <string name="error_max_characters_45">Cannot exceed 45 characters</string>
     <string name="error_min_characters_6">Must be minimum of 6 characters</string>
-    <string name="error_confirm_password">Input doesn\'t match password</string>
     <string name="error_required">Required</string>
-    <string name="error_invalid_url">Invalid Url</string>
 
-    <!-- Parcel -->
-    <string name="title">Title</string>
-    <string name="sender">Sender</string>
-    <string name="courier">Courier</string>
-    <string name="last_updated">Last Updated</string>
-    <string name="status">Status</string>
+    <!-- Global Error Dialogs -->
+    <string name="error_internal_title">Oops something went wrong</string>
+    <string name="error_internal_message">Something went wrong while processing your request, please try again later.</string>
+    <string name="error_authentication_title">Authentication failed</string>
+    <string name="error_authentication_message">Please login again.</string>
+    <string name="error_internet_title">Could not establish a connection</string>
+    <string name="error_internet_message">Please check your internet connection and try again.</string>
+
+    <!-- Dialog Buttons -->
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <!-- Search -->
     <string name="search">Search</string>
     <string name="search_hint">Title</string>
 
-    <!-- Sort order -->
-    <string name="descending">Descending</string>
-    <string name="ascending">Ascending</string>
-
-    <!-- Sorting and search configuration menu -->
+    <!-- Sorting and search-->
     <string name="sort_by">Sort by: %1s</string>
     <string name="sort_by_no_args">Sort By</string>
     <string name="sort_order">Sort order: %1s</string>
@@ -36,13 +34,32 @@
     <string name="delivered">Delivered</string>
     <string name="sent">Sent</string>
     <string name="ordered">Ordered</string>
+    <string name="descending">Descending</string>
+    <string name="ascending">Ascending</string>
 
-    <!-- Create Parcel Input Fields -->
+    <!-- Create/Update Parcel -->
+    <string name="create_parcel">Create Parcel</string>
+    <string name="update_parcel">Update Parcel</string>
     <string name="hint_title">Give your parcel a title</string>
     <string name="hint_sender">Who is the sender of the parcel (optional)</string>
     <string name="hint_courier">Who is the courier of the parcel (optional)</string>
     <string name="hint_tracking_url">What is the tracking url (optional)</string>
     <string name="hint_status">What is the status of the parcel</string>
+    <string name="error_invalid_url">Invalid Url</string>
+
+    <!-- Parcels -->
+    <string name="parcels">Parcels</string>
+    <string name="title">Title</string>
+    <string name="sender">Sender</string>
+    <string name="courier">Courier</string>
+    <string name="last_updated">Last Updated</string>
+    <string name="status">Status</string>
+    <string name="parcels_empty_state_title">No parcels found</string>
+    <string name="parcels_empty_state_message">Try refreshing by pulling down or add a parcel by pressing the floating action button below. It\'s also possible to create a parcel by sharing a tracking url with the app.</string>
+
+    <!-- Delete Parcel -->
+    <string name="dialog_delete_parcel_title">Delete %1s</string>
+    <string name="dialog_delete_parcel_message">Are you sure you want to delete %1s</string>
 
     <!-- Login -->
     <string name="login">Login</string>
@@ -51,33 +68,19 @@
     <string name="register_here">Register here</string>
     <string name="hint_email">Your e-mail address</string>
     <string name="hint_password">Your password</string>
-
-    <!-- Dialogs -->
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="dialog_delete_parcel_title">Delete %1s</string>
-    <string name="dialog_delete_parcel_message">Are you sure you want to delete %1s</string>
-    <string name="submit">Submit</string>
-    <string name="update_parcel">Update Parcel</string>
-    <string name="parcel_updated">Parcel Updated Successfully</string>
-    <string name="ok">OK</string>
-    <string name="error_internet_title">Could not establish a connection</string>
-    <string name="error_internet_message">Please check your internet connection and try again.</string>
     <string name="error_login_credentials">Email/password combination incorrect.</string>
     <string name="error_invalid_email">Invalid email</string>
+
+    <!-- Register -->
+    <string name="register">Register</string>
     <string name="hint_name">Name</string>
     <string name="hint_confirm_password">Confirm Password</string>
-    <string name="register">Register</string>
-    <string name="register_success_title">Successfully registered your account</string>
-    <string name="register_success_message">Press OK to return to login.</string>
     <string name="already_exists">Already exists</string>
-    <string name="error_internal_title">Oops something went wrong</string>
-    <string name="error_internal_message">Something went wrong while processing your request, please try again later.</string>
-    <string name="error_authentication_title">Authentication failed</string>
-    <string name="error_authentication_message">Please login again.</string>
-    <string name="parcels_empty_state_title">No parcels found</string>
-    <string name="parcels_empty_state_message">Try refreshing by pulling down or add a parcel by pressing the floating action button below. It\'s also possible to create a parcel by sharing a tracking url with the app.</string>
+    <string name="error_confirm_password">Input doesn\'t match password</string>
+
+    <!-- Logout -->
     <string name="logout">Logout</string>
     <string name="dialog_logout_title">Are you sure?</string>
     <string name="dialog_logout_message">Press yes if you want to logout now.</string>
+
 </resources>

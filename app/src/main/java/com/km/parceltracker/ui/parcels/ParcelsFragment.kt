@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
  * TODO: App icon
- * TODO: Bottom nav bar/expandable floating action button with user profile
+ * TODO: Bottom nav bar user profile
  * TODO: Change app name to Parcel Organizer
  * TODO: Check offline app
  * TODO: Maybe look into converting shared prefs into Single
@@ -69,7 +69,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         rvParcels.adapter = parcelsAdapter
         rvParcels.addItemDecoration(ParcelsItemDecoration(context!!))
         rvParcels.layoutManager =
-            LinearLayoutManager(context, RecyclerView.VERTICAL, false) as RecyclerView.LayoutManager
+            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
         // When the floating action button is clicked navigate to CreateParcelFragment
         fabCreateParcel.setOnClickListener { onCreateParcelClick() }
