@@ -1,9 +1,7 @@
 package com.km.parceltracker.ui.register
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.MaterialToolbar
@@ -11,7 +9,9 @@ import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentRegisterBinding
 import kotlinx.android.synthetic.main.form_register.*
+import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.toolbar_default.*
+
 
 class RegisterFragment : BaseMVVMFragment<FragmentRegisterBinding, RegisterViewModel>() {
 
@@ -30,11 +30,11 @@ class RegisterFragment : BaseMVVMFragment<FragmentRegisterBinding, RegisterViewM
     }
 
     private fun onRegisterSuccess() {
-        AlertDialog.Builder(context!!)
-            .setTitle(getString(R.string.register_success_title))
-            .setMessage(getString(R.string.register_success_message))
-            .setNeutralButton(getString(R.string.ok)) { _, _ -> findNavController().navigateUp() }
-            .show()
+        btnRegister.isClickable = false
+        lavSuccess.addAnimatorUpdateListener { animation ->
+            if (animation.animatedFraction == 1F) findNavController().navigateUp()
+        }
+        lavSuccess.playAnimation()
     }
 
     override fun initViewModelBinding() {

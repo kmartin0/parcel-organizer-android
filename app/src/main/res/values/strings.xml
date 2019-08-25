@@ -75,4 +75,6 @@
     <string name="error_internal_message">Something went wrong while processing your request, please try again later.</string>
     <string name="error_authentication_title">Authentication failed</string>
     <string name="error_authentication_message">Please login again.</string>
+    <string name="parcels_empty_state_title">No parcels found</string>
+    <string name="parcels_empty_state_message">Try refreshing by pulling down or add a parcel by pressing the floating action button below. It\'s also possible to create a parcel by sharing a tracking url with the app.</string>
 </resources>

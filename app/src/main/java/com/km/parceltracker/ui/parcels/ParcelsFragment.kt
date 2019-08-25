@@ -2,10 +2,7 @@ package com.km.parceltracker.ui.parcels
 
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -13,6 +10,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
@@ -26,15 +24,14 @@ import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
- * TODO: Remove Parcel Api
- * TODO: When sharing with the app handle user not logged in yet.
- * TODO: Add Nothing to show here when parcels list is empty.
- * TODO: Replace ugly error dialogs with something else
  * TODO: Bottom nav bar/expandable floating action button with user profile
  * TODO: Maybe look into converting shared prefs into Single
  * TODO: Dependency Injection (Koin/Dagger)
  */
 class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewModel>() {
+
+    private val args: ParcelsFragmentArgs by navArgs()
+    private var isArgsConsumed = false
 
     private val parcels = ArrayList<Parcel>()
     private val parcelsAdapter =
@@ -46,15 +43,30 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        checkRedirectCreateParcel()
         initViews()
         initObservers()
+    }
+
+    private fun checkRedirectCreateParcel() {
+        if (!isArgsConsumed) {
+            args.trackingUrl?.let {
+                findNavController().navigate(
+                    ParcelsFragmentDirections.actionParcelsFragmentToCreateParcelFragment(
+                        it
+                    )
+                )
+                isArgsConsumed = true
+            }
+        }
     }
 
     private fun initViews() {
         // Initialize the recycler view adapter, item decoration and layout manager.
         rvParcels.adapter = parcelsAdapter
         rvParcels.addItemDecoration(ParcelsItemDecoration(context!!))
-        rvParcels.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false) as RecyclerView.LayoutManager
+        rvParcels.layoutManager =
+            LinearLayoutManager(context, RecyclerView.VERTICAL, false) as RecyclerView.LayoutManager
 
         // When the floating action button is clicked navigate to CreateParcelFragment
         fabCreateParcel.setOnClickListener { onCreateParcelClick() }
@@ -66,6 +78,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
         // Dummy logout button
         fabLogout.setOnClickListener { logout() }
+        toggleEmptyStateVisibility()
     }
 
     private fun initObservers() {
@@ -73,6 +86,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         viewModel.parcels.observe(this, Observer {
             parcels.clear()
             if (it != null) parcels.addAll(it)
+            toggleEmptyStateVisibility()
             parcelsAdapter.notifyDataSetChanged()
         })
 
@@ -80,11 +94,11 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         viewModel.sortAndFilterConfig.observe(this, Observer {
             updateMenuTitles()
         })
+    }
 
-        // Display the error message as a toast.
-        viewModel.error.observe(this, Observer {
-            if (!it.isNullOrBlank()) Toast.makeText(context!!, it, Toast.LENGTH_SHORT).show()
-        })
+    private fun toggleEmptyStateVisibility() {
+        parcelsEmptyStateView.visibility =
+            if (parcels.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
     }
 
     /**
@@ -104,7 +118,11 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
             customTabsIntent.launchUrl(context, Uri.parse(parcel.trackingUrl))
         } else {
             //TODO: Use Snack bar Action for instant url add dialog popup.
-            Toast.makeText(context, "Please provide the parcel with a valid tracking url", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                "Please provide the parcel with a valid tracking url",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -121,12 +139,14 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
      * when the user clicks yes then the parcel is deleted using the [viewModel].
      */
     private fun onDeleteClick(parcel: Parcel) {
-        AlertDialog.Builder(context!!)
-            .setTitle(getString(R.string.dialog_delete_parcel_title, parcel.title))
-            .setMessage(getString(R.string.dialog_delete_parcel_message, parcel.title))
-            .setPositiveButton(getString(R.string.yes)) { _, _ -> viewModel.deleteParcel(parcel) }
-            .setNegativeButton(getString(R.string.no), null)
-            .show()
+        if (viewModel.isLoading.value == false) {
+            AlertDialog.Builder(context!!)
+                .setTitle(getString(R.string.dialog_delete_parcel_title, parcel.title))
+                .setMessage(getString(R.string.dialog_delete_parcel_message, parcel.title))
+                .setPositiveButton(getString(R.string.yes)) { _, _ -> viewModel.deleteParcel(parcel) }
+                .setNegativeButton(getString(R.string.no), null)
+                .show()
+        }
     }
 
     /**

@@ -26,7 +26,7 @@ class CreateParcelViewModel(application: Application) : BaseViewModel(applicatio
      * If the input is correct then create a Parcel object and store it in the [parcelRepository]
      */
     fun createParcel() {
-        if (parcelForm.validateInput()) {
+        if (isLoading.value == false && parcelForm.validateInput()) {
             parcelForm.apply {
                 parcelRepository.saveParcel(
                     title.value!!,

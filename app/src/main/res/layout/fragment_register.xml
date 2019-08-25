@@ -24,16 +24,6 @@
             android:layout_height="match_parent"
             android:padding="@dimen/default_padding">
 
-            <include
-                android:id="@+id/registerFormLayout"
-                layout="@layout/form_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                bind:registerForm="@{viewModel.registerForm}" />
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRegister"
                 android:layout_width="0dp"
@@ -44,6 +34,27 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <include
+                android:id="@+id/registerFormLayout"
+                layout="@layout/form_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                bind:registerForm="@{viewModel.registerForm}" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lavSuccess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_rawRes="@raw/lottie_success" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
 </layout>

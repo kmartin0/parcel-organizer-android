@@ -60,5 +60,7 @@
     <string name="error_internal_message">Er ging iets verkeerd tijdens het verwerken van uw verzoek. Probeer het later opnieuw.</string>
     <string name="error_authentication_title">Authenticatie mislukt</string>
     <string name="error_authentication_message">Probeer opnieuw in te loggen.</string>
+    <string name="parcels_empty_state_title">Geen pakketten gevonden</string>
+    <string name="parcels_empty_state_message">Probeer de pagina te verversen door naar beneden te slepen of voeg een pakket toe door op de plus knop te drukken. Het is ook mogelijk om een pakket aan te maken door een track en trace url met de app te delen.</string>
 
 </resources>

@@ -19,7 +19,7 @@ class RegisterViewModel(application: Application) : BaseViewModel(application) {
     val alreadyExists = SingleLiveEvent<Unit>()
 
     fun register() {
-        if (registerForm.validateInput()) {
+        if (isLoading.value == false && registerForm.validateInput()) {
             userRepository.registerUser(
                 registerForm.email.value!!,
                 registerForm.name.value!!,

@@ -10,6 +10,11 @@
         android:name="com.km.parceltracker.ui.parcels.ParcelsFragment"
         android:label="@string/parcels"
         tools:layout="@layout/fragment_parcels">
+        <argument
+            android:name="trackingUrl"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_parcelsFragment_to_updateParcelFragment"
             app:destination="@id/updateParcelFragment"
@@ -56,6 +61,11 @@
         android:name="com.km.parceltracker.ui.login.LoginFragment"
         android:label="@string/login"
         tools:layout="@layout/fragment_login">
+        <argument
+            android:name="trackingUrl"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_loginFragment_to_parcelsFragment"
             app:destination="@id/parcelsFragment"

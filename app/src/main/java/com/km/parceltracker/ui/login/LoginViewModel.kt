@@ -30,7 +30,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
      * Login the user using [userRepository] using [email] and [password]
      */
     fun login() {
-        if (loginForm.validateInput()) {
+        if (isLoading.value == false && loginForm.validateInput()) {
             userRepository.loginUser(loginForm.email.value!!, loginForm.password.value!!)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

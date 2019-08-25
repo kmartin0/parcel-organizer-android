@@ -1,15 +1,19 @@
 package com.km.parceltracker.ui.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentLoginBinding
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : BaseMVVMFragment<FragmentLoginBinding, LoginViewModel>() {
+
+    private val args: LoginFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,7 +30,11 @@ class LoginFragment : BaseMVVMFragment<FragmentLoginBinding, LoginViewModel>() {
     private fun initObservers() {
         // When login is successful then navigate to the ParcelsFragment.
         viewModel.loginSuccess.observe(this, Observer {
-            findNavController().navigate(R.id.action_loginFragment_to_parcelsFragment)
+            findNavController().navigate(
+                LoginFragmentDirections.actionLoginFragmentToParcelsFragment(
+                    args.trackingUrl
+                )
+            )
         })
     }
 

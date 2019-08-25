@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -12,7 +11,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
-import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.fragment.findNavController
 import com.km.parceltracker.R
 
@@ -24,10 +22,16 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
     /**
      * Setup the data binding and view model connection
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         viewModel =
-            if (isSharedViewModel()) ViewModelProviders.of(activity as AppCompatActivity).get(getVMClass())
+            if (isSharedViewModel()) ViewModelProviders.of(activity as AppCompatActivity).get(
+                getVMClass()
+            )
             else ViewModelProviders.of(this).get(getVMClass())
         binding.lifecycleOwner = activity as AppCompatActivity
         initViewModelBinding()
@@ -52,6 +56,7 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
         viewModel.noInternetConnection.observe(this, Observer {
             AlertDialog.Builder(context!!)
                 .setTitle(getString(R.string.error_internet_title))
+                .setIcon(R.drawable.ic_error_24dp)
                 .setMessage(getString(R.string.error_internet_message))
                 .setNeutralButton(getString(R.string.ok), null)
                 .show()
@@ -62,6 +67,7 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
         viewModel.logout.observe(this, Observer {
             AlertDialog.Builder(context!!)
                 .setTitle(getString(R.string.error_authentication_title))
+                .setIcon(R.drawable.ic_error_24dp)
                 .setMessage(getString(R.string.error_authentication_message))
                 .setNeutralButton(getString(R.string.ok)) { _, _ -> logout() }
                 .setCancelable(false)
@@ -82,6 +88,7 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
         viewModel.internalServerError.observe(this, Observer {
             AlertDialog.Builder(context!!)
                 .setTitle(getString(R.string.error_internal_title))
+                .setIcon(R.drawable.ic_error_24dp)
                 .setMessage(getString(R.string.error_internal_message))
                 .setNeutralButton(getString(R.string.ok), null)
                 .show()

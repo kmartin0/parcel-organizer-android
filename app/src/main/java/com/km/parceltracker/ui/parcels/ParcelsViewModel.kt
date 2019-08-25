@@ -1,19 +1,16 @@
 package com.km.parceltracker.ui.parcels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.km.parceltracker.api.ApiError
 import com.km.parceltracker.base.BaseViewModel
-import com.km.parceltracker.repository.ParcelRepository
 import com.km.parceltracker.enums.ParcelSearchingEnum
 import com.km.parceltracker.enums.ParcelSortingEnum
 import com.km.parceltracker.enums.SortOrderEnum
 import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.model.ParcelsSortAndFilterConfig
+import com.km.parceltracker.repository.ParcelRepository
 import com.km.parceltracker.repository.SettingsRepository
-import com.km.parceltracker.util.SingleLiveEvent
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -29,10 +26,25 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     var sortAndFilterConfig = MutableLiveData<ParcelsSortAndFilterConfig>().apply {
         value = settingsRepository.getSortAndFilterSettings()
     }
-    var error = SingleLiveEvent<String>()
 
     private fun setupParcelSources() {
         // Retrieve the parcels from the repository and add the value in repoParcels
+        getRepoParcels()
+
+        // When the value of repoParcels is changed then sort and filter the list and set the value of parcels to it
+        parcels.addSource(repoParcels) {
+            parcels.value = sortAndFilterParcels(it, sortAndFilterConfig.value)
+        }
+
+        // When the value of sortAndFilterConfig is changed then sort and filter repoParcels and set the value of parcels to it
+        parcels.addSource(sortAndFilterConfig) { config ->
+            repoParcels.value?.let { parcels ->
+                this@ParcelsViewModel.parcels.value = sortAndFilterParcels(parcels, config)
+            }
+        }
+    }
+
+    private fun getRepoParcels() {
         parcelRepository.getParcels()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -52,18 +64,6 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
                     handleApiError(e)
                 }
             })
-
-        // When the value of repoParcels is changed then sort and filter the list and set the value of parcels to it
-        parcels.addSource(repoParcels) {
-            parcels.value = sortAndFilterParcels(it, sortAndFilterConfig.value)
-        }
-
-        // When the value of sortAndFilterConfig is changed then sort and filter repoParcels and set the value of parcels to it
-        parcels.addSource(sortAndFilterConfig) { config ->
-            repoParcels.value?.let { parcels ->
-                this@ParcelsViewModel.parcels.value = sortAndFilterParcels(parcels, config)
-            }
-        }
     }
 
     /**
@@ -154,7 +154,10 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
         // If no search query is provided only filter by parcel status.
         // Otherwise filter by search query and parcel status.
         return if (parcels == null || sortAndFilterConfig == null) parcels
-        else if (sortAndFilterConfig.searchQuery.isNullOrBlank()) filterParcelStatus(parcels, sortAndFilterConfig)
+        else if (sortAndFilterConfig.searchQuery.isNullOrBlank()) filterParcelStatus(
+            parcels,
+            sortAndFilterConfig
+        )
         else {
             parcels.filter { parcel ->
                 when (sortAndFilterConfig.searchBy) { // Find the attribute to filter by. Then use the searchQuery and parcel status to filter.

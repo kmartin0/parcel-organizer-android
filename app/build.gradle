@@ -55,6 +55,7 @@ ext {
     rxKotlinVersion = "2.4.0"
     rxAndroidVersion = "2.1.1"
     rxjavaVersion = "2.2.10"
+    lottieVersion = "3.0.7"
 }
 
 
@@ -96,5 +97,8 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
+
+    // Lottie
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
 }

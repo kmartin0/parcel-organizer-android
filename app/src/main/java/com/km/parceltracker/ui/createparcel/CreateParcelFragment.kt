@@ -3,7 +3,6 @@ package com.km.parceltracker.ui.createparcel
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,6 +12,7 @@ import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentCreateParcelBinding
 import com.km.parceltracker.enums.ParcelStatusEnum
 import kotlinx.android.synthetic.main.form_parcel.*
+import kotlinx.android.synthetic.main.fragment_create_parcel.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 class CreateParcelFragment : BaseMVVMFragment<FragmentCreateParcelBinding, CreateParcelViewModel>() {
@@ -37,10 +37,13 @@ class CreateParcelFragment : BaseMVVMFragment<FragmentCreateParcelBinding, Creat
         // Set the tracking url from the args.
         viewModel.setTrackingUrl(args.trackingUrl)
 
-        // When a parcel has been created display a toast message and return to the previous fragment.
+        // When a parcel has been created display a success animation and return to the previous fragment.
         viewModel.parcelCreatedSuccess.observe(this, Observer {
-            Toast.makeText(context!!, getString(R.string.parcel_created), Toast.LENGTH_LONG).show()
-            findNavController().navigateUp()
+            btnCreateParcel.isClickable = false
+            lavSuccess.addAnimatorUpdateListener { animation ->
+                if (animation.animatedFraction == 1F) findNavController().navigateUp()
+            }
+            lavSuccess.playAnimation()
         })
     }
 

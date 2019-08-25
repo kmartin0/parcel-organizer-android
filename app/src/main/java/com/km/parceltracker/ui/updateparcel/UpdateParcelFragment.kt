@@ -3,7 +3,6 @@ package com.km.parceltracker.ui.updateparcel
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,6 +12,8 @@ import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentUpdateParcelBinding
 import com.km.parceltracker.enums.ParcelStatusEnum
 import kotlinx.android.synthetic.main.form_parcel.*
+import kotlinx.android.synthetic.main.fragment_register.lavSuccess
+import kotlinx.android.synthetic.main.fragment_update_parcel.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 class UpdateParcelFragment : BaseMVVMFragment<FragmentUpdateParcelBinding, UpdateParcelViewModel>() {
@@ -36,10 +37,13 @@ class UpdateParcelFragment : BaseMVVMFragment<FragmentUpdateParcelBinding, Updat
         // Populate the parcel form using the parcel retrieved from args
         viewModel.populateParcelForm(args.parcel)
 
-        // When parcel is updated successfully then display a toast message and navigate to the previous fragment.
+        // When parcel is updated successfully then display a success animation and navigate to the previous fragment.
         viewModel.parcelUpdateSuccess.observe(this, Observer {
-            Toast.makeText(context!!, getString(R.string.parcel_updated), Toast.LENGTH_LONG).show()
-            findNavController().navigateUp()
+            btnUpdateParcel.isClickable = false
+            lavSuccess.addAnimatorUpdateListener { animation ->
+                if (animation.animatedFraction == 1F) findNavController().navigateUp()
+            }
+            lavSuccess.playAnimation()
         })
     }
 
