@@ -49,6 +49,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         checkRedirectCreateParcel()
         initViews()
         initObservers()
+        setTitle(getString(R.string.welcome_title, viewModel.loggedInUser?.name))
     }
 
     private fun checkRedirectCreateParcel() {

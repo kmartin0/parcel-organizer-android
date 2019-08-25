@@ -11,6 +11,7 @@ import com.km.parceltracker.model.Parcel
 import com.km.parceltracker.model.ParcelsSortAndFilterConfig
 import com.km.parceltracker.repository.ParcelRepository
 import com.km.parceltracker.repository.SettingsRepository
+import com.km.parceltracker.repository.UserRepository
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -20,6 +21,8 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
     private val parcelRepository = ParcelRepository(application.applicationContext)
     private val settingsRepository = SettingsRepository(application.applicationContext)
+    private val userRepository = UserRepository(application.applicationContext)
+    val loggedInUser = userRepository.getLoggedInUser()
 
     private var repoParcels = MutableLiveData<List<Parcel>>()
     var parcels = MediatorLiveData<List<Parcel>>()

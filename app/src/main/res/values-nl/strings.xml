@@ -49,6 +49,7 @@
 
     <!-- Parcels -->
     <string name="parcels">Pakketten</string>
+    <string name="welcome_title">Welkom %1s</string>
     <string name="title">Titel</string>
     <string name="sender">Zender</string>
     <string name="courier">Koerier</string>
