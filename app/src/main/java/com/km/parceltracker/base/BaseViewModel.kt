@@ -48,7 +48,8 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
 
                 // Handle these errors globally.
                 when (apiError?.error) {
-                    ApiError.TOKEN_EXPIRED, ApiError.INVALID_GRANT -> logout.call()  // Refresh Token Expired or Bad Credentials.
+                    ApiError.TOKEN_EXPIRED -> logout.call()  // Refresh Token Expired or Bad Credentials.
+                    ApiError.INVALID_GRANT -> if (userRepository.isUserLoggedIn()) logout.call()
                     ApiError.INTERNAL_SERVER_ERROR -> internalServerError.call()
                 }
 

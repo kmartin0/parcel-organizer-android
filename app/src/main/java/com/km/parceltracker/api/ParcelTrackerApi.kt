@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import androidx.core.os.ConfigurationCompat
 import com.google.gson.Gson
+import com.km.parceltracker.BuildConfig
 import com.km.parceltracker.repository.TokenRepository
 import com.km.parceltracker.util.Endpoints
 import okhttp3.*
@@ -47,20 +48,36 @@ class ParcelTrackerApi {
         }
 
         private fun getOkHttpClientApi(context: Context): OkHttpClient {
-            return OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            val okHttpClientBuilder = OkHttpClient.Builder()
                 .addInterceptor(authHeaderInterceptor(context))
                 .addInterceptor(langHeaderInterceptor())
                 .authenticator(getRefreshTokenAuthenticator(context))
-                .build()
+
+            if (BuildConfig.DEBUG) {
+                okHttpClientBuilder.addInterceptor(
+                    HttpLoggingInterceptor().setLevel(
+                        HttpLoggingInterceptor.Level.BODY
+                    )
+                )
+            }
+
+            return okHttpClientBuilder.build()
         }
 
         private fun getOkHttpClientRefreshTokenApi(context: Context): OkHttpClient {
-            return OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            val okHttpClientBuilder = OkHttpClient.Builder()
                 .addInterceptor(authHeaderInterceptor(context))
                 .addInterceptor(langHeaderInterceptor())
-                .build()
+
+            if (BuildConfig.DEBUG) {
+                okHttpClientBuilder.addInterceptor(
+                    HttpLoggingInterceptor().setLevel(
+                        HttpLoggingInterceptor.Level.BODY
+                    )
+                )
+            }
+
+            return okHttpClientBuilder.build()
         }
 
         private fun authHeaderInterceptor(context: Context): Interceptor {
@@ -69,7 +86,7 @@ class ParcelTrackerApi {
                 val requestBuilder = request.newBuilder()
 
                 if (Endpoints.shouldBasicAuth(request)) {
-                    val basic = Credentials.basic("parcel-tracker-android", "secret")
+                    val basic = Credentials.basic(BuildConfig.clientSecretUsername, BuildConfig.clientSecretPassword)
                     requestBuilder.addHeader("Authorization", basic)
 
                     return@Interceptor it.proceed(requestBuilder.build())
@@ -89,7 +106,8 @@ class ParcelTrackerApi {
 
         private fun langHeaderInterceptor(): Interceptor {
             return Interceptor {
-                val locale = ConfigurationCompat.getLocales(Resources.getSystem().configuration).get(0)
+                val locale =
+                    ConfigurationCompat.getLocales(Resources.getSystem().configuration).get(0)
                 val request = it.request()
 
                 it.proceed(
@@ -105,9 +123,10 @@ class ParcelTrackerApi {
                 override fun authenticate(route: Route?, response: Response): Request? {
                     val body = response.peekBody(Long.MAX_VALUE).string()
                     val responseBody = Gson().fromJson(body, ApiError::class.java)
-                    return if (responseBody.error == "invalid_token") {
+                    return if (responseBody.error == ApiError.TOKEN_EXPIRED) {
                         val tokenRepository = TokenRepository(context)
-                        val refreshToken = tokenRepository.getUserOAuth2Credentials()?.refreshToken ?: return null
+                        val refreshToken =
+                            tokenRepository.getUserOAuth2Credentials()?.refreshToken ?: return null
 
                         val newAuth = tokenRepository.refreshAccessToken(refreshToken).blockingGet()
                         tokenRepository.setUserOAuth2Credentials(newAuth)

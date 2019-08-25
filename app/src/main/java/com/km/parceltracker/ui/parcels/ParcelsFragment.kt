@@ -24,7 +24,9 @@ import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
+ * TODO: App icon
  * TODO: Bottom nav bar/expandable floating action button with user profile
+ * TODO: Hide app secret
  * TODO: Maybe look into converting shared prefs into Single
  * TODO: Dependency Injection (Koin/Dagger)
  */
