@@ -62,5 +62,8 @@
     <string name="error_authentication_message">Probeer opnieuw in te loggen.</string>
     <string name="parcels_empty_state_title">Geen pakketten gevonden</string>
     <string name="parcels_empty_state_message">Probeer de pagina te verversen door naar beneden te slepen of voeg een pakket toe door op de plus knop te drukken. Het is ook mogelijk om een pakket aan te maken door een track en trace url met de app te delen.</string>
+    <string name="logout">Afmelden</string>
+    <string name="dialog_logout_title">Weet je het zeker?</string>
+    <string name="dialog_logout_message">Als je zeker weet dat je wilt uitloggen druk dan op ja.</string>
 
 </resources>

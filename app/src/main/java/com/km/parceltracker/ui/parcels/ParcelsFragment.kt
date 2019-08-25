@@ -26,7 +26,8 @@ import kotlinx.android.synthetic.main.toolbar_default.*
 /**
  * TODO: App icon
  * TODO: Bottom nav bar/expandable floating action button with user profile
- * TODO: Hide app secret
+ * TODO: Change app name to Parcel Organizer
+ * TODO: Check offline app
  * TODO: Maybe look into converting shared prefs into Single
  * TODO: Dependency Injection (Koin/Dagger)
  */
@@ -78,8 +79,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
             srlParcels.isRefreshing = false
         }
 
-        // Dummy logout button
-        fabLogout.setOnClickListener { logout() }
+        // Set empty state visibility
         toggleEmptyStateVisibility()
     }
 
@@ -237,6 +237,15 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
                     it.delivered = item.isChecked
                     viewModel.setSortingAndFilterConfig(it)
                 }
+                true
+            }
+            R.id.action_logout -> { // Show alert dialog prompting the user to logout
+                AlertDialog.Builder(context!!)
+                    .setTitle(getString(R.string.dialog_logout_title))
+                    .setMessage(getString(R.string.dialog_logout_message))
+                    .setPositiveButton(getString(R.string.yes)) { _, _ -> logout() }
+                    .setNegativeButton(getString(R.string.no), null)
+                    .show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

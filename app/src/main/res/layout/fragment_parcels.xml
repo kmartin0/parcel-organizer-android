@@ -35,16 +35,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/key_line_4"
-            android:layout_marginBottom="@dimen/key_line_4"
-            android:src="@drawable/ic_shuttle_black_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/fabCreateParcel" />
-
         <include
             android:id="@+id/toolbarLayout"
             layout="@layout/toolbar_default"
