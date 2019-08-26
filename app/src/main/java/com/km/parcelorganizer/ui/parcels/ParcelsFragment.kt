@@ -25,9 +25,6 @@ import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
  * TODO: Change Password
- * TODO: Forgot Password
- * TODO: App icon
- * TODO: Change app name to Parcel Organizer
  * TODO: Check offline app
  * TODO: Maybe look into converting shared prefs into Single (This might solve i.e. the refreshLoggedInUserSituation in ParcelsFragment and UserProfileFragment)
  * TODO: Dependency Injection (Koin/Dagger)

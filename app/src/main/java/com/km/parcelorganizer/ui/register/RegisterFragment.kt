@@ -10,7 +10,6 @@ import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentRegisterBinding
 import com.km.parcelorganizer.util.playAnimation
 import kotlinx.android.synthetic.main.form_register.*
-import kotlinx.android.synthetic.main.fragment_create_parcel.*
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 

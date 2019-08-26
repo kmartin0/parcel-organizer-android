@@ -11,12 +11,13 @@ import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentUpdateParcelBinding
 import com.km.parcelorganizer.enums.ParcelStatusEnum
+import com.km.parcelorganizer.util.playAnimation
 import kotlinx.android.synthetic.main.form_parcel.*
-import kotlinx.android.synthetic.main.fragment_register.lavSuccess
 import kotlinx.android.synthetic.main.fragment_update_parcel.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
-class UpdateParcelFragment : BaseMVVMFragment<FragmentUpdateParcelBinding, UpdateParcelViewModel>() {
+class UpdateParcelFragment :
+    BaseMVVMFragment<FragmentUpdateParcelBinding, UpdateParcelViewModel>() {
 
     private val args: UpdateParcelFragmentArgs by navArgs()
 
@@ -40,10 +41,9 @@ class UpdateParcelFragment : BaseMVVMFragment<FragmentUpdateParcelBinding, Updat
         // When parcel is updated successfully then display a success animation and navigate to the previous fragment.
         viewModel.parcelUpdateSuccess.observe(this, Observer {
             btnUpdateParcel.isClickable = false
-            lavSuccess.addAnimatorUpdateListener { animation ->
-                if (animation.animatedFraction == 1F) findNavController().navigateUp()
+            lottieSuccess.playAnimation {
+                findNavController().navigateUp()
             }
-            lavSuccess.playAnimation()
         })
     }
 
@@ -51,7 +51,8 @@ class UpdateParcelFragment : BaseMVVMFragment<FragmentUpdateParcelBinding, Updat
         binding.viewModel = viewModel
     }
 
-    override fun getVMClass(): Class<UpdateParcelViewModel> = UpdateParcelViewModel::class.java
+    override fun getVMClass(): Class<UpdateParcelViewModel> =
+        UpdateParcelViewModel::class.java
 
     override fun getLayoutId(): Int = R.layout.fragment_update_parcel
 
