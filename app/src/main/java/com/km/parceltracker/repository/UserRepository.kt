@@ -1,9 +1,11 @@
 package com.km.parceltracker.repository
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.Gson
 import com.km.parceltracker.api.ParcelTrackerApi
-import com.km.parceltracker.api.request.RegisterRequestBody
+import com.km.parceltracker.api.request.RegisterUserRequestBody
+import com.km.parceltracker.api.request.UpdateUserRequestBody
 import com.km.parceltracker.model.OAuth2Credentials
 import com.km.parceltracker.model.User
 import com.km.parceltracker.util.SharedPreferencesUtils
@@ -35,7 +37,12 @@ class UserRepository(val context: Context) {
     }
 
     fun registerUser(email: String, name: String, password: String): Single<User> {
-        return parcelTrackerApi.registerUser(RegisterRequestBody(email, name, password))
+        return parcelTrackerApi.registerUser(RegisterUserRequestBody(email, name, password))
+    }
+
+    fun updateUser(id: Long, email: String, name: String, currentPassword: String): Single<User> {
+        return parcelTrackerApi.updateUser(UpdateUserRequestBody(id, email, name, currentPassword))
+            .flatMap { loginUser(it.email, currentPassword) }
     }
 
     /**
@@ -62,7 +69,8 @@ class UserRepository(val context: Context) {
      * @return Boolean if Shared Preferences contains a [User]
      */
     fun isUserLoggedIn(): Boolean {
-        return SharedPreferencesUtils.getSharedPreferences(context).contains(SharedPreferencesUtils.USER_KEY)
+        return SharedPreferencesUtils.getSharedPreferences(context)
+            .contains(SharedPreferencesUtils.USER_KEY)
     }
 
     /**

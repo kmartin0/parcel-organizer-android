@@ -1,7 +1,7 @@
 package com.km.parceltracker.ui.register
 
 import android.app.Application
-import com.km.parceltracker.api.ApiError
+import com.km.parceltracker.api.error.ApiError
 import com.km.parceltracker.base.BaseViewModel
 import com.km.parceltracker.form.RegisterForm
 import com.km.parceltracker.model.User

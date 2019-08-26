@@ -2,6 +2,7 @@ package com.km.parceltracker.ui.parcels
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.webkit.URLUtil
 import android.widget.Toast
@@ -24,11 +25,13 @@ import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
+ * TODO: Edit User Profile
+ * TODO: Change Password
+ * TODO: Forgot Password
  * TODO: App icon
- * TODO: Bottom nav bar user profile
  * TODO: Change app name to Parcel Organizer
  * TODO: Check offline app
- * TODO: Maybe look into converting shared prefs into Single
+ * TODO: Maybe look into converting shared prefs into Single (This might solve i.e. the refreshLoggedInUserSituation in ParcelsFragment and UserProfileFragment)
  * TODO: Dependency Injection (Koin/Dagger)
  */
 class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewModel>() {
@@ -49,6 +52,11 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         checkRedirectCreateParcel()
         initViews()
         initObservers()
+        setToolbarTitle()
+    }
+
+    private fun setToolbarTitle() {
+        viewModel.refreshLoggedInUser()
         setTitle(getString(R.string.welcome_title, viewModel.loggedInUser?.name))
     }
 
@@ -76,7 +84,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         fabCreateParcel.setOnClickListener { onCreateParcelClick() }
 
         srlParcels.setOnRefreshListener {
-            viewModel.refresh()
+            viewModel.refreshParcels()
             srlParcels.isRefreshing = false
         }
 
@@ -269,7 +277,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
     override fun onStart() {
         super.onStart()
-        viewModel.refresh()
+        viewModel.refreshParcels()
     }
 
 }

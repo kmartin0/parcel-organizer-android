@@ -1,7 +1,6 @@
 package com.km.parceltracker.api
 
 import com.km.parceltracker.model.OAuth2Credentials
-import com.km.parceltracker.util.Endpoints
 import io.reactivex.Single
 import retrofit2.http.*
 

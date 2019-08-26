@@ -1,4 +1,4 @@
-package com.km.parceltracker.util
+package com.km.parceltracker.api
 
 import okhttp3.Request
 
@@ -19,9 +19,11 @@ class Endpoints {
 
         fun shouldBearerTokenAuth(request: Request): Boolean {
             val path = request.url().url().path
+            val method = request.method()
             return when {
                 path == PARCELS -> true
                 path.startsWith(PARCELS) -> true
+                path == USERS && method == "PUT" -> true
                 else -> false
             }
         }

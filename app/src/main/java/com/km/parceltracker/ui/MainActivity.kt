@@ -2,16 +2,19 @@ package com.km.parceltracker.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.km.parceltracker.R
 import com.km.parceltracker.ui.login.LoginFragment
 import com.km.parceltracker.ui.login.LoginFragmentArgs
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +22,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initNavFragment()
+        setupBottomNavigationView()
+    }
+
+    private fun setupBottomNavigationView() {
+        val navHost = findNavController(R.id.navHostFragment)
+        navHost.addOnDestinationChangedListener { _, destination, _ ->
+            bnvMain.visibility = when (destination.id) {
+                R.id.parcelsFragment, R.id.userProfileFragment -> View.VISIBLE
+                else -> View.GONE
+            }
+        }
+        NavigationUI.setupWithNavController(bnvMain, navHost)
     }
 
     /**
@@ -39,6 +54,13 @@ class MainActivity : AppCompatActivity() {
             R.navigation.navigation_graph,
             LoginFragmentArgs(trackingUrl).toBundle()
         )
+
+        findNavController(R.id.navHostFragment).addOnDestinationChangedListener { controller, destination, _ ->
+            when (destination.id) {
+                R.id.loginFragment -> controller.graph.startDestination = R.id.loginFragment
+                R.id.parcelsFragment -> controller.graph.startDestination = R.id.parcelsFragment
+            }
+        }
     }
 
     override fun onNewIntent(intent: Intent?) {

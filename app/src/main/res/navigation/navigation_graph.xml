@@ -5,42 +5,6 @@
     android:id="@+id/navigation_graph"
     app:startDestination="@id/loginFragment">
 
-    <fragment
-        android:id="@+id/parcelsFragment"
-        android:name="com.km.parceltracker.ui.parcels.ParcelsFragment"
-        android:label="@string/parcels"
-        tools:layout="@layout/fragment_parcels">
-        <argument
-            android:name="trackingUrl"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
-        <action
-            android:id="@+id/action_parcelsFragment_to_updateParcelFragment"
-            app:destination="@id/updateParcelFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left" />
-        <action
-            android:id="@+id/action_parcelsFragment_to_createParcelFragment"
-            app:destination="@id/createParcelFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left" />
-    </fragment>
-    <fragment
-        android:id="@+id/createParcelFragment"
-        android:name="com.km.parceltracker.ui.createparcel.CreateParcelFragment"
-        android:label="@string/create_parcel"
-        tools:layout="@layout/fragment_create_parcel">
-        <argument
-            android:name="trackingUrl"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
-    </fragment>
     <dialog
         android:id="@+id/sortByBottomDialogFragment"
         android:name="com.km.parceltracker.ui.parcels.bottomsheets.SortByBottomDialogFragment"
@@ -57,15 +21,46 @@
         android:label="SearchByBottomDialogFragment"
         tools:layout="@layout/bottom_sheet_parcel_search_by" />
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.km.parceltracker.ui.login.LoginFragment"
-        android:label="@string/login"
-        tools:layout="@layout/fragment_login">
+        android:id="@+id/createParcelFragment"
+        android:name="com.km.parceltracker.ui.createparcel.CreateParcelFragment"
+        android:label="@string/create_parcel"
+        tools:layout="@layout/fragment_create_parcel">
         <argument
             android:name="trackingUrl"
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/parcelsFragment"
+        android:name="com.km.parceltracker.ui.parcels.ParcelsFragment"
+        android:label="@string/parcels"
+        tools:layout="@layout/fragment_parcels">
+        <action
+            android:id="@+id/action_parcelsFragment_to_updateParcelFragment"
+            app:destination="@id/updateParcelFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_parcelsFragment_to_createParcelFragment"
+            app:destination="@id/createParcelFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <argument
+            android:name="trackingUrl"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.km.parceltracker.ui.login.LoginFragment"
+        android:label="@string/login"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_parcelsFragment"
             app:destination="@id/parcelsFragment"
@@ -82,6 +77,11 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
+        <argument
+            android:name="trackingUrl"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/updateParcelFragment"
@@ -98,4 +98,22 @@
         android:name="com.km.parceltracker.ui.register.RegisterFragment"
         android:label="@string/register"
         tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.km.parceltracker.ui.userprofile.UserProfileFragment"
+        android:label="UserProfileFragment"
+        tools:layout="@layout/fragment_user_profile">
+        <action
+            android:id="@+id/action_userProfileFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateProfileFragment"
+        android:name="com.km.parceltracker.ui.updateprofile.UpdateProfileFragment"
+        android:label="@string/change_profile"
+        tools:layout="@layout/fragment_update_profile" />
 </navigation>

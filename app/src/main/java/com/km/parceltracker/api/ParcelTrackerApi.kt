@@ -5,8 +5,8 @@ import android.content.res.Resources
 import androidx.core.os.ConfigurationCompat
 import com.google.gson.Gson
 import com.km.parceltracker.BuildConfig
+import com.km.parceltracker.api.error.ApiError
 import com.km.parceltracker.repository.TokenRepository
-import com.km.parceltracker.util.Endpoints
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

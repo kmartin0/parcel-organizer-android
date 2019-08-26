@@ -6,6 +6,7 @@
     <string name="error_max_characters_45">Cannot exceed 45 characters</string>
     <string name="error_min_characters_6">Must be minimum of 6 characters</string>
     <string name="error_required">Required</string>
+    <string name="change_at_least_1">Change at least one field</string>
 
     <!-- Global Error Dialogs -->
     <string name="error_internal_title">Oops something went wrong</string>
@@ -83,5 +84,20 @@
     <string name="logout">Logout</string>
     <string name="dialog_logout_title">Are you sure?</string>
     <string name="dialog_logout_message">Press yes if you want to logout now.</string>
+
+    <!-- Bottom Navigation Bar -->
+    <string name="nav_item_parcels">Parcels</string>
+    <string name="nav_item_profile">User profile</string>
+
+    <!-- User Profile -->
+    <string name="change_profile">Change Profile</string>
+    <string name="change_password">Change password</string>
+    <string name="email">email</string>
+    <string name="name">name</string>
+
+    <!-- Change Profile -->
+    <string name="hint_current_password">Current password</string>
+    <string name="update">Update</string>
+    <string name="current_password_incorrect">Invalid</string>
 
 </resources>

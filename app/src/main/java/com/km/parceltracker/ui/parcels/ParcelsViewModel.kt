@@ -22,7 +22,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     private val parcelRepository = ParcelRepository(application.applicationContext)
     private val settingsRepository = SettingsRepository(application.applicationContext)
     private val userRepository = UserRepository(application.applicationContext)
-    val loggedInUser = userRepository.getLoggedInUser()
+    var loggedInUser = userRepository.getLoggedInUser()
 
     private var repoParcels = MutableLiveData<List<Parcel>>()
     var parcels = MediatorLiveData<List<Parcel>>()
@@ -82,7 +82,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
             }
             .doOnComplete {
                 stopLoading()
-                refresh()
+                refreshParcels()
             }
             .doOnError {
                 stopLoading()
@@ -203,11 +203,16 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
         this.sortAndFilterConfig.value = sortAndFilterConfig
     }
 
-    fun refresh() {
+    fun refreshParcels() {
         if (isLoading.value == false) {
             parcels.removeSource(repoParcels)
             parcels.removeSource(sortAndFilterConfig)
             setupParcelSources()
+            loggedInUser = userRepository.getLoggedInUser()
         }
+    }
+
+    fun refreshLoggedInUser() {
+        loggedInUser = userRepository.getLoggedInUser()
     }
 }

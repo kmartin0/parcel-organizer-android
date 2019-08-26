@@ -6,6 +6,7 @@
     <string name="error_max_characters_45">Mag niet meer dan 45 karakters bevatten</string>
     <string name="error_min_characters_6">Minimaal 6 karakters</string>
     <string name="error_required">Verplicht</string>
+    <string name="change_at_least_1">Verander minimaal één veld</string>
 
     <!-- Global Error Dialogs -->
     <string name="error_internal_title">Er ging iets verkeerd</string>
@@ -83,5 +84,20 @@
     <string name="logout">Afmelden</string>
     <string name="dialog_logout_title">Weet je het zeker?</string>
     <string name="dialog_logout_message">Als je zeker weet dat je wilt uitloggen druk dan op ja.</string>
+
+    <!-- Bottom Navigation Bar -->
+    <string name="nav_item_parcels">Pakketten</string>
+    <string name="nav_item_profile">Gebruikersprofiel</string>
+
+    <!-- User Profile -->
+    <string name="change_profile">Pas profiel aan</string>
+    <string name="change_password">Wachtwoord veranderen</string>
+    <string name="email">email</string>
+    <string name="name">naam</string>
+
+    <!-- Change Profile -->
+    <string name="hint_current_password">Huidig wachtwoord</string>
+    <string name="update">Pas aan</string>
+    <string name="current_password_incorrect">Ongeldig</string>
 
 </resources>

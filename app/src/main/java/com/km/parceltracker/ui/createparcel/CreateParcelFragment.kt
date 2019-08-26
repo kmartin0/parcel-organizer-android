@@ -11,11 +11,13 @@ import com.km.parceltracker.R
 import com.km.parceltracker.base.BaseMVVMFragment
 import com.km.parceltracker.databinding.FragmentCreateParcelBinding
 import com.km.parceltracker.enums.ParcelStatusEnum
+import com.km.parceltracker.util.playAnimation
 import kotlinx.android.synthetic.main.form_parcel.*
 import kotlinx.android.synthetic.main.fragment_create_parcel.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
-class CreateParcelFragment : BaseMVVMFragment<FragmentCreateParcelBinding, CreateParcelViewModel>() {
+class CreateParcelFragment :
+    BaseMVVMFragment<FragmentCreateParcelBinding, CreateParcelViewModel>() {
 
     private val args: CreateParcelFragmentArgs by navArgs()
 
@@ -40,10 +42,9 @@ class CreateParcelFragment : BaseMVVMFragment<FragmentCreateParcelBinding, Creat
         // When a parcel has been created display a success animation and return to the previous fragment.
         viewModel.parcelCreatedSuccess.observe(this, Observer {
             btnCreateParcel.isClickable = false
-            lavSuccess.addAnimatorUpdateListener { animation ->
-                if (animation.animatedFraction == 1F) findNavController().navigateUp()
+            lottieSuccess.playAnimation {
+                findNavController().navigateUp()
             }
-            lavSuccess.playAnimation()
         })
     }
 

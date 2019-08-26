@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
-import com.km.parceltracker.api.ApiError
+import com.km.parceltracker.api.error.ApiError
 import com.km.parceltracker.repository.UserRepository
 import com.km.parceltracker.util.SingleLiveEvent
 import io.reactivex.disposables.CompositeDisposable
