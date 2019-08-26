@@ -102,7 +102,7 @@
 
         <variable
             name="viewModel"
-            type="com.km.parceltracker.ui.userprofile.UserProfileViewModel" />
+            type="com.km.parcelorganizer.ui.userprofile.UserProfileViewModel" />
     </data>
 
 </layout>

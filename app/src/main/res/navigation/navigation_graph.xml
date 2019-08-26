@@ -7,22 +7,22 @@
 
     <dialog
         android:id="@+id/sortByBottomDialogFragment"
-        android:name="com.km.parceltracker.ui.parcels.bottomsheets.SortByBottomDialogFragment"
+        android:name="com.km.parcelorganizer.ui.parcels.bottomsheets.SortByBottomDialogFragment"
         android:label="SortByBottomDialogFragment"
         tools:layout="@layout/bottom_sheet_parcel_sort_by" />
     <dialog
         android:id="@+id/sortOrderBottomDialogFragment"
-        android:name="com.km.parceltracker.ui.parcels.bottomsheets.SortOrderBottomDialogFragment"
+        android:name="com.km.parcelorganizer.ui.parcels.bottomsheets.SortOrderBottomDialogFragment"
         android:label="SortOrderBottomDialogFragment"
         tools:layout="@layout/bottom_sheet_parcel_sort_order" />
     <dialog
         android:id="@+id/searchByBottomDialogFragment"
-        android:name="com.km.parceltracker.ui.parcels.bottomsheets.SearchByBottomDialogFragment"
+        android:name="com.km.parcelorganizer.ui.parcels.bottomsheets.SearchByBottomDialogFragment"
         android:label="SearchByBottomDialogFragment"
         tools:layout="@layout/bottom_sheet_parcel_search_by" />
     <fragment
         android:id="@+id/createParcelFragment"
-        android:name="com.km.parceltracker.ui.createparcel.CreateParcelFragment"
+        android:name="com.km.parcelorganizer.ui.createparcel.CreateParcelFragment"
         android:label="@string/create_parcel"
         tools:layout="@layout/fragment_create_parcel">
         <argument
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/parcelsFragment"
-        android:name="com.km.parceltracker.ui.parcels.ParcelsFragment"
+        android:name="com.km.parcelorganizer.ui.parcels.ParcelsFragment"
         android:label="@string/parcels"
         tools:layout="@layout/fragment_parcels">
         <action
@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.km.parceltracker.ui.login.LoginFragment"
+        android:name="com.km.parcelorganizer.ui.login.LoginFragment"
         android:label="@string/login"
         tools:layout="@layout/fragment_login">
         <action
@@ -85,22 +85,22 @@
     </fragment>
     <fragment
         android:id="@+id/updateParcelFragment"
-        android:name="com.km.parceltracker.ui.updateparcel.UpdateParcelFragment"
+        android:name="com.km.parcelorganizer.ui.updateparcel.UpdateParcelFragment"
         android:label="@string/update_parcel"
         tools:layout="@layout/fragment_update_parcel">
         <argument
             android:name="parcel"
-            app:argType="com.km.parceltracker.model.Parcel"
+            app:argType="com.km.parcelorganizer.model.Parcel"
             app:nullable="false" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.km.parceltracker.ui.register.RegisterFragment"
+        android:name="com.km.parcelorganizer.ui.register.RegisterFragment"
         android:label="@string/register"
         tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/userProfileFragment"
-        android:name="com.km.parceltracker.ui.userprofile.UserProfileFragment"
+        android:name="com.km.parcelorganizer.ui.userprofile.UserProfileFragment"
         android:label="UserProfileFragment"
         tools:layout="@layout/fragment_user_profile">
         <action
@@ -113,7 +113,7 @@
     </fragment>
     <fragment
         android:id="@+id/updateProfileFragment"
-        android:name="com.km.parceltracker.ui.updateprofile.UpdateProfileFragment"
+        android:name="com.km.parcelorganizer.ui.updateprofile.UpdateProfileFragment"
         android:label="@string/change_profile"
         tools:layout="@layout/fragment_update_profile" />
 </navigation>

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.km.parceltracker.ui.login.LoginViewModel" />
+            type="com.km.parcelorganizer.ui.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

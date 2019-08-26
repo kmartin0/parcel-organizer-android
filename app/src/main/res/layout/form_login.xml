@@ -6,7 +6,7 @@
 
         <variable
             name="loginForm"
-            type="com.km.parceltracker.form.LoginForm" />
+            type="com.km.parcelorganizer.form.LoginForm" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

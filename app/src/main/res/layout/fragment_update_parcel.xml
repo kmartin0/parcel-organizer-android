@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.km.parceltracker.ui.updateparcel.UpdateParcelViewModel" />
+            type="com.km.parcelorganizer.ui.updateparcel.UpdateParcelViewModel" />
     </data>
 
     <LinearLayout

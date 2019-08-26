@@ -78,6 +78,6 @@
 
         <variable
             name="updateProfileForm"
-            type="com.km.parceltracker.form.UpdateProfileForm" />
+            type="com.km.parcelorganizer.form.UpdateProfileForm" />
     </data>
 </layout>

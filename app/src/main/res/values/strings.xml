@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Parcel Tracker</string>
+    <string name="app_name">Parcel Organizer</string>
 
     <!-- Default Error Messages -->
     <string name="error_max_characters_45">Cannot exceed 45 characters</string>
@@ -65,8 +65,8 @@
 
     <!-- Login -->
     <string name="login">Login</string>
-    <string name="login_title">Parcel Tracking</string>
-    <string name="login_subtitle">Tracking parcels made easy</string>
+    <string name="login_title">Parcel Organizer</string>
+    <string name="login_subtitle">Organizing parcels made easy</string>
     <string name="register_here">Register here</string>
     <string name="hint_email">Your e-mail address</string>
     <string name="hint_password">Your password</string>

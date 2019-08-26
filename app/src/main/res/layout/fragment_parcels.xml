@@ -59,7 +59,7 @@
 
         <variable
             name="viewModel"
-            type="com.km.parceltracker.ui.parcels.ParcelsViewModel" />
+            type="com.km.parcelorganizer.ui.parcels.ParcelsViewModel" />
     </data>
 
 </layout>

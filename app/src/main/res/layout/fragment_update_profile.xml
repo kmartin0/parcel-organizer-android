@@ -53,7 +53,7 @@
 
         <variable
             name="viewModel"
-            type="com.km.parceltracker.ui.updateprofile.UpdateProfileViewModel" />
+            type="com.km.parcelorganizer.ui.updateprofile.UpdateProfileViewModel" />
     </data>
 
 </layout>
