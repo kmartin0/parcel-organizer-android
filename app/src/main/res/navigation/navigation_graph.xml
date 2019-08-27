@@ -110,10 +110,22 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/updateProfileFragment"
         android:name="com.km.parcelorganizer.ui.updateprofile.UpdateProfileFragment"
         android:label="@string/change_profile"
         tools:layout="@layout/fragment_update_profile" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.km.parcelorganizer.ui.changepassword.ChangePasswordFragment"
+        android:label="@string/change_password"
+        tools:layout="@layout/fragment_change_password" />
 </navigation>

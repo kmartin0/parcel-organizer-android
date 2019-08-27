@@ -9,6 +9,7 @@ class Endpoints {
         const val OAUTH_TOKEN = "/oauth/token"
         const val USERS = "/users"
         const val GET_PARCEL_STATUS_BY_STATUS = "/parcel-statuses/status/{status}"
+        const val CHANGE_PASSWORD = "/users/change-password"
 
         fun shouldBasicAuth(request: Request): Boolean {
             return when (request.url().url().path) {
@@ -24,6 +25,7 @@ class Endpoints {
                 path == PARCELS -> true
                 path.startsWith(PARCELS) -> true
                 path == USERS && method == "PUT" -> true
+                path == CHANGE_PASSWORD -> true
                 else -> false
             }
         }

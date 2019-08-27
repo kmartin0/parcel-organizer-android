@@ -16,7 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ParcelTrackerApi {
     companion object {
         // The base url off the api.
-        private const val baseUrl = "http://10.0.2.2:8080/"
+//        private const val baseUrl = "http://10.0.2.2:8080/"
+        private const val baseUrl = "https://parcel-organizer-api.herokuapp.com/"
 
         /**
          * @return [ParcelTrackerApi] The service class off the retrofit client.
@@ -86,7 +87,10 @@ class ParcelTrackerApi {
                 val requestBuilder = request.newBuilder()
 
                 if (Endpoints.shouldBasicAuth(request)) {
-                    val basic = Credentials.basic(BuildConfig.clientSecretUsername, BuildConfig.clientSecretPassword)
+                    val basic = Credentials.basic(
+                        BuildConfig.clientSecretUsername,
+                        BuildConfig.clientSecretPassword
+                    )
                     requestBuilder.addHeader("Authorization", basic)
 
                     return@Interceptor it.proceed(requestBuilder.build())

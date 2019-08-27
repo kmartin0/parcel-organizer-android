@@ -20,6 +20,7 @@
     <string name="ok">OK</string>
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
+    <string name="submit">Bevestig</string>
 
     <!-- Search -->
     <string name="search">Zoeken</string>
@@ -99,5 +100,9 @@
     <string name="hint_current_password">Huidig wachtwoord</string>
     <string name="update">Pas aan</string>
     <string name="current_password_incorrect">Ongeldig</string>
+
+    <!-- Change Password -->
+    <string name="hint_new_password">Nieuw wachtwoord</string>
+    <string name="hint_confirm_new_password">Bevestig nieuwe wachtwoord</string>
 
 </resources>

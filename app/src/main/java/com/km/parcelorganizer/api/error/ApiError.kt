@@ -15,7 +15,7 @@ data class ApiError(
         const val INTERNAL_SERVER_ERROR = "INTERNAL"
         const val INVALID_GRANT = "invalid_grant"
         const val RESOURCE_NOT_FOUND = "RESOURCE_NOT_FOUND"
-        const val FORBIDDEN = "FORBIDDEN"
+        const val PERMISSION_DENIED = "PERMISSION_DENIED"
     }
 
     override fun equals(other: Any?): Boolean {

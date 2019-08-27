@@ -1,9 +1,6 @@
 package com.km.parcelorganizer.api
 
-import com.km.parcelorganizer.api.request.RegisterParcelRequestBody
-import com.km.parcelorganizer.api.request.RegisterUserRequestBody
-import com.km.parcelorganizer.api.request.UpdateParcelRequestBody
-import com.km.parcelorganizer.api.request.UpdateUserRequestBody
+import com.km.parcelorganizer.api.request.*
 import com.km.parcelorganizer.enums.ParcelStatusEnum
 import com.km.parcelorganizer.model.OAuth2Credentials
 import com.km.parcelorganizer.model.Parcel
@@ -46,4 +43,7 @@ interface ParcelTrackerApiService {
 
     @PUT(Endpoints.USERS)
     fun updateUser(@Body updateUserRequestBody: UpdateUserRequestBody) : Single<User>
+
+    @POST(Endpoints.CHANGE_PASSWORD)
+    fun changePassword(@Body changePasswordRequestBody: ChangePasswordRequestBody): Completable
 }

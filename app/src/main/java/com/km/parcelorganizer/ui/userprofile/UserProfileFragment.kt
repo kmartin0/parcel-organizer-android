@@ -17,6 +17,7 @@ class UserProfileFragment : BaseMVVMFragment<FragmentUserProfileBinding, UserPro
 
     private fun initViews() {
         btnChangeProfile.setOnClickListener { findNavController().navigate(R.id.action_userProfileFragment_to_updateProfileFragment) }
+        btnChangePassword.setOnClickListener { findNavController().navigate(R.id.action_userProfileFragment_to_changePasswordFragment) }
     }
 
     override fun initViewModelBinding() {
