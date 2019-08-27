@@ -14,6 +14,7 @@ import com.km.parcelorganizer.model.ParcelsSortAndFilterConfig
 import com.km.parcelorganizer.repository.ParcelRepository
 import com.km.parcelorganizer.repository.SettingsRepository
 import com.km.parcelorganizer.repository.UserRepository
+import com.km.parcelorganizer.util.SingleLiveEvent
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -37,6 +38,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     var sortAndFilterConfig = MutableLiveData<ParcelsSortAndFilterConfig>().apply {
         value = settingsRepository.getSortAndFilterSettings()
     }
+    val startLoadingParcels = SingleLiveEvent<Any>()
 
 
     private fun setupParcelSources() {
@@ -69,6 +71,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
                 override fun onSubscribe(d: Disposable) {
                     disposables.add(d)
                     startLoading()
+                    startLoadingParcels.call()
                 }
 
                 override fun onError(e: Throwable) {

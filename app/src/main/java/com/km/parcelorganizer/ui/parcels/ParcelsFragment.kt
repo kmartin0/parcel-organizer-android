@@ -81,9 +81,6 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
             viewModel.refreshParcels()
             srlParcels.isRefreshing = false
         }
-
-        // Set empty state visibility
-        toggleEmptyStateVisibility()
     }
 
     private fun initObservers() {
@@ -91,7 +88,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         viewModel.parcels.observe(this, Observer {
             parcels.clear()
             if (it != null) parcels.addAll(it)
-            toggleEmptyStateVisibility()
+            setEmptyStateVisibility()
             parcelsAdapter.notifyDataSetChanged()
         })
 
@@ -99,9 +96,14 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         viewModel.sortAndFilterConfig.observe(this, Observer {
             updateMenuTitles()
         })
+
+        // When parcels are being fetched hide empty state
+        viewModel.startLoadingParcels.observe(this, Observer {
+            parcelsEmptyStateView.visibility = View.INVISIBLE
+        })
     }
 
-    private fun toggleEmptyStateVisibility() {
+    private fun setEmptyStateVisibility() {
         parcelsEmptyStateView.visibility =
             if (parcels.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
     }
