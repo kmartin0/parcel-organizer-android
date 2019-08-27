@@ -51,11 +51,5 @@
         android:orderInCategory="8"
         android:title="@string/delivered"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_logout"
-        android:menuCategory="secondary"
-        android:orderInCategory="9"
-        android:title="@string/logout"
-        app:showAsAction="never" />
 
 </menu>

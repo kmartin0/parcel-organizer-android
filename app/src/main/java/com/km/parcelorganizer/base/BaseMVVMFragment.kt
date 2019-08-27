@@ -80,7 +80,13 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
         findNavController().navigate(
             R.id.loginFragment,
             null,
-            NavOptions.Builder().setPopUpTo(R.id.navigation_graph, true).build()
+            NavOptions.Builder()
+                .setPopUpTo(R.id.navigation_graph, true)
+                .setPopEnterAnim(android.R.anim.slide_in_left)
+                .setPopExitAnim(android.R.anim.slide_out_right)
+                .setEnterAnim(android.R.anim.slide_in_left)
+                .setExitAnim(android.R.anim.slide_out_right)
+                .build()
         )
     }
 

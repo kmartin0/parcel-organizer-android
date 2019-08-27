@@ -2,7 +2,6 @@ package com.km.parcelorganizer.api.error
 
 import com.google.gson.annotations.SerializedName
 
-// TODO: add details (TargetError)
 data class ApiError(
     @SerializedName("error") val error: String,
     @SerializedName("error_description") val description: String,

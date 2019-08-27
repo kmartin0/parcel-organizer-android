@@ -1,6 +1,8 @@
 package com.km.parcelorganizer.ui.parcels
 
 import android.app.Application
+import android.content.res.Resources
+import androidx.core.os.ConfigurationCompat
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.km.parcelorganizer.base.BaseViewModel
@@ -16,12 +18,18 @@ import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
     private val parcelRepository = ParcelRepository(application.applicationContext)
     private val settingsRepository = SettingsRepository(application.applicationContext)
     private val userRepository = UserRepository(application.applicationContext)
+
+    private val locale: Locale by lazy {
+        ConfigurationCompat.getLocales(Resources.getSystem().configuration).get(0)
+    }
+
     var loggedInUser = userRepository.getLoggedInUser()
 
     private var repoParcels = MutableLiveData<List<Parcel>>()
@@ -29,6 +37,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     var sortAndFilterConfig = MutableLiveData<ParcelsSortAndFilterConfig>().apply {
         value = settingsRepository.getSortAndFilterSettings()
     }
+
 
     private fun setupParcelSources() {
         // Retrieve the parcels from the repository and add the value in repoParcels
@@ -115,20 +124,32 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
         else when (sortAndFilterConfig.sortBy) {
             ParcelSortingEnum.TITLE -> {
                 when (sortAndFilterConfig.sortOrder) {
-                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.title.toLowerCase() }
-                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.title.toLowerCase() }
+                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.title.toLowerCase(locale) }
+                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending {
+                        it.title.toLowerCase(
+                            locale
+                        )
+                    }
                 }
             }
             ParcelSortingEnum.SENDER -> {
                 when (sortAndFilterConfig.sortOrder) {
-                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.sender?.toLowerCase() }
-                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.sender?.toLowerCase() }
+                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.sender?.toLowerCase(locale) }
+                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending {
+                        it.sender?.toLowerCase(
+                            locale
+                        )
+                    }
                 }
             }
             ParcelSortingEnum.COURIER -> {
                 when (sortAndFilterConfig.sortOrder) {
-                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.courier?.toLowerCase() }
-                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.courier?.toLowerCase() }
+                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.courier?.toLowerCase(locale) }
+                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending {
+                        it.courier?.toLowerCase(
+                            locale
+                        )
+                    }
                 }
             }
             ParcelSortingEnum.DATE -> {
@@ -166,17 +187,29 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
                 when (sortAndFilterConfig.searchBy) { // Find the attribute to filter by. Then use the searchQuery and parcel status to filter.
                     ParcelSearchingEnum.TITLE -> {
                         sortAndFilterConfig.isParcelStatusSelected(parcel) &&
-                                parcel.title.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
+                                parcel.title.toLowerCase(locale).contains(
+                                    sortAndFilterConfig.searchQuery!!.toLowerCase(
+                                        locale
+                                    )
+                                )
                     }
                     ParcelSearchingEnum.SENDER -> {
                         if (parcel.sender.isNullOrBlank()) false
                         else sortAndFilterConfig.isParcelStatusSelected(parcel) &&
-                                parcel.sender!!.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
+                                parcel.sender!!.toLowerCase(locale).contains(
+                                    sortAndFilterConfig.searchQuery!!.toLowerCase(
+                                        locale
+                                    )
+                                )
                     }
                     ParcelSearchingEnum.COURIER -> {
                         if (parcel.sender.isNullOrBlank()) false
                         else sortAndFilterConfig.isParcelStatusSelected(parcel) &&
-                                parcel.sender!!.toLowerCase().contains(sortAndFilterConfig.searchQuery!!.toLowerCase())
+                                parcel.sender!!.toLowerCase(locale).contains(
+                                    sortAndFilterConfig.searchQuery!!.toLowerCase(
+                                        locale
+                                    )
+                                )
                     }
                 }
             }

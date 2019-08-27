@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
- * TODO: Change Password
  * TODO: Check offline app
  * TODO: Maybe look into converting shared prefs into Single (This might solve i.e. the refreshLoggedInUserSituation in ParcelsFragment and UserProfileFragment)
  * TODO: Dependency Injection (Koin/Dagger)
@@ -123,10 +122,9 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
             val customTabsIntent = builder.build()
             customTabsIntent.launchUrl(context, Uri.parse(parcel.trackingUrl))
         } else {
-            //TODO: Use Snack bar Action for instant url add dialog popup.
             Toast.makeText(
                 context,
-                "Please provide the parcel with a valid tracking url",
+                getString(R.string.provide_valid_url),
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -241,15 +239,6 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
                     it.delivered = item.isChecked
                     viewModel.setSortingAndFilterConfig(it)
                 }
-                true
-            }
-            R.id.action_logout -> { // Show alert dialog prompting the user to logout
-                AlertDialog.Builder(context!!)
-                    .setTitle(getString(R.string.dialog_logout_title))
-                    .setMessage(getString(R.string.dialog_logout_message))
-                    .setPositiveButton(getString(R.string.yes)) { _, _ -> logout() }
-                    .setNegativeButton(getString(R.string.no), null)
-                    .show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

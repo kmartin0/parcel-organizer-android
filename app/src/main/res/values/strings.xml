@@ -59,6 +59,7 @@
     <string name="status">Status</string>
     <string name="parcels_empty_state_title">No parcels found</string>
     <string name="parcels_empty_state_message">Try refreshing by pulling down or add a parcel by pressing the floating action button below. It\'s also possible to create a parcel by sharing a tracking url with the app.</string>
+    <string name="provide_valid_url">Please provide the parcel with a valid tracking url</string>
 
     <!-- Delete Parcel -->
     <string name="dialog_delete_parcel_title">Delete %1s</string>
