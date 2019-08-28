@@ -3,6 +3,7 @@ package com.km.parcelorganizer.ui.login
 import android.app.Application
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseViewModel
+import com.km.parcelorganizer.enums.ApiErrorEnum
 import com.km.parcelorganizer.form.LoginForm
 import com.km.parcelorganizer.model.User
 import com.km.parcelorganizer.repository.UserRepository
@@ -49,10 +50,11 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                         stopLoading()
                         handleApiError(e) {
                             when (it?.error) {
-                                "invalid_grant" -> {
+                                ApiErrorEnum.invalid_grant -> {
                                     loginForm.emailError.value = R.string.error_login_credentials
                                     loginForm.passwordError.value = R.string.error_login_credentials
                                 }
+                                else -> {}
                             }
                         }
                     }

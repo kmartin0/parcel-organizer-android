@@ -6,6 +6,7 @@ import androidx.core.os.ConfigurationCompat
 import com.google.gson.Gson
 import com.km.parcelorganizer.BuildConfig
 import com.km.parcelorganizer.api.error.ApiError
+import com.km.parcelorganizer.enums.ApiErrorEnum
 import com.km.parcelorganizer.repository.TokenRepository
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,8 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ParcelTrackerApi {
     companion object {
         // The base url off the api.
-//        private const val baseUrl = "http://10.0.2.2:8080/"
-        private const val baseUrl = "https://parcel-organizer-api.herokuapp.com/"
+        private const val baseUrl = "http://10.0.2.2:8080/"
+//        private const val baseUrl = "https://parcel-organizer-api.herokuapp.com/"
 
         /**
          * @return [ParcelTrackerApi] The service class off the retrofit client.
@@ -127,7 +128,7 @@ class ParcelTrackerApi {
                 override fun authenticate(route: Route?, response: Response): Request? {
                     val body = response.peekBody(Long.MAX_VALUE).string()
                     val responseBody = Gson().fromJson(body, ApiError::class.java)
-                    return if (responseBody.error == ApiError.TOKEN_EXPIRED) {
+                    return if (responseBody.error == ApiErrorEnum.invalid_token) {
                         val tokenRepository = TokenRepository(context)
                         val refreshToken =
                             tokenRepository.getUserOAuth2Credentials()?.refreshToken ?: return null

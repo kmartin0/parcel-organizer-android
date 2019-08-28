@@ -13,8 +13,8 @@
     <string name="error_internal_message">Er ging iets verkeerd tijdens het verwerken van uw verzoek. Probeer het later opnieuw.</string>
     <string name="error_authentication_title">Authenticatie mislukt</string>
     <string name="error_authentication_message">Probeer opnieuw in te loggen.</string>
-    <string name="error_internet_title">Kon geen verbinding maken</string>
-    <string name="error_internet_message">Controleer uw internet verbinding en probeer opnieuw.</string>
+    <string name="error_service_unavailable_title">Kon geen verbinding maken</string>
+    <string name="error_service_unavailable_message">De server kon niet worden bereikt. Controleer uw internet verbinding of probeer opnieuw het later opnieuw.</string>
 
     <!-- Dialog Buttons -->
     <string name="ok">OK</string>

@@ -1,8 +1,8 @@
 package com.km.parcelorganizer.ui.register
 
 import android.app.Application
-import com.km.parcelorganizer.api.error.ApiError
 import com.km.parcelorganizer.base.BaseViewModel
+import com.km.parcelorganizer.enums.ApiErrorEnum
 import com.km.parcelorganizer.form.RegisterForm
 import com.km.parcelorganizer.model.User
 import com.km.parcelorganizer.repository.UserRepository
@@ -42,7 +42,8 @@ class RegisterViewModel(application: Application) : BaseViewModel(application) {
                         stopLoading()
                         handleApiError(e) {
                             when (it?.error) {
-                                ApiError.ALREADY_EXISTS -> alreadyExists.call()
+                                ApiErrorEnum.ALREADY_EXISTS -> alreadyExists.call()
+                                else -> {}
                             }
                         }
                     }

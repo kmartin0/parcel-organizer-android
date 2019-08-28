@@ -4,6 +4,7 @@ import android.app.Application
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.api.error.ApiError
 import com.km.parcelorganizer.base.BaseViewModel
+import com.km.parcelorganizer.enums.ApiErrorEnum
 import com.km.parcelorganizer.form.UpdateProfileForm
 import com.km.parcelorganizer.model.User
 import com.km.parcelorganizer.repository.UserRepository
@@ -57,15 +58,16 @@ class UpdateProfileViewModel(application: Application) : BaseViewModel(applicati
 
     private fun handleUpdateUserApiError(apiError: ApiError) {
         when (apiError.error) {
-            ApiError.PERMISSION_DENIED -> { // Check if filled in current password is correct.
+            ApiErrorEnum.PERMISSION_DENIED -> { // Check if filled in current password is correct.
                 apiError.details?.forEach { targetError ->
                     if (targetError.target == "password") updateProfileForm.passwordError.value =
                         R.string.current_password_incorrect
                 }
             }
-            ApiError.ALREADY_EXISTS -> { // Check if email is unique.
+            ApiErrorEnum.ALREADY_EXISTS -> { // Check if email is unique.
                 updateProfileForm.emailError.value = R.string.already_exists
             }
+            else -> {}
         }
     }
 }

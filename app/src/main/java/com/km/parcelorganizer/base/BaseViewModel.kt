@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.km.parcelorganizer.api.error.ApiError
+import com.km.parcelorganizer.enums.ApiErrorEnum
 import com.km.parcelorganizer.repository.UserRepository
 import com.km.parcelorganizer.util.SingleLiveEvent
 import io.reactivex.disposables.CompositeDisposable
@@ -15,7 +16,7 @@ import java.net.SocketTimeoutException
 abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
     protected val disposables = CompositeDisposable()
     val isLoading = MutableLiveData<Boolean>().apply { value = false }
-    val noInternetConnection = SingleLiveEvent<Unit>()
+    val serverUnavailableException = SingleLiveEvent<Unit>()
     val logout = SingleLiveEvent<Unit>()
     val internalServerError = SingleLiveEvent<Unit>()
     private val userRepository = UserRepository(application.applicationContext)
@@ -48,23 +49,24 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
 
                 // Handle these errors globally.
                 when (apiError?.error) {
-                    ApiError.TOKEN_EXPIRED -> logout.call()  // Refresh Token Expired or Bad Credentials.
-                    ApiError.INVALID_GRANT -> if (userRepository.isUserLoggedIn()) logout.call()
-                    ApiError.INTERNAL_SERVER_ERROR -> internalServerError.call()
+                    ApiErrorEnum.invalid_token -> logout.call()  // Refresh Token Expired or Bad Credentials.
+                    ApiErrorEnum.invalid_grant -> if (userRepository.isUserLoggedIn()) logout.call()
+                    ApiErrorEnum.INTERNAL -> internalServerError.call()
+                    else -> {}
                 }
 
                 // Return the api error object.
                 apiError
             }
             is SocketTimeoutException, is ConnectException -> { // Server can't be reached.
-                noInternetConnection.call()
+                serverUnavailableException.call()
                 null
             }
             else -> null
         }
     }
 
-    fun parseApiError(error: Throwable): ApiError? {
+    protected fun parseApiError(error: Throwable): ApiError? {
         return when (error) {
             is HttpException -> {
                 val body = error.response()?.errorBody()?.string()

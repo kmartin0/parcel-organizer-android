@@ -24,7 +24,9 @@ import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
+ * TODO: Add share in parcel items. To share the tracking url.
  * TODO: Check offline app
+ * TODO: Improve performance and smoothness of ParcelsFragment
  * TODO: Maybe look into converting shared prefs into Single (This might solve i.e. the refreshLoggedInUserSituation in ParcelsFragment and UserProfileFragment)
  * TODO: Dependency Injection (Koin/Dagger)
  */

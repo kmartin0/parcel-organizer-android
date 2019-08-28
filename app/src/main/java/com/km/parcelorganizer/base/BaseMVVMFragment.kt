@@ -41,7 +41,7 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeLoading()
-        observeNoInternetConnection()
+        observeServiceUnavailableException()
         observeLogout()
         observeInternalServerError()
     }
@@ -52,12 +52,12 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
         })
     }
 
-    private fun observeNoInternetConnection() {
-        viewModel.noInternetConnection.observe(this, Observer {
+    private fun observeServiceUnavailableException() {
+        viewModel.serverUnavailableException.observe(this, Observer {
             AlertDialog.Builder(context!!)
-                .setTitle(getString(R.string.error_internet_title))
+                .setTitle(getString(R.string.error_service_unavailable_title))
                 .setIcon(R.drawable.ic_error_24dp)
-                .setMessage(getString(R.string.error_internet_message))
+                .setMessage(getString(R.string.error_service_unavailable_message))
                 .setNeutralButton(getString(R.string.ok), null)
                 .show()
         })

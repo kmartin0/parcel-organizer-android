@@ -4,6 +4,7 @@ import android.app.Application
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.api.error.ApiError
 import com.km.parcelorganizer.base.BaseViewModel
+import com.km.parcelorganizer.enums.ApiErrorEnum
 import com.km.parcelorganizer.form.ChangePasswordForm
 import com.km.parcelorganizer.repository.UserRepository
 import com.km.parcelorganizer.util.SingleLiveEvent
@@ -52,12 +53,13 @@ class ChangePasswordViewModel(application: Application) : BaseViewModel(applicat
 
     private fun handleUpdateUserApiError(apiError: ApiError) {
         when (apiError.error) {
-            ApiError.PERMISSION_DENIED -> { // Check if filled in current password is correct.
+            ApiErrorEnum.PERMISSION_DENIED -> { // Check if filled in current password is correct.
                 apiError.details?.forEach { targetError ->
                     if (targetError.target == "oldPassword") changePasswordForm.currentPasswordError.value =
                         R.string.current_password_incorrect
                 }
             }
+            else -> {}
         }
     }
 }

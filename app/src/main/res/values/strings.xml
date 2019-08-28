@@ -13,8 +13,8 @@
     <string name="error_internal_message">Something went wrong while processing your request, please try again later.</string>
     <string name="error_authentication_title">Authentication failed</string>
     <string name="error_authentication_message">Please login again.</string>
-    <string name="error_internet_title">Could not establish a connection</string>
-    <string name="error_internet_message">Please check your internet connection and try again.</string>
+    <string name="error_service_unavailable_title">Could not establish a connection</string>
+    <string name="error_service_unavailable_message">De server couldn\'t be reached. Please check your internet connection or try again later.</string>
 
     <!-- Dialog Buttons -->
     <string name="ok">OK</string>
