@@ -15,6 +15,7 @@ import com.km.parcelorganizer.repository.ParcelRepository
 import com.km.parcelorganizer.repository.SettingsRepository
 import com.km.parcelorganizer.repository.UserRepository
 import com.km.parcelorganizer.util.SingleLiveEvent
+import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -26,20 +27,17 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     private val parcelRepository = ParcelRepository(application.applicationContext)
     private val settingsRepository = SettingsRepository(application.applicationContext)
     private val userRepository = UserRepository(application.applicationContext)
-
+    var loggedInUser = userRepository.getLoggedInUser()
     private val locale: Locale by lazy {
         ConfigurationCompat.getLocales(Resources.getSystem().configuration).get(0)
     }
-
-    var loggedInUser = userRepository.getLoggedInUser()
-
     private var repoParcels = MutableLiveData<List<Parcel>>()
     var parcels = MediatorLiveData<List<Parcel>>()
     var sortAndFilterConfig = MutableLiveData<ParcelsSortAndFilterConfig>().apply {
         value = settingsRepository.getSortAndFilterSettings()
     }
+    private var sortAndFilterDisposable: Disposable? = null
     val startLoadingParcels = SingleLiveEvent<Any>()
-
 
     private fun setupParcelSources() {
         // Retrieve the parcels from the repository and add the value in repoParcels
@@ -47,14 +45,12 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
         // When the value of repoParcels is changed then sort and filter the list and set the value of parcels to it
         parcels.addSource(repoParcels) {
-            parcels.value = sortAndFilterParcels(it, sortAndFilterConfig.value)
+            sortAndFilterParcels()
         }
 
         // When the value of sortAndFilterConfig is changed then sort and filter repoParcels and set the value of parcels to it
-        parcels.addSource(sortAndFilterConfig) { config ->
-            repoParcels.value?.let { parcels ->
-                this@ParcelsViewModel.parcels.value = sortAndFilterParcels(parcels, config)
-            }
+        parcels.addSource(sortAndFilterConfig) {
+            sortAndFilterParcels()
         }
     }
 
@@ -104,13 +100,36 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     }
 
     /**
-     * @return List<Parcel> sorted and filtered parcels list using [sortAndFilterConfig] for the sorting and filter options
+     * Sorts and filters the [repoParcels] list and stores the result in [parcels]
      */
-    private fun sortAndFilterParcels(
-        parcels: List<Parcel>?,
-        sortAndFilterConfig: ParcelsSortAndFilterConfig?
-    ): List<Parcel>? {
-        return sortParcels(filterParcels(parcels, sortAndFilterConfig), sortAndFilterConfig)
+    private fun sortAndFilterParcels() {
+        Single.fromCallable {
+            sortParcels(
+                filterParcels(
+                    repoParcels.value,
+                    sortAndFilterConfig.value
+                ), sortAndFilterConfig.value
+            )
+        }
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : SingleObserver<List<Parcel>?> {
+                override fun onSuccess(t: List<Parcel>) {
+                    stopLoading()
+                    this@ParcelsViewModel.parcels.value = t
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                    sortAndFilterDisposable?.dispose()
+                    sortAndFilterDisposable = d
+                    startLoading()
+                }
+
+                override fun onError(e: Throwable) {
+                    stopLoading()
+                    e.printStackTrace()
+                }
+            })
     }
 
     /**
@@ -206,9 +225,9 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
                                 )
                     }
                     ParcelSearchingEnum.COURIER -> {
-                        if (parcel.sender.isNullOrBlank()) false
+                        if (parcel.courier.isNullOrBlank()) false
                         else sortAndFilterConfig.isParcelStatusSelected(parcel) &&
-                                parcel.sender!!.toLowerCase(locale).contains(
+                                parcel.courier!!.toLowerCase(locale).contains(
                                     sortAndFilterConfig.searchQuery!!.toLowerCase(
                                         locale
                                     )
