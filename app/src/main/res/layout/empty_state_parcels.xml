@@ -20,12 +20,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/key_line_2"
+        android:alpha="?alphaEmphasisHigh"
         android:gravity="center"
         android:text="@string/parcels_empty_state_title"
         android:textAppearance="?textAppearanceSubtitle2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:alpha="?alphaEmphasisHigh"
         app:layout_constraintTop_toBottomOf="@id/ivEmptyBox" />
 
     <androidx.appcompat.widget.AppCompatTextView

@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.km.parcelorganizer.ui.userprofile.UserProfileViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,11 +19,11 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/ic_person_black_24dp"
+            app:layout_constraintBottom_toTopOf="@id/btnLogout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintBottom_toTopOf="@id/btnLogout"/>
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -31,10 +38,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/logout"
+            app:layout_constraintBottom_toTopOf="@id/tilEmail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivHeader"
-            app:layout_constraintBottom_toTopOf="@id/tilEmail"
             app:layout_constraintWidth_percent=".5" />
 
         <com.google.android.material.button.MaterialButton
@@ -110,12 +117,4 @@
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.km.parcelorganizer.ui.userprofile.UserProfileViewModel" />
-    </data>
-
 </layout>
