@@ -47,7 +47,7 @@
     <string name="hint_courier">Who is the courier of the parcel (optional)</string>
     <string name="hint_tracking_url">What is the tracking url (optional)</string>
     <string name="hint_status">What is the status of the parcel</string>
-    <string name="error_invalid_url">Invalid Url</string>
+    <string name="error_invalid_url">Invalid Url. Make sure that the url starts with http:// or https://</string>
 
     <!-- Parcels -->
     <string name="parcels">Parcels</string>
@@ -105,5 +105,8 @@
     <!-- Change Password -->
     <string name="hint_new_password">New Password</string>
     <string name="hint_confirm_new_password">Confirm new password</string>
+
+    <!-- Share -->
+    <string name="share_tracking_url">Share tracking url with</string>
 
 </resources>

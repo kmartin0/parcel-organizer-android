@@ -15,9 +15,7 @@ class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
      */
     fun bind(
         parcel: Parcel,
-        onParcelClick: (Parcel) -> Unit,
-        onEditParcelClick: (Parcel) -> Unit,
-        onDeleteParcelClick: (Parcel) -> Unit
+        parcelClickListener: ParcelClickListener
     ) {
         itemView.tvTitle.text = parcel.title
         itemView.tvSender.text = parcel.sender
@@ -31,9 +29,10 @@ class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             ParcelStatusEnum.DELIVERED -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorDelivered))
         }
 
-        itemView.setOnClickListener { onParcelClick(parcel) }
-        itemView.ivEdit.setOnClickListener { onEditParcelClick(parcel) }
-        itemView.ivDelete.setOnClickListener { onDeleteParcelClick(parcel) }
+        itemView.setOnClickListener { parcelClickListener.onParcelClick(parcel) }
+        itemView.ivEdit.setOnClickListener { parcelClickListener.onEditParcelClick(parcel) }
+        itemView.ivDelete.setOnClickListener { parcelClickListener.onDeleteParcelClick(parcel) }
+        itemView.ivShare.setOnClickListener { parcelClickListener.onShareParcelClick(parcel) }
     }
 
 }

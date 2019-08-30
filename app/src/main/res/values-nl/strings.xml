@@ -47,7 +47,7 @@
     <string name="hint_courier">"Wie is de koerier (Optioneel)"</string>
     <string name="hint_tracking_url">Wat is de tracking url (optioneel)</string>
     <string name="hint_status">Wat is de pakketstatus</string>
-    <string name="error_invalid_url">Ongeldige url</string>
+    <string name="error_invalid_url">Ongeldige url. Let op deze moet beginnen met http:// of https://</string>
 
     <!-- Parcels -->
     <string name="parcels">Pakketten</string>
@@ -105,5 +105,8 @@
     <!-- Change Password -->
     <string name="hint_new_password">Nieuw wachtwoord</string>
     <string name="hint_confirm_new_password">Bevestig nieuwe wachtwoord</string>
+
+    <!-- Share -->
+    <string name="share_tracking_url">Deel track en trace url met</string>
 
 </resources>

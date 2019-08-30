@@ -65,7 +65,7 @@
             style="@style/ParcelItemText"
             android:text="12-04-2019"
             app:layout_constraintBottom_toBottomOf="@id/ivLastUpdated"
-            app:layout_constraintEnd_toStartOf="@id/tvStatus"
+            app:layout_constraintEnd_toStartOf="@id/ivShare"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/ivLastUpdated"
             app:layout_constraintTop_toTopOf="@id/ivLastUpdated" />
@@ -92,6 +92,18 @@
             android:src="@drawable/ic_edit_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ivDelete" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/ivShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/key_line_2"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_share_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivEdit" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvStatus"
