@@ -13,6 +13,10 @@ class ParcelsAdapter(
     private val onDeleteParcelClick: (Parcel) -> Unit
 ) : RecyclerView.Adapter<ParcelsViewHolder>() {
 
+    init {
+        setHasStableIds(true)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParcelsViewHolder {
         return ParcelsViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_parcel, parent, false)
@@ -23,5 +27,7 @@ class ParcelsAdapter(
 
     override fun onBindViewHolder(holder: ParcelsViewHolder, position: Int) =
         holder.bind(parcels[position], onParcelClick, onEditParcelClick, onDeleteParcelClick)
+
+    override fun getItemId(position: Int): Long = parcels[position].id
 
 }
