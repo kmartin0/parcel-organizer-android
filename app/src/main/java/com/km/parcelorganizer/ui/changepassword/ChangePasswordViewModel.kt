@@ -54,12 +54,13 @@ class ChangePasswordViewModel(application: Application) : BaseViewModel(applicat
     private fun handleUpdateUserApiError(apiError: ApiError) {
         when (apiError.error) {
             ApiErrorEnum.PERMISSION_DENIED -> { // Check if filled in current password is correct.
-                apiError.details?.forEach { targetError ->
-                    if (targetError.target == "oldPassword") changePasswordForm.currentPasswordError.value =
+                apiError.details?.get("oldPassword")?.let {
+                    changePasswordForm.currentPasswordError.value =
                         R.string.current_password_incorrect
                 }
             }
-            else -> {}
+            else -> {
+            }
         }
     }
 }

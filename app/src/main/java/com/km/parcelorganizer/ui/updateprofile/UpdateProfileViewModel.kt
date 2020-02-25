@@ -59,15 +59,15 @@ class UpdateProfileViewModel(application: Application) : BaseViewModel(applicati
     private fun handleUpdateUserApiError(apiError: ApiError) {
         when (apiError.error) {
             ApiErrorEnum.PERMISSION_DENIED -> { // Check if filled in current password is correct.
-                apiError.details?.forEach { targetError ->
-                    if (targetError.target == "password") updateProfileForm.passwordError.value =
-                        R.string.current_password_incorrect
+                apiError.details?.get("password")?.let {
+                    updateProfileForm.passwordError.value = R.string.current_password_incorrect
                 }
             }
             ApiErrorEnum.ALREADY_EXISTS -> { // Check if email is unique.
                 updateProfileForm.emailError.value = R.string.already_exists
             }
-            else -> {}
+            else -> {
+            }
         }
     }
 }
