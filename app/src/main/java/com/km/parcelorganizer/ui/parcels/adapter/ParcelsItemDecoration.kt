@@ -14,14 +14,15 @@ class ParcelsItemDecoration(private val context: Context) : RecyclerView.ItemDec
      */
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         val position = parent.getChildAdapterPosition(view)
-        val spacing = context.resources.getDimension(R.dimen.default_padding)
+        val spacingHorizontal = context.resources.getDimension(R.dimen.key_line_5)
+        val spacingVertical = context.resources.getDimension(R.dimen.default_padding)
         val fabSize = context.resources.getDimension(R.dimen.normal_fab_size)
 
-        outRect.top = spacing.toInt()
+        outRect.top = spacingVertical.toInt()
         outRect.bottom =
-            if (position == state.itemCount.minus(1)) spacing.toInt().plus(fabSize.toInt()) else spacing.toInt()
-        outRect.left = spacing.toInt()
-        outRect.right = spacing.toInt()
+            if (position == state.itemCount.minus(1)) spacingVertical.toInt().plus(fabSize.toInt()) else spacingVertical.toInt()
+        outRect.left = spacingHorizontal.toInt()
+        outRect.right = spacingHorizontal.toInt()
     }
 
 }

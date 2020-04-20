@@ -19,29 +19,33 @@
     <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
     <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
     <!--selection controls.-->
-    <color name="color_primary">#6200ee</color>
-    <color name="color_primary_variant">#3700b3</color>
-    <color name="color_secondary">#880E4F</color>
-    <color name="color_secondary_variant">#560027</color>
+    <color name="color_primary">#880e4f</color>
+    <color name="color_primary_variant">#560027</color>
+    <color name="color_secondary">#fbc02d</color>
+    <color name="color_secondary_variant">#c25e00</color>
 
     <!--colorBackground appears behind scrollable content and is used for the default window-->
     <!--background. colorSurface is mapped to the surface of components such as cards, sheets-->
     <!--and menus. colorError is used to indicate an error state for components such as-->
     <!--text fields.-->
-    <color name="color_background">#ffffff</color>
-    <color name="color_surface">#ffffff</color>
-    <color name="color_error">#b00020</color>
+    <color name="color_background">#E57654</color>
+    <color name="color_surface">#e5365c</color>
+    <color name="color_error">#000000</color>
 
     <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
     <!--on which they appear.-->
     <color name="color_on_primary">#ffffff</color>
-    <color name="color_on_secondary">#FFFFFF</color>
-    <color name="color_on_background">#000000</color>
-    <color name="color_on_surface">#000000</color>
+    <color name="color_on_secondary">#000000</color>
+    <color name="color_on_background">#ffffff</color>
+    <color name="color_on_surface">#ffffff</color>
     <color name="color_on_error">#ffffff</color>
+    <color name="color_on_variant">#000000</color>
 
     <!-- colors defined for parcel status -->
-    <color name="colorSent">#2dccff</color>
-    <color name="colorDelivered">#56f000</color>
-    <color name="colorOrdered">#9ea7ad</color>
+    <color name="pi_color_ordered">#01579B</color>
+    <color name="pi_color_sent">#29434e</color>
+    <color name="pi_color_delivered">#1B5E20</color>
+    <color name="pi_color_on">#F3FEE2</color>
+    <color name="pi_color_title">#FFCA28</color>
+    <color name="pi_color_action">#faffb5</color>
 </resources>

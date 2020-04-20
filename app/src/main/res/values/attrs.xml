@@ -16,6 +16,15 @@
 -->
 <resources>
 
+    <attr name="colorOnVariant" format="reference"/>
+
+    <attr name="piColorOrdered" format="reference"/>
+    <attr name="piColorSent" format="reference"/>
+    <attr name="piColorDelivered" format="reference"/>
+    <attr name="piColorOn" format="reference"/>
+    <attr name="piColorTitle" format="reference"/>
+    <attr name="piColorAction" format="reference"/>
+
     <attr name="alphaEmphasisHigh" format="float"/>
     <attr name="alphaEmphasisMedium" format="float"/>
     <attr name="alphaEmphasisDisabled" format="float"/>

@@ -15,7 +15,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTitle"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             errorText="@{parcelForm.titleError}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -34,7 +33,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilSender"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             errorText="@{parcelForm.senderError}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -54,7 +52,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilCourier"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             errorText="@{parcelForm.courierError}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -74,7 +71,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTrackingUrl"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             errorText="@{parcelForm.trackingUrlError}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -94,7 +90,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilStatus"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            style="@style/MyTheme.TextInputLayout.ExposedDropDownMenu"
             errorText="@{parcelForm.parcelStatusEnumError}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

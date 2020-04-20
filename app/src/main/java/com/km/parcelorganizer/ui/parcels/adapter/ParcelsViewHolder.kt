@@ -1,5 +1,8 @@
 package com.km.parcelorganizer.ui.parcels.adapter
 
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.km.parcelorganizer.R
@@ -24,9 +27,21 @@ class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.tvLastUpdated.text = SimpleDateFormat.getDateTimeInstance().format(parcel.lastUpdated)
 
         when (parcel.parcelStatus.status) {
-            ParcelStatusEnum.SENT -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorSent))
-            ParcelStatusEnum.ORDERED -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorOrdered))
-            ParcelStatusEnum.DELIVERED -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.colorDelivered))
+            ParcelStatusEnum.SENT -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.pi_color_sent))
+            ParcelStatusEnum.ORDERED -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.pi_color_ordered))
+            ParcelStatusEnum.DELIVERED -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.pi_color_delivered))
+        }
+
+        if (parcel.trackingUrl.isNullOrEmpty()) {
+            itemView.ivShare.isEnabled = false
+            itemView.ivShare.isFocusable = false
+            itemView.ivShare.isClickable = false
+            itemView.ivShare.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN)
+        } else {
+            itemView.ivShare.isEnabled = true
+            itemView.ivShare.isFocusable = true
+            itemView.ivShare.isClickable = true
+            itemView.ivShare.colorFilter = null
         }
 
         itemView.setOnClickListener { parcelClickListener.onParcelClick(parcel) }

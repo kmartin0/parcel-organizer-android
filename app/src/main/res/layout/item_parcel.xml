@@ -72,6 +72,7 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ivDelete"
+            style="@style/ParcelItemActionIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -83,6 +84,7 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ivEdit"
+            style="@style/ParcelItemActionIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/key_line_2"
@@ -95,6 +97,7 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ivShare"
+            style="@style/ParcelItemActionIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/key_line_2"

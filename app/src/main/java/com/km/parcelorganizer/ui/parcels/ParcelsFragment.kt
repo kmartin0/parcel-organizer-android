@@ -2,6 +2,7 @@ package com.km.parcelorganizer.ui.parcels
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.webkit.URLUtil
 import android.widget.Toast
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentParcelsBinding
@@ -27,8 +29,11 @@ import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
  * TODO: Maybe look into converting shared prefs into Single (This might solve i.e. the refreshLoggedInUserSituation in ParcelsFragment and UserProfileFragment)
- * TODO: Dependency Injection (Koin/Dagger)
- * TODO: Check offline app
+ * TODO: Add logo in ParcelsFragment Toolbar
+ * TODO: Look into switching between tabs temporary shows the new toolbar.
+ * TODO: Going from parcels to add the bottom navbar goes away too fast.
+ * TODO: Loading indicator fix it.
+ * TODO: Session expired message.
  */
 class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewModel>(),
     ParcelClickListener {
@@ -117,10 +122,11 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
      * Open a Chrome Custom Tabs using the tracking url. If the url is not valid display a toast message.
      */
     override fun onParcelClick(parcel: Parcel) {
-        if (parcel.trackingUrl != null && URLUtil.isValidUrl(parcel.trackingUrl)) {
+        val trackingUrl = parcel.parseTrackingUrl()
+        if (!trackingUrl.isNullOrEmpty()) {
             val builder = CustomTabsIntent.Builder()
             val customTabsIntent = builder.build()
-            customTabsIntent.launchUrl(context, Uri.parse(parcel.trackingUrl))
+            customTabsIntent.launchUrl(context, Uri.parse(trackingUrl))
         } else {
             Toast.makeText(
                 context,
@@ -144,7 +150,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
      */
     override fun onDeleteParcelClick(parcel: Parcel) {
         if (viewModel.isLoading.value == false) {
-            AlertDialog.Builder(context!!)
+            MaterialAlertDialogBuilder(context!!)
                 .setTitle(getString(R.string.dialog_delete_parcel_title, parcel.title))
                 .setMessage(getString(R.string.dialog_delete_parcel_message, parcel.title))
                 .setPositiveButton(getString(R.string.yes)) { _, _ -> viewModel.deleteParcel(parcel) }
@@ -157,11 +163,12 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
      * Share the parcel tracking url with other apps.
      */
     override fun onShareParcelClick(parcel: Parcel) {
-        if (parcel.trackingUrl != null && URLUtil.isValidUrl(parcel.trackingUrl)) {
+        val trackingUrl = parcel.parseTrackingUrl()
+        if (!trackingUrl.isNullOrEmpty()) {
             ShareCompat.IntentBuilder.from(activity)
                 .setType("text/plain")
                 .setChooserTitle(R.string.share_tracking_url)
-                .setText(parcel.trackingUrl)
+                .setText(trackingUrl)
                 .startChooser()
         } else {
             Toast.makeText(

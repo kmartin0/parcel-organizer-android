@@ -15,7 +15,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEmail"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             errorText="@{loginForm.emailError}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -25,18 +24,15 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/SingleLineInputEditTextStyle"
                 android:hint="@string/hint_email"
-                android:inputType="text"
-                android:maxLines="1"
+                android:inputType="textEmailAddress"
                 android:text="@={loginForm.email}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPassword"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             errorText="@{loginForm.passwordError}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -47,12 +43,10 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/SingleLineInputEditTextStyle"
                 android:hint="@string/hint_password"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
-                android:maxLines="1"
                 android:text="@={loginForm.password}" />
 
         </com.google.android.material.textfield.TextInputLayout>

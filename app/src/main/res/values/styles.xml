@@ -22,6 +22,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">?textAppearanceHeadline6</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">?colorOnSurface</item>
     </style>
 
     <style name="BottomSheetRadioButtonStyle">
@@ -30,6 +31,7 @@
         <item name="android:paddingStart">@dimen/key_line_3</item>
         <item name="android:paddingEnd">@dimen/key_line_3</item>
         <item name="android:textAppearance">?textAppearanceSubtitle1</item>
+        <item name="android:textColor">?colorOnSurface</item>
     </style>
 
     <!-- Progressbar. -->
@@ -56,20 +58,32 @@
     <style name="ParcelItemHeader">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAppearance">?textAppearanceHeadline6</item>
+        <item name="android:textAppearance">?textAppearanceSubtitle1</item>
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?piColorTitle</item>
     </style>
 
     <style name="ParcelItemText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/key_line_1</item>
+        <item name="android:layout_marginStart">@dimen/key_line_2</item>
         <item name="android:textAppearance">?textAppearanceBody2</item>
+        <item name="android:textSize">13sp</item>
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?piColorOn</item>
     </style>
 
     <style name="ParcelItemIcon">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/key_line_1</item>
+        <item name="android:layout_width">22dp</item>
+        <item name="android:layout_height">22dp</item>
+        <item name="android:layout_marginTop">@dimen/key_line_2</item>
+        <item name="android:tint">?piColorOn</item>
+    </style>
+
+    <style name="ParcelItemActionIcon">
+        <item name="android:layout_width">22dp</item>
+        <item name="android:layout_height">22dp</item>
+        <item name="android:tint">?piColorAction</item>
     </style>
 
     <!-- Input Edit Text styles. -->
@@ -81,8 +95,44 @@
 
     <!-- SearchView text and hint color style. -->
     <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
-        <item name="android:textColor">@color/color_on_primary</item>
-        <item name="android:textColorHint">@color/color_on_primary</item>
+        <item name="android:textColor">?colorOnPrimary</item>
+        <item name="android:textColorHint">?colorOnPrimary</item>
+    </style>
+
+    <!-- Text input box styles. -->
+    <style name="MyTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/til_outlined_stroke_color</item>
+        <item name="android:textColorHint">@color/til_indicator_text_color</item>
+        <item name="endIconTint">@color/til_outlined_stroke_color</item>
+        <item name="startIconTint">@color/til_outlined_stroke_color</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyTheme.TextInputEditText</item>
+    </style>
+
+    <style name="ThemeOverlay.MyTheme.TextInputEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="editTextStyle">@style/MyTheme.TextInputEditText</item>
+    </style>
+
+    <style name="MyTheme.TextInputEditText" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">?colorOnSurface</item>
+    </style>
+
+    <!-- Drop down input box (material spinner) styles. -->
+    <style name="MyTheme.TextInputLayout.ExposedDropDownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/til_outlined_stroke_color</item>
+        <item name="android:textColorHint">@color/til_indicator_text_color</item>
+        <item name="endIconTint">@color/til_outlined_stroke_color</item>
+        <item name="startIconTint">@color/til_outlined_stroke_color</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyTheme.ExposedDropDownMenu</item>
+    </style>
+
+    <style name="ThemeOverlay.MyTheme.ExposedDropDownMenu" parent="ThemeOverlay.MaterialComponents.AutoCompleteTextView.OutlinedBox">
+        <item name="autoCompleteTextViewStyle">
+            @style/MyTheme.ExposedDropDownMenu.AutoCompleteTextView
+        </item>
+    </style>
+
+    <style name="MyTheme.ExposedDropDownMenu.AutoCompleteTextView" parent="Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox">
+        <item name="android:textColor">?colorOnSurface</item>
     </style>
 
 </resources>
