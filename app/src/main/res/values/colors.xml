@@ -36,10 +36,9 @@
     <!--on which they appear.-->
     <color name="color_on_primary">#ffffff</color>
     <color name="color_on_secondary">#000000</color>
-    <color name="color_on_background">#ffffff</color>
-    <color name="color_on_surface">#ffffff</color>
+    <color name="color_on_background">#000000</color>
+    <color name="color_on_surface">#000000</color>
     <color name="color_on_error">#ffffff</color>
-    <color name="color_on_variant">#000000</color>
 
     <!-- colors defined for parcel status -->
     <color name="pi_color_ordered">#01579B</color>

@@ -101,10 +101,6 @@
 
     <!-- Text input box styles. -->
     <style name="MyTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/til_outlined_stroke_color</item>
-        <item name="android:textColorHint">@color/til_indicator_text_color</item>
-        <item name="endIconTint">@color/til_outlined_stroke_color</item>
-        <item name="startIconTint">@color/til_outlined_stroke_color</item>
         <item name="materialThemeOverlay">@style/ThemeOverlay.MyTheme.TextInputEditText</item>
     </style>
 
@@ -118,10 +114,6 @@
 
     <!-- Drop down input box (material spinner) styles. -->
     <style name="MyTheme.TextInputLayout.ExposedDropDownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-        <item name="boxStrokeColor">@color/til_outlined_stroke_color</item>
-        <item name="android:textColorHint">@color/til_indicator_text_color</item>
-        <item name="endIconTint">@color/til_outlined_stroke_color</item>
-        <item name="startIconTint">@color/til_outlined_stroke_color</item>
         <item name="materialThemeOverlay">@style/ThemeOverlay.MyTheme.ExposedDropDownMenu</item>
     </style>
 

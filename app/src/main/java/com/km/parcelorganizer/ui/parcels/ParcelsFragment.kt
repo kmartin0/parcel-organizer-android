@@ -2,11 +2,8 @@ package com.km.parcelorganizer.ui.parcels
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.webkit.URLUtil
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ShareCompat
@@ -21,6 +18,7 @@ import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentParcelsBinding
 import com.km.parcelorganizer.model.Parcel
+import com.km.parcelorganizer.ui.MainActivity
 import com.km.parcelorganizer.ui.parcels.adapter.ParcelClickListener
 import com.km.parcelorganizer.ui.parcels.adapter.ParcelsAdapter
 import com.km.parcelorganizer.ui.parcels.adapter.ParcelsItemDecoration
@@ -28,12 +26,13 @@ import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
- * TODO: Maybe look into converting shared prefs into Single (This might solve i.e. the refreshLoggedInUserSituation in ParcelsFragment and UserProfileFragment)
- * TODO: Add logo in ParcelsFragment Toolbar
+ * TODO: Dark Mode
+ * TODO: Additional info parcel field
  * TODO: Look into switching between tabs temporary shows the new toolbar.
  * TODO: Going from parcels to add the bottom navbar goes away too fast.
  * TODO: Loading indicator fix it.
- * TODO: Session expired message.
+ * TODO: Session expired message instead of login failed.
+ * TODO: Maybe look into converting shared prefs into Single (This might solve i.e. the refreshLoggedInUserSituation in ParcelsFragment and UserProfileFragment)
  */
 class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewModel>(),
     ParcelClickListener {
@@ -49,12 +48,14 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         checkRedirectCreateParcel()
         initViews()
         initObservers()
-        setToolbarTitle()
+        setToolbarLogo()
     }
 
-    private fun setToolbarTitle() {
-        viewModel.refreshLoggedInUser()
-        setTitle(getString(R.string.welcome_title, viewModel.loggedInUser?.name))
+    private fun setToolbarLogo() {
+        (activity!! as MainActivity?)?.supportActionBar?.let {
+            it.setHomeAsUpIndicator(R.drawable.ic_box)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     private fun checkRedirectCreateParcel() {

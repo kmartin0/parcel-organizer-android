@@ -16,8 +16,6 @@
 -->
 <resources>
 
-    <attr name="colorOnVariant" format="reference"/>
-
     <attr name="piColorOrdered" format="reference"/>
     <attr name="piColorSent" format="reference"/>
     <attr name="piColorDelivered" format="reference"/>

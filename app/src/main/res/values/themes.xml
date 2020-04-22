@@ -21,7 +21,6 @@
         <item name="colorOnBackground">@color/color_on_background</item>
         <item name="colorOnSurface">@color/color_on_surface</item>
         <item name="colorOnError">@color/color_on_error</item>
-        <item name="colorOnVariant">@color/color_on_variant</item>
 
         <item name="piColorOrdered">@color/pi_color_ordered</item>
         <item name="piColorSent">@color/pi_color_sent</item>

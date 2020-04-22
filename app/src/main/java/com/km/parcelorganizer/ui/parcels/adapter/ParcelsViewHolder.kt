@@ -24,13 +24,26 @@ class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.tvSender.text = parcel.sender
         itemView.tvCourier.text = parcel.courier
         itemView.tvStatus.text = itemView.context.getString(parcel.parcelStatus.status.stringResId)
-        itemView.tvLastUpdated.text = SimpleDateFormat.getDateTimeInstance().format(parcel.lastUpdated)
+        itemView.tvLastUpdated.text =
+            SimpleDateFormat.getDateTimeInstance().format(parcel.lastUpdated)
 
-        when (parcel.parcelStatus.status) {
-            ParcelStatusEnum.SENT -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.pi_color_sent))
-            ParcelStatusEnum.ORDERED -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.pi_color_ordered))
-            ParcelStatusEnum.DELIVERED -> itemView.clItemParcel.setBackgroundColor(itemView.context.getColor(R.color.pi_color_delivered))
-        }
+        itemView.clItemParcel.setBackgroundColor(
+            itemView.context.getColor(
+                when (parcel.parcelStatus.status) {
+                    ParcelStatusEnum.ORDERED -> R.color.pi_color_ordered
+                    ParcelStatusEnum.SENT -> R.color.pi_color_sent
+                    ParcelStatusEnum.DELIVERED -> R.color.pi_color_delivered
+                }
+            )
+        )
+
+        itemView.ivStatus.setImageResource(
+            when (parcel.parcelStatus.status) {
+                ParcelStatusEnum.ORDERED -> R.drawable.ic_ordered
+                ParcelStatusEnum.SENT -> R.drawable.ic_sent
+                ParcelStatusEnum.DELIVERED -> R.drawable.ic_delivered
+            }
+        )
 
         if (parcel.trackingUrl.isNullOrEmpty()) {
             itemView.ivShare.isEnabled = false

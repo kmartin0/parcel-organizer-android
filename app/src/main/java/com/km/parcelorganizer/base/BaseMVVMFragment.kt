@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -12,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.km.parcelorganizer.R
 
 abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFragment() {
@@ -54,7 +54,7 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
 
     private fun observeServiceUnavailableException() {
         viewModel.serverUnavailableException.observe(this, Observer {
-            AlertDialog.Builder(context!!)
+            MaterialAlertDialogBuilder(context!!)
                 .setTitle(getString(R.string.error_service_unavailable_title))
                 .setIcon(R.drawable.ic_error_24dp)
                 .setMessage(getString(R.string.error_service_unavailable_message))
@@ -65,7 +65,7 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
 
     private fun observeLogout() {
         viewModel.logout.observe(this, Observer {
-            AlertDialog.Builder(context!!)
+            MaterialAlertDialogBuilder(context!!)
                 .setTitle(getString(R.string.error_authentication_title))
                 .setIcon(R.drawable.ic_error_24dp)
                 .setMessage(getString(R.string.error_authentication_message))
@@ -92,7 +92,7 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
 
     private fun observeInternalServerError() {
         viewModel.internalServerError.observe(this, Observer {
-            AlertDialog.Builder(context!!)
+            MaterialAlertDialogBuilder(context!!)
                 .setTitle(getString(R.string.error_internal_title))
                 .setIcon(R.drawable.ic_error_24dp)
                 .setMessage(getString(R.string.error_internal_message))

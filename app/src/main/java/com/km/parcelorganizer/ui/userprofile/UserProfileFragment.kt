@@ -2,8 +2,8 @@ package com.km.parcelorganizer.ui.userprofile
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentUserProfileBinding
@@ -31,7 +31,7 @@ class UserProfileFragment : BaseMVVMFragment<FragmentUserProfileBinding, UserPro
     }
 
     private fun showLogoutDialog() {
-        AlertDialog.Builder(context!!)
+        MaterialAlertDialogBuilder(context!!)
             .setTitle(getString(R.string.dialog_logout_title))
             .setMessage(getString(R.string.dialog_logout_message))
             .setPositiveButton(getString(R.string.yes)) { _, _ -> logout() }

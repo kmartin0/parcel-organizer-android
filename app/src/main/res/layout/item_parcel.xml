@@ -108,14 +108,23 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ivEdit" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivStatus"
+            style="@style/ParcelItemIcon"
+            android:layout_marginStart="0dp"
+            android:src="@drawable/ic_sent"
+            app:layout_constraintBottom_toBottomOf="@id/tvSender"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvSender" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvStatus"
             style="@style/ParcelItemText"
             android:layout_marginStart="0dp"
             android:text="DELIVERED"
-            app:layout_constraintBottom_toBottomOf="@id/tvSender"
+            app:layout_constraintBottom_toBottomOf="@id/tvCourier"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvSender" />
+            app:layout_constraintTop_toTopOf="@id/tvCourier" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
