@@ -28,6 +28,7 @@ class UpdateParcelViewModel(application: Application) : BaseViewModel(applicatio
             sender.value = parcel.sender
             courier.value = parcel.courier
             trackingUrl.value = parcel.trackingUrl
+            additionalInformation.value = parcel.additionalInformation
             parcelStatusEnum.value = parcel.parcelStatus.status
         }
     }
@@ -44,6 +45,7 @@ class UpdateParcelViewModel(application: Application) : BaseViewModel(applicatio
                     sender.value,
                     courier.value,
                     trackingUrl.value,
+                    additionalInformation.value,
                     parcelStatusEnum.value!!
                 )
                     .subscribeOn(Schedulers.io())

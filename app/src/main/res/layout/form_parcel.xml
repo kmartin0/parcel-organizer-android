@@ -93,6 +93,26 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAdditionalInformation"
+            errorText="@{parcelForm.additionalInformationError}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/key_line_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilTrackingUrl">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAdditionalInformation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_additional_information"
+                android:inputType="textMultiLine"
+                android:text="@={parcelForm.additionalInformation}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilStatus"
             style="@style/Widget.MyTheme.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             errorText="@{parcelForm.parcelStatusEnumError}"
@@ -101,7 +121,7 @@
             android:layout_marginTop="@dimen/key_line_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilTrackingUrl">
+            app:layout_constraintTop_toBottomOf="@id/tilAdditionalInformation">
 
             <AutoCompleteTextView
                 android:id="@+id/dropdownStatus"

@@ -10,5 +10,6 @@ data class RegisterParcelRequestBody(
     var sender: String?,
     var courier: String?,
     var trackingUrl: String?,
+    var additionalInformation: String?,
     var parcelStatus: ParcelStatus
 ) : Parcelable

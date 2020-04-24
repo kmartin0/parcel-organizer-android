@@ -3,7 +3,9 @@ package com.km.parcelorganizer.ui.parcels.adapter
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.enums.ParcelStatusEnum
 import com.km.parcelorganizer.model.Parcel
@@ -24,6 +26,7 @@ class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.tvSender.text = parcel.sender
         itemView.tvCourier.text = parcel.courier
         itemView.tvStatus.text = itemView.context.getString(parcel.parcelStatus.status.stringResId)
+        itemView.tvAdditionalInformation.text = parcel.additionalInformation
         itemView.tvLastUpdated.text =
             SimpleDateFormat.getDateTimeInstance().format(parcel.lastUpdated)
 

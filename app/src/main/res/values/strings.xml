@@ -42,11 +42,12 @@
     <!-- Create/Update Parcel -->
     <string name="create_parcel">Create Parcel</string>
     <string name="update_parcel">Update Parcel</string>
-    <string name="hint_title">Give your parcel a title</string>
-    <string name="hint_sender">Who is the sender of the parcel (optional)</string>
-    <string name="hint_courier">Who is the courier of the parcel (optional)</string>
-    <string name="hint_tracking_url">What is the tracking url (optional)</string>
-    <string name="hint_status">What is the status of the parcel</string>
+    <string name="hint_title">Give your parcel a title *</string>
+    <string name="hint_sender">Who is the sender of the parcel</string>
+    <string name="hint_courier">Who is the courier of the parcel</string>
+    <string name="hint_tracking_url">What is the tracking url</string>
+    <string name="hint_additional_information">Additional information</string>
+    <string name="hint_status">What is the status of the parcel *</string>
     <string name="error_invalid_url">Invalid Url. Make sure that the url starts with http:// or https://</string>
 
     <!-- Parcels -->
@@ -70,15 +71,15 @@
     <string name="login_title">Parcel Organizer</string>
     <string name="login_subtitle">Organizing parcels made easy</string>
     <string name="register_here">Register here</string>
-    <string name="hint_email">Your e-mail address</string>
-    <string name="hint_password">Your password</string>
+    <string name="hint_email">Your e-mail address *</string>
+    <string name="hint_password">Your password *</string>
     <string name="error_login_credentials">Email/password combination incorrect.</string>
     <string name="error_invalid_email">Invalid email</string>
 
     <!-- Register -->
     <string name="register">Register</string>
-    <string name="hint_name">Name</string>
-    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="hint_name">Name *</string>
+    <string name="hint_confirm_password">Confirm Password *</string>
     <string name="already_exists">Already exists</string>
     <string name="error_confirm_password">Input doesn\'t match password</string>
 
@@ -99,13 +100,13 @@
     <string name="dark_theme_label">Dark Theme</string>
 
     <!-- Change Profile -->
-    <string name="hint_current_password">Current password</string>
+    <string name="hint_current_password">Current password *</string>
     <string name="update">Update</string>
     <string name="current_password_incorrect">Invalid</string>
 
     <!-- Change Password -->
-    <string name="hint_new_password">New Password</string>
-    <string name="hint_confirm_new_password">Confirm new password</string>
+    <string name="hint_new_password">New Password *</string>
+    <string name="hint_confirm_new_password">Confirm new password *</string>
 
     <!-- Share -->
     <string name="share_tracking_url">Share tracking url with</string>

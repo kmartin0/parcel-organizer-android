@@ -42,11 +42,12 @@
     <!-- Create/Update Parcel -->
     <string name="create_parcel">Maak pakket aan</string>
     <string name="update_parcel">Update pakket</string>
-    <string name="hint_title">Geef uw pakket een titel</string>
-    <string name="hint_sender">Wie is de zender van het pakket (optioneel)</string>
-    <string name="hint_courier">"Wie is de koerier (Optioneel)"</string>
-    <string name="hint_tracking_url">Wat is de tracking url (optioneel)</string>
-    <string name="hint_status">Wat is de pakketstatus</string>
+    <string name="hint_title">Geef uw pakket een titel *</string>
+    <string name="hint_sender">Wie is de zender van het pakket</string>
+    <string name="hint_courier">"Wie is de koerier"</string>
+    <string name="hint_tracking_url">Wat is de tracking url</string>
+    <string name="hint_additional_information">Extra informatie</string>
+    <string name="hint_status">Wat is de pakketstatus *</string>
     <string name="error_invalid_url">Ongeldige url. Let op deze moet beginnen met http:// of https://</string>
 
     <!-- Parcels -->
@@ -70,15 +71,15 @@
     <string name="login_title">Pakketen ordenen</string>
     <string name="login_subtitle">Orden uw pakketten gemakkelijk</string>
     <string name="register_here">Registreer hier</string>
-    <string name="hint_email">Uw e-mail</string>
-    <string name="hint_password">Uw wachtwoord</string>
+    <string name="hint_email">Uw e-mail *</string>
+    <string name="hint_password">Uw wachtwoord *</string>
     <string name="error_login_credentials">Combinatie email/wachtwoord incorrect.</string>
     <string name="error_invalid_email">Onjuist email adres</string>
 
     <!-- Register -->
     <string name="register">Registreer</string>
-    <string name="hint_name">Naam</string>
-    <string name="hint_confirm_password">Verifieer Wachtwoord</string>
+    <string name="hint_name">Naam *</string>
+    <string name="hint_confirm_password">Verifieer Wachtwoord *</string>
     <string name="already_exists">Is al in gebruik</string>
     <string name="error_confirm_password">Komt niet overeen met wachtwoord</string>
 
@@ -99,13 +100,13 @@
     <string name="dark_theme_label">Donker Thema</string>
 
     <!-- Change Profile -->
-    <string name="hint_current_password">Huidig wachtwoord</string>
+    <string name="hint_current_password">Huidig wachtwoord *</string>
     <string name="update">Pas aan</string>
     <string name="current_password_incorrect">Ongeldig</string>
 
     <!-- Change Password -->
-    <string name="hint_new_password">Nieuw wachtwoord</string>
-    <string name="hint_confirm_new_password">Bevestig nieuwe wachtwoord</string>
+    <string name="hint_new_password">Nieuw wachtwoord *</string>
+    <string name="hint_confirm_new_password">Bevestig nieuwe wachtwoord *</string>
 
     <!-- Share -->
     <string name="share_tracking_url">Deel track en trace url met</string>

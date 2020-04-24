@@ -11,12 +11,14 @@ class ParcelForm {
     val sender = MutableLiveData<String>()
     val courier = MutableLiveData<String>()
     val trackingUrl = MutableLiveData<String>()
+    val additionalInformation = MutableLiveData<String>()
     val parcelStatusEnum = MutableLiveData<ParcelStatusEnum>()
 
     val titleError = MutableLiveData<Int>()
     val senderError = MutableLiveData<Int>()
     val courierError = MutableLiveData<Int>()
     val trackingUrlError = MutableLiveData<Int>()
+    val additionalInformationError = MutableLiveData<Int>()
     val parcelStatusEnumError = MutableLiveData<Int>()
 
     fun createParcelObject(): Parcel? {
@@ -31,6 +33,7 @@ class ParcelForm {
                 validateSender() and
                 validateCourier() and
                 validateTrackingUrl() and
+                validateAdditionalInformation() and
                 validateTrackingStatus()
     }
 
@@ -111,7 +114,7 @@ class ParcelForm {
 
     /**
      * Validate the [trackingUrl] value. Set [trackingUrlError] if not valid.
-     * @return [Boolean] is [trackingUrl] a valid url.
+     * @return [Boolean] if [trackingUrl] is valid.
      */
     fun validateTrackingUrl(): Boolean {
         var isValid: Boolean
@@ -124,6 +127,31 @@ class ParcelForm {
                 !URLUtil.isValidUrl(it) -> {
                     isValid = false
                     R.string.error_invalid_url
+                }
+                else -> {
+                    isValid = true
+                    null
+                }
+            }
+        }
+        return isValid
+    }
+
+    /**
+     * Validate the [additionalInformation] value. Set [additionalInformationError] if not valid.
+     * @return [Boolean] if [additionalInformation] is valid.
+     */
+    fun validateAdditionalInformation(): Boolean {
+        var isValid: Boolean
+        additionalInformation.value.let {
+            additionalInformationError.value = when {
+                it.isNullOrEmpty() -> {
+                    isValid = true
+                    null
+                }
+                it.length > 45 -> {
+                    isValid = false
+                    R.string.error_max_characters_45
                 }
                 else -> {
                     isValid = true

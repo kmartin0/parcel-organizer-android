@@ -11,6 +11,7 @@ data class Parcel(
     var sender: String?,
     var courier: String?,
     var trackingUrl: String?,
+    var additionalInformation: String?,
     var parcelStatus: ParcelStatus,
     var lastUpdated: Date,
     var id: Long

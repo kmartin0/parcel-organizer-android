@@ -2,13 +2,14 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:backgroundTint="?piColorSent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clItemParcel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/key_line_2">
+        android:padding="@dimen/key_line_3">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTitle"
@@ -19,112 +20,143 @@
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- === SENDER FIELDS ===-->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivSender"
             style="@style/Widget.MyTheme.ParcelItemIcon"
             android:src="@drawable/ic_shopping_cart_black_24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+            app:layout_constraintTop_toTopOf="@id/tvSender" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvSender"
             style="@style/Widget.MyTheme.ParcelItemText"
             android:text="Bol.com"
-            app:layout_constraintBottom_toBottomOf="@id/ivSender"
-            app:layout_constraintEnd_toStartOf="@id/tvStatus"
+            app:layout_constraintEnd_toStartOf="@id/barrierRightSide"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/ivSender"
-            app:layout_constraintTop_toTopOf="@id/ivSender" />
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierSender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="ivSender, tvSender" />
+
+        <!-- === COURIER FIELDS ===-->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivCourier"
             style="@style/Widget.MyTheme.ParcelItemIcon"
             android:src="@drawable/ic_shuttle_black_24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvSender" />
+            app:layout_constraintTop_toTopOf="@id/tvCourier" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvCourier"
             style="@style/Widget.MyTheme.ParcelItemText"
             android:text="PostNL"
-            app:layout_constraintBottom_toBottomOf="@id/ivCourier"
-            app:layout_constraintEnd_toStartOf="@id/tvStatus"
+            app:layout_constraintEnd_toStartOf="@id/barrierRightSide"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/ivCourier"
-            app:layout_constraintTop_toTopOf="@id/ivCourier" />
+            app:layout_constraintTop_toBottomOf="@id/barrierSender" />
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierCourier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="ivCourier, tvCourier" />
+
+        <!-- === ADDITIONAL INFORMATION FIELDS ===-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivAdditionalInformation"
+            style="@style/Widget.MyTheme.ParcelItemIcon"
+            android:src="@drawable/ic_note_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvAdditionalInformation" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvAdditionalInformation"
+            style="@style/Widget.MyTheme.ParcelItemText"
+            android:text="Pickup point"
+            app:layout_constraintEnd_toStartOf="@id/barrierRightSide"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/ivAdditionalInformation"
+            app:layout_constraintTop_toBottomOf="@id/barrierCourier" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierAdditionalInformation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="ivAdditionalInformation, tvAdditionalInformation" />
+
+        <!-- === LAST UPDATED FIELDS ===-->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivLastUpdated"
             style="@style/Widget.MyTheme.ParcelItemIcon"
             android:src="@drawable/ic_time_black_24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCourier" />
+            app:layout_constraintTop_toTopOf="@id/tvLastUpdated" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvLastUpdated"
             style="@style/Widget.MyTheme.ParcelItemText"
             android:text="12-04-2019"
-            app:layout_constraintBottom_toBottomOf="@id/ivLastUpdated"
-            app:layout_constraintEnd_toStartOf="@id/ivShare"
+            app:layout_constraintEnd_toStartOf="@id/barrierRightSide"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/ivLastUpdated"
-            app:layout_constraintTop_toTopOf="@id/ivLastUpdated" />
+            app:layout_constraintTop_toBottomOf="@id/barrierAdditionalInformation" />
 
+        <!-- === RIGHT SIDE ===-->
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ivDelete"
             style="@style/Widget.MyTheme.ParcelItemActionIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
             android:src="@drawable/ic_delete_black_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ivEdit"
-            style="@style/Widget.MyTheme.ParcelItemActionIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/key_line_2"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_edit_black_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/ivDelete" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ivShare"
-            style="@style/Widget.MyTheme.ParcelItemActionIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/key_line_2"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_share_black_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/ivEdit" />
+            app:layout_constraintBottom_toBottomOf="@id/ivSender"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivSender" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivStatus"
             style="@style/Widget.MyTheme.ParcelItemIcon"
-            android:layout_marginStart="0dp"
-            android:src="@drawable/ic_sent"
-            app:layout_constraintBottom_toBottomOf="@id/tvSender"
+            android:layout_marginTop="@dimen/key_line_2"
+            android:src="@drawable/ic_ordered"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvSender" />
+            app:layout_constraintTop_toBottomOf="@id/ivDelete" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvStatus"
             style="@style/Widget.MyTheme.ParcelItemText"
+            android:layout_marginTop="@dimen/key_line_0"
             android:layout_marginStart="0dp"
             android:text="DELIVERED"
-            app:layout_constraintBottom_toBottomOf="@id/tvCourier"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvCourier" />
+            app:layout_constraintTop_toBottomOf="@id/ivStatus" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/ivEdit"
+            style="@style/Widget.MyTheme.ParcelItemActionIcon"
+            android:src="@drawable/ic_edit_black_24dp"
+            android:layout_marginEnd="@dimen/key_line_4"
+            app:layout_constraintEnd_toStartOf="@id/ivShare"
+            app:layout_constraintTop_toTopOf="@id/tvLastUpdated" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/ivShare"
+            style="@style/Widget.MyTheme.ParcelItemActionIcon"
+            android:src="@drawable/ic_share_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvLastUpdated" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierRightSide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="start"
+            app:constraint_referenced_ids="ivDelete, ivStatus, tvStatus, ivEdit, ivShare" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

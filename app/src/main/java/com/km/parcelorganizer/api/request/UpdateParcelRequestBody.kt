@@ -11,5 +11,6 @@ data class UpdateParcelRequestBody(
     var sender: String?,
     var courier: String?,
     var trackingUrl: String?,
+    var additionalInformation: String?,
     var parcelStatus: ParcelStatus
 ) : Parcelable

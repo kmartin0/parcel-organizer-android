@@ -64,9 +64,11 @@
     </style>
 
     <style name="Widget.MyTheme.ParcelItemText" parent="Widget.MaterialComponents.TextView">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/key_line_2</item>
+        <item name="android:layout_marginTop">@dimen/key_line_1</item>
+        <item name="android:layout_marginEnd">@dimen/key_line_1</item>
         <item name="android:textAppearance">?textAppearanceBody2</item>
         <item name="android:textSize">13sp</item>
         <item name="fontFamily">sans-serif-medium</item>
@@ -76,14 +78,15 @@
     <style name="Widget.MyTheme.ParcelItemIcon" parent="">
         <item name="android:layout_width">22dp</item>
         <item name="android:layout_height">22dp</item>
-        <item name="android:layout_marginTop">@dimen/key_line_2</item>
+        <item name="android:layout_marginTop">0dp</item>
         <item name="android:tint">?piColorOn</item>
     </style>
 
-    <style name="Widget.MyTheme.ParcelItemActionIcon" parent="Widget.AppCompat.ImageButton">
-        <item name="android:layout_width">22dp</item>
-        <item name="android:layout_height">22dp</item>
+    <style name="Widget.MyTheme.ParcelItemActionIcon" parent="Widget.MyTheme.ParcelItemIcon">
         <item name="android:tint">?piColorAction</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
     </style>
 
     <!-- SearchView text and hint color style. -->

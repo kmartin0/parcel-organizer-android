@@ -19,11 +19,22 @@ class ParcelRepository(context: Context) {
         sender: String?,
         courier: String?,
         trackingUrl: String?,
+        additionalInformation: String?,
         parcelStatusEnum: ParcelStatusEnum
     ): Single<Parcel> {
-        return parcelStatusRepository.getParcelStatusByParcelStatusEnum(parcelStatusEnum).flatMap { parcelStatus ->
-            api.saveParcel(RegisterParcelRequestBody(title, sender, courier, trackingUrl, parcelStatus))
-        }
+        return parcelStatusRepository.getParcelStatusByParcelStatusEnum(parcelStatusEnum)
+            .flatMap { parcelStatus ->
+                api.saveParcel(
+                    RegisterParcelRequestBody(
+                        title,
+                        sender,
+                        courier,
+                        trackingUrl,
+                        additionalInformation,
+                        parcelStatus
+                    )
+                )
+            }
     }
 
     fun getParcels(): Single<List<Parcel>> {
@@ -36,11 +47,23 @@ class ParcelRepository(context: Context) {
         sender: String?,
         courier: String?,
         trackingUrl: String?,
+        additionalInformation: String?,
         parcelStatusEnum: ParcelStatusEnum
     ): Single<Parcel> {
-        return parcelStatusRepository.getParcelStatusByParcelStatusEnum(parcelStatusEnum).flatMap { parcelStatus ->
-            api.updateParcel(UpdateParcelRequestBody(id, title, sender, courier, trackingUrl, parcelStatus))
-        }
+        return parcelStatusRepository.getParcelStatusByParcelStatusEnum(parcelStatusEnum)
+            .flatMap { parcelStatus ->
+                api.updateParcel(
+                    UpdateParcelRequestBody(
+                        id,
+                        title,
+                        sender,
+                        courier,
+                        trackingUrl,
+                        additionalInformation,
+                        parcelStatus
+                    )
+                )
+            }
     }
 
     fun deleteParcel(id: Long): Completable {

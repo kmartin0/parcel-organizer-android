@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
- * TODO: Add: Cleanup styles/theme names using ThemeBuilder example.
  * TODO: Add: Additional info parcel field
  * TODO: Refactor: Move the handle api error in BaseViewModel code someplace else.
  * TODO: Fix: navigating temporarily displays next toolbar before transition is complete.

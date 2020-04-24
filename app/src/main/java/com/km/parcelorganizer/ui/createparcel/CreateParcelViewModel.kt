@@ -33,6 +33,7 @@ class CreateParcelViewModel(application: Application) : BaseViewModel(applicatio
                     sender.value,
                     courier.value,
                     trackingUrl.value,
+                    additionalInformation.value,
                     parcelStatusEnum.value!!
                 )
                     .subscribeOn(Schedulers.io())
