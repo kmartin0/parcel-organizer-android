@@ -69,7 +69,7 @@
     </style>
 
     <style name="TextAppearance.MyTheme.LargePopupMenu" parent="@style/TextAppearance.MaterialComponents.Subtitle1">
-        <item name="android:textColor">@color/color_on_surface</item>
+        <item name="android:textColor">?colorOnSurface</item>
     </style>
 
 </resources>

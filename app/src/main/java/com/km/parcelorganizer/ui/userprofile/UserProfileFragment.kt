@@ -20,6 +20,12 @@ class UserProfileFragment : BaseMVVMFragment<FragmentUserProfileBinding, UserPro
         btnChangeProfile.setOnClickListener { navigateToUpdateProfile() }
         btnChangePassword.setOnClickListener { navigateToChangePassword() }
         btnLogout.setOnClickListener { showLogoutDialog() }
+
+        switchDarkTheme.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onChangeDarkTheme(
+                isChecked
+            )
+        }
     }
 
     private fun navigateToUpdateProfile() {

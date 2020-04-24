@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 ~ Copyright (C) 2019 The Android Open Source Project
 ~
 ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,32 +19,32 @@
     <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
     <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
     <!--selection controls.-->
-    <color name="color_primary">#1a237e</color> <!-- Indigo 900 -->
-    <color name="color_primary_variant">#000051</color> <!-- Indigo 900 Dark -->
-    <color name="color_secondary">#880e4f</color> <!-- Pink 900 -->
-    <color name="color_secondary_variant">#560027</color> <!-- Pink 900 Dark -->
+    <color name="color_primary">#ff7043</color> <!-- Deep Orange 400 -->
+    <color name="color_primary_variant">#c63f17</color> <!-- Deep Orange 400 Dark -->
+    <color name="color_secondary">#ef9a9a</color> <!-- Red 200 -->
+    <color name="color_secondary_variant">#ba6b6c</color> <!-- Red 200 Dark -->
 
     <!--colorBackground appears behind scrollable content and is used for the default window-->
     <!--background. colorSurface is mapped to the surface of components such as cards, sheets-->
     <!--and menus. colorError is used to indicate an error state for components such as-->
-    <!--text fields. E57654 -->
-    <color name="color_background">#ff867c</color> <!-- Red 400 Light -->
-    <color name="color_surface">#ffddc1</color>  <!-- Deep Orange 200 Light -->
-    <color name="color_error">#000000</color>
+    <!--text fields.-->
+    <color name="color_background">#102027</color> <!-- Blue Grey 800 Dark -->
+    <color name="color_surface">#102027</color> <!-- Blue Grey 800 Dark -->
+    <color name="color_error">#ffffff</color>
 
     <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
     <!--on which they appear.-->
-    <color name="color_on_primary">#ffffff</color>
-    <color name="color_on_secondary">#ffffff</color>
-    <color name="color_on_background">#000000</color>
-    <color name="color_on_surface">#000000</color>
-    <color name="color_on_error">#ffffff</color>
+    <color name="color_on_primary">#000000</color>
+    <color name="color_on_secondary">#000000</color>
+    <color name="color_on_background">#ffffff</color>
+    <color name="color_on_surface">#ffffff</color>
+    <color name="color_on_error">#000000</color>
 
     <!-- colors defined for parcel status -->
-    <color name="pi_color_ordered">#0d47a1</color> <!-- Blue 900 -->
-    <color name="pi_color_sent">#006064</color> <!-- Cyan 900 -->
-    <color name="pi_color_delivered">#1B5E20</color> <!-- Green 900 -->
-    <color name="pi_color_on">#f9fbe7</color> <!-- Lime 50 -->
-    <color name="pi_color_title">#fbc02d</color> <!-- Yellow 700 -->
-    <color name="pi_color_action">#e6ee9c</color> <!-- Lime 200 -->
+    <color name="pi_color_ordered">#5d4037</color> <!-- Brown 700 -->
+    <color name="pi_color_sent">#494949</color> <!-- Grey 600 Dark -->
+    <color name="pi_color_delivered">#29434e</color> <!-- Blue Grey 600 Dark -->
+    <color name="pi_color_on">#E5F9FBE7</color> <!-- Lime 50 Alpha 80 -->
+    <color name="pi_color_title">#E5FBC02D</color> <!-- Yellow 700 Alpha 90 -->
+    <color name="pi_color_action">#CCE6EE9C</color> <!-- Lime 200 Alpha 80 -->
 </resources>

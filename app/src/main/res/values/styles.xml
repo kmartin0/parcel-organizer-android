@@ -95,8 +95,8 @@
 
     <!-- SearchView text and hint color style. -->
     <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
-        <item name="android:textColor">?colorOnPrimary</item>
-        <item name="android:textColorHint">?colorOnPrimary</item>
+        <item name="android:textColor">?colorControlNormal</item>
+        <item name="android:textColorHint">?colorControlNormal</item>
     </style>
 
     <!-- Text input box styles. -->

@@ -96,6 +96,7 @@
     <string name="change_password">Wachtwoord veranderen</string>
     <string name="email">email</string>
     <string name="name">naam</string>
+    <string name="dark_theme_label">Donker Thema</string>
 
     <!-- Change Profile -->
     <string name="hint_current_password">Huidig wachtwoord</string>

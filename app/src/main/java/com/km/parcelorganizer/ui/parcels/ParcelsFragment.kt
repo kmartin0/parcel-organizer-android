@@ -26,13 +26,16 @@ import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
- * TODO: Dark Mode
- * TODO: Additional info parcel field
- * TODO: Look into switching between tabs temporary shows the new toolbar.
- * TODO: Going from parcels to add the bottom navbar goes away too fast.
- * TODO: Loading indicator fix it.
- * TODO: Session expired message instead of login failed.
- * TODO: Maybe look into converting shared prefs into Single (This might solve i.e. the refreshLoggedInUserSituation in ParcelsFragment and UserProfileFragment)
+ * TODO: Add: Cleanup styles/theme names using ThemeBuilder example.
+ * TODO: Add: Additional info parcel field
+ * TODO: Refactor: Move the handle api error in BaseViewModel code someplace else.
+ * TODO: Fix: navigating temporarily displays next toolbar before transition is complete.
+ * TODO: Fix: Going from parcels to add the bottom nav bar goes away too fast.
+ * TODO: Fix: Loading indicator not working properly with multiple calls/tasks.
+ * TODO: Fix: Null pointer Single.fromCallable ParcelsViewModel
+ * TODO: Refactor: Session expired message instead of login failed.
+ * TODO: Refactor: Maybe look into converting shared prefs into Single (This might solve i.e. the refreshLoggedInUserSituation in ParcelsFragment and UserProfileFragment)
+ * TODO: Add: Dependency injection (making repositories Singleton)
  */
 class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewModel>(),
     ParcelClickListener {

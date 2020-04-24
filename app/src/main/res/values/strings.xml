@@ -96,6 +96,7 @@
     <string name="change_password">Change password</string>
     <string name="email">email</string>
     <string name="name">name</string>
+    <string name="dark_theme_label">Dark Theme</string>
 
     <!-- Change Profile -->
     <string name="hint_current_password">Current password</string>

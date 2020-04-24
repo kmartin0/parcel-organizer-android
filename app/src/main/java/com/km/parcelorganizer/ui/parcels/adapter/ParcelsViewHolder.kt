@@ -2,12 +2,12 @@ package com.km.parcelorganizer.ui.parcels.adapter
 
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.enums.ParcelStatusEnum
 import com.km.parcelorganizer.model.Parcel
+import com.km.parcelorganizer.util.getColorFromAttr
 import kotlinx.android.synthetic.main.item_parcel.view.*
 import java.text.SimpleDateFormat
 
@@ -28,11 +28,11 @@ class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             SimpleDateFormat.getDateTimeInstance().format(parcel.lastUpdated)
 
         itemView.clItemParcel.setBackgroundColor(
-            itemView.context.getColor(
+            itemView.context.getColorFromAttr(
                 when (parcel.parcelStatus.status) {
-                    ParcelStatusEnum.ORDERED -> R.color.pi_color_ordered
-                    ParcelStatusEnum.SENT -> R.color.pi_color_sent
-                    ParcelStatusEnum.DELIVERED -> R.color.pi_color_delivered
+                    ParcelStatusEnum.ORDERED -> R.attr.piColorOrdered
+                    ParcelStatusEnum.SENT -> R.attr.piColorSent
+                    ParcelStatusEnum.DELIVERED -> R.attr.piColorDelivered
                 }
             )
         )

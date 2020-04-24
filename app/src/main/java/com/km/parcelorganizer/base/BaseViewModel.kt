@@ -30,7 +30,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     }
 
     /**
-     * TODO: Look into moving this code someplace else.
+     *
      * Handles an [Throwable] thrown by retrofit.
      *
      * @return [ApiError?] If the error is not handled and is an instance of [ApiError] then

@@ -19,6 +19,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/ic_person_black_24dp"
+            android:tint="?colorOnBackground"
             app:layout_constraintBottom_toTopOf="@id/btnLogout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,28 +45,6 @@
             app:layout_constraintTop_toBottomOf="@+id/ivHeader"
             app:layout_constraintWidth_percent=".5" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnChangeProfile"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/key_line_2"
-            android:text="@string/change_profile"
-            app:layout_constraintBottom_toBottomOf="@id/btnChangePassword"
-            app:layout_constraintEnd_toStartOf="@id/btnChangePassword"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btnChangePassword" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnChangePassword"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/key_line_2"
-            android:layout_marginTop="@dimen/key_line_4"
-            android:text="@string/change_password"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnChangeProfile"
-            app:layout_constraintTop_toBottomOf="@id/tilName" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -87,7 +66,7 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:text="@{viewModel.user.name}"
-                android:textColor="@color/color_on_surface" />
+                android:textColor="?colorOnSurface" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,9 +91,52 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:text="@{viewModel.user.email}"
-                android:textColor="@color/color_on_surface" />
+                android:textColor="?colorOnSurface" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChangeProfile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/key_line_2"
+            android:text="@string/change_profile"
+            app:layout_constraintBottom_toBottomOf="@id/btnChangePassword"
+            app:layout_constraintEnd_toStartOf="@id/btnChangePassword"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnChangePassword" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChangePassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/key_line_2"
+            android:layout_marginTop="@dimen/key_line_4"
+            android:text="@string/change_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnChangeProfile"
+            app:layout_constraintTop_toBottomOf="@id/tilName" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDarkThemeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/key_line_5"
+            android:text="@string/dark_theme_label"
+            android:textColor="?colorOnBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnChangeProfile" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchDarkTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@{viewModel.darkTheme}"
+            app:layout_constraintBottom_toBottomOf="@id/tvDarkThemeLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/tvDarkThemeLabel"
+            app:layout_constraintTop_toTopOf="@id/tvDarkThemeLabel" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
