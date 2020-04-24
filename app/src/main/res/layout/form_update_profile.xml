@@ -24,7 +24,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
-                style="@style/SingleLineInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
                 android:text="@={updateProfileForm.email}" />
@@ -43,7 +44,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etName"
-                style="@style/SingleLineInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="@string/hint_name"
                 android:inputType="text"
                 android:text="@={updateProfileForm.name}" />
@@ -62,7 +64,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassword"
-                style="@style/SingleLineInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="@string/hint_current_password"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"

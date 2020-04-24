@@ -24,7 +24,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
-                style="@style/SingleLineInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
                 android:text="@={loginForm.email}" />
@@ -43,7 +44,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassword"
-                style="@style/SingleLineInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="@string/hint_password"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"

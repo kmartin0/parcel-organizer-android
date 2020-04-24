@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--Top level DayNight theme to be used in AndroidManifest.xml-->
-    <style name="MyTheme.DayNight" parent="Base.MyTheme">
+    <style name="Theme.MyApp" parent="Base.Theme.MyApp">
         <!--Material color attributes (dark theme) -->
         <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSurface</item>
     </style>

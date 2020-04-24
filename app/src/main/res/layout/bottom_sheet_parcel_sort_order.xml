@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_bottom_sheet_heading"
-        style="@style/BottomSheetHeaderStyle"
+        style="@style/Widget.MyTheme.BottomSheetHeaderStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sort_order_no_args"
@@ -22,14 +22,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_bottom_sheet_heading">
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rbAscending"
-            style="@style/BottomSheetRadioButtonStyle"
+            style="@style/Widget.MyTheme.BottomSheetRadioButtonStyle"
             android:text="@string/ascending" />
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rbDescending"
-            style="@style/BottomSheetRadioButtonStyle"
+            style="@style/Widget.MyTheme.BottomSheetRadioButtonStyle"
             android:text="@string/descending" />
 
     </RadioGroup>

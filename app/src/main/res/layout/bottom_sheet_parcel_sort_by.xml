@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_bottom_sheet_heading"
-        style="@style/BottomSheetHeaderStyle"
+        style="@style/Widget.MyTheme.BottomSheetHeaderStyle"
         android:text="@string/sort_by_no_args"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,27 +22,27 @@
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rbTitle"
-            style="@style/BottomSheetRadioButtonStyle"
+            style="@style/Widget.MyTheme.BottomSheetRadioButtonStyle"
             android:text="@string/title" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rbSender"
-            style="@style/BottomSheetRadioButtonStyle"
+            style="@style/Widget.MyTheme.BottomSheetRadioButtonStyle"
             android:text="@string/sender" />
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rbCourier"
-            style="@style/BottomSheetRadioButtonStyle"
+            style="@style/Widget.MyTheme.BottomSheetRadioButtonStyle"
             android:text="@string/courier" />
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rbDate"
-            style="@style/BottomSheetRadioButtonStyle"
+            style="@style/Widget.MyTheme.BottomSheetRadioButtonStyle"
             android:text="@string/last_updated" />
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rbStatus"
-            style="@style/BottomSheetRadioButtonStyle"
+            style="@style/Widget.MyTheme.BottomSheetRadioButtonStyle"
             android:text="@string/status" />
 
     </RadioGroup>

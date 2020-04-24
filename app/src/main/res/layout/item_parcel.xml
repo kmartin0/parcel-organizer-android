@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/key_line_2">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTitle"
-            style="@style/ParcelItemHeader"
+            style="@style/Widget.MyTheme.ParcelItemHeader"
             android:gravity="center"
             android:text="Garmin VivoMove HR"
             app:layout_constraintEnd_toStartOf="parent"
@@ -21,14 +21,14 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivSender"
-            style="@style/ParcelItemIcon"
+            style="@style/Widget.MyTheme.ParcelItemIcon"
             android:src="@drawable/ic_shopping_cart_black_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvSender"
-            style="@style/ParcelItemText"
+            style="@style/Widget.MyTheme.ParcelItemText"
             android:text="Bol.com"
             app:layout_constraintBottom_toBottomOf="@id/ivSender"
             app:layout_constraintEnd_toStartOf="@id/tvStatus"
@@ -38,14 +38,14 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivCourier"
-            style="@style/ParcelItemIcon"
+            style="@style/Widget.MyTheme.ParcelItemIcon"
             android:src="@drawable/ic_shuttle_black_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSender" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvCourier"
-            style="@style/ParcelItemText"
+            style="@style/Widget.MyTheme.ParcelItemText"
             android:text="PostNL"
             app:layout_constraintBottom_toBottomOf="@id/ivCourier"
             app:layout_constraintEnd_toStartOf="@id/tvStatus"
@@ -55,14 +55,14 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivLastUpdated"
-            style="@style/ParcelItemIcon"
+            style="@style/Widget.MyTheme.ParcelItemIcon"
             android:src="@drawable/ic_time_black_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvCourier" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvLastUpdated"
-            style="@style/ParcelItemText"
+            style="@style/Widget.MyTheme.ParcelItemText"
             android:text="12-04-2019"
             app:layout_constraintBottom_toBottomOf="@id/ivLastUpdated"
             app:layout_constraintEnd_toStartOf="@id/ivShare"
@@ -72,7 +72,7 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ivDelete"
-            style="@style/ParcelItemActionIcon"
+            style="@style/Widget.MyTheme.ParcelItemActionIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -84,7 +84,7 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ivEdit"
-            style="@style/ParcelItemActionIcon"
+            style="@style/Widget.MyTheme.ParcelItemActionIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/key_line_2"
@@ -97,7 +97,7 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ivShare"
-            style="@style/ParcelItemActionIcon"
+            style="@style/Widget.MyTheme.ParcelItemActionIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/key_line_2"
@@ -110,16 +110,16 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivStatus"
-            style="@style/ParcelItemIcon"
+            style="@style/Widget.MyTheme.ParcelItemIcon"
             android:layout_marginStart="0dp"
             android:src="@drawable/ic_sent"
             app:layout_constraintBottom_toBottomOf="@id/tvSender"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvSender" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvStatus"
-            style="@style/ParcelItemText"
+            style="@style/Widget.MyTheme.ParcelItemText"
             android:layout_marginStart="0dp"
             android:text="DELIVERED"
             app:layout_constraintBottom_toBottomOf="@id/tvCourier"
