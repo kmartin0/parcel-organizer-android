@@ -30,11 +30,11 @@ android {
             buildConfigField 'String', "clientSecretPassword", client_secret_password
         }
     }
+    buildFeatures {
+        dataBinding = true
+    }
     androidExtensions {
         experimental = true
-    }
-    dataBinding {
-        enabled = true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

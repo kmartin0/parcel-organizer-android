@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.fragment_parcels.*
 import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
- * TODO: Add: Additional info parcel field
  * TODO: Refactor: Move the handle api error in BaseViewModel code someplace else.
  * TODO: Fix: navigating temporarily displays next toolbar before transition is complete.
  * TODO: Fix: Going from parcels to add the bottom nav bar goes away too fast.
