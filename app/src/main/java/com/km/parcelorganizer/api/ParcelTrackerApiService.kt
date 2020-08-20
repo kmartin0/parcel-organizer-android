@@ -46,4 +46,7 @@ interface ParcelTrackerApiService {
 
     @POST(Endpoints.CHANGE_PASSWORD)
     fun changePassword(@Body changePasswordRequestBody: ChangePasswordRequestBody): Completable
+
+    @POST(Endpoints.FORGOT_PASSWORD)
+    fun forgotPassword(@Body forgotPasswordRequestBody: ForgotPasswordRequestBody): Completable
 }

@@ -71,6 +71,7 @@
     <string name="login_title">Parcel Organizer</string>
     <string name="login_subtitle">Organizing parcels made easy</string>
     <string name="register_here">Register here</string>
+    <string name="forgot_password">Forgot password?</string>
     <string name="hint_email">Your e-mail address *</string>
     <string name="hint_password">Your password *</string>
     <string name="error_login_credentials">Email/password combination incorrect.</string>
@@ -110,5 +111,9 @@
 
     <!-- Share -->
     <string name="share_tracking_url">Share tracking url with</string>
+
+    <!-- Forgot Password -->
+    <string name="send_reset_request">Reset</string>
+    <string name="reset_request_message">A password reset link has been sent to this email address.</string>
 
 </resources>

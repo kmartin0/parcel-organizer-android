@@ -36,7 +36,10 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
      * @return [ApiError?] If the error is not handled and is an instance of [ApiError] then
      * the [ApiError] is returned. If the error was consumed then null is returned.
      */
-    protected fun handleApiError(error: Throwable, apiErrorHandler: ((ApiError?) -> Unit)? = null): ApiError? {
+    protected fun handleApiError(
+        error: Throwable,
+        apiErrorHandler: ((ApiError?) -> Unit)? = null
+    ): ApiError? {
         return when (error) {
             is HttpException -> {
                 // Parse the HttpException into an ApiError object.
@@ -51,7 +54,12 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
                 when (apiError?.error) {
                     ApiErrorEnum.invalid_token -> logout.call()  // Refresh Token Expired or Bad Credentials.
                     ApiErrorEnum.invalid_grant -> if (userRepository.isUserLoggedIn()) logout.call()
-                    ApiErrorEnum.INTERNAL -> internalServerError.call()
+                    ApiErrorEnum.INTERNAL,
+                    ApiErrorEnum.MESSAGE_NOT_READABLE,
+                    ApiErrorEnum.URI_NOT_FOUND,
+                    ApiErrorEnum.METHOD_NOT_ALLOWED,
+                    ApiErrorEnum.UNSUPPORTED_MEDIA_TYPE,
+                    ApiErrorEnum.UNAVAILABLE -> internalServerError.call()
                     else -> {}
                 }
 

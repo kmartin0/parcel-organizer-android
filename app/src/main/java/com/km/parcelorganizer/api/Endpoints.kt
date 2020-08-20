@@ -10,6 +10,8 @@ class Endpoints {
         const val USERS = "/users"
         const val GET_PARCEL_STATUS_BY_STATUS = "/parcel-statuses/status/{status}"
         const val CHANGE_PASSWORD = "/users/change-password"
+        const val FORGOT_PASSWORD = "/users/forgot-password"
+        const val RESET_PASSWORD = "/users/reset-password"
 
         fun shouldBasicAuth(request: Request): Boolean {
             return when (request.url().url().path) {
