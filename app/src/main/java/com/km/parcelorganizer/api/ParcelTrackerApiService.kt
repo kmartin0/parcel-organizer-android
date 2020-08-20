@@ -49,4 +49,7 @@ interface ParcelTrackerApiService {
 
     @POST(Endpoints.FORGOT_PASSWORD)
     fun forgotPassword(@Body forgotPasswordRequestBody: ForgotPasswordRequestBody): Completable
+
+    @POST(Endpoints.RESET_PASSWORD)
+    fun resetPassword(@Body resetPasswordRequestBody: ResetPasswordRequestBody): Completable
 }

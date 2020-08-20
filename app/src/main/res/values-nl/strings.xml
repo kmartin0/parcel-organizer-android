@@ -116,4 +116,9 @@
     <string name="send_reset_request">Reset</string>
     <string name="reset_request_message">Een wachtwoord reset link is naar dit email adres verstuurd.</string>
 
+    <!-- Reset Password -->
+    <string name="reset_password">Reset wachtwoord</string>
+    <string name="error_reset_password">Ongeldige of verlopen reset link. Vraag een nieuwe aan.</string>
+    <string name="success_reset_password">Uw wachtwoord is successvol gewijzigd.</string>
+
 </resources>

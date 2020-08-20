@@ -116,4 +116,9 @@
     <string name="send_reset_request">Reset</string>
     <string name="reset_request_message">A password reset link has been sent to this email address.</string>
 
+    <!-- Reset Password -->
+    <string name="reset_password">Reset Password</string>
+    <string name="error_reset_password">Invalid or expired reset link. Request a new one.</string>
+    <string name="success_reset_password">Your password has been successfully changed.</string>
+
 </resources>

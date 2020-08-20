@@ -3,10 +3,7 @@ package com.km.parcelorganizer.repository
 import android.content.Context
 import com.google.gson.Gson
 import com.km.parcelorganizer.api.ParcelTrackerApi
-import com.km.parcelorganizer.api.request.ChangePasswordRequestBody
-import com.km.parcelorganizer.api.request.ForgotPasswordRequestBody
-import com.km.parcelorganizer.api.request.RegisterUserRequestBody
-import com.km.parcelorganizer.api.request.UpdateUserRequestBody
+import com.km.parcelorganizer.api.request.*
 import com.km.parcelorganizer.model.OAuth2Credentials
 import com.km.parcelorganizer.model.User
 import com.km.parcelorganizer.util.SharedPreferencesUtils
@@ -58,6 +55,10 @@ class UserRepository(val context: Context) {
 
     fun forgotPassword(email: String): Completable {
         return parcelTrackerApi.forgotPassword(ForgotPasswordRequestBody(email))
+    }
+
+    fun resetPassword(newPassword: String, token: String): Completable {
+        return parcelTrackerApi.resetPassword(ResetPasswordRequestBody(newPassword, token))
     }
 
     /**

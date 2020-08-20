@@ -140,4 +140,13 @@
         android:name="com.km.parcelorganizer.ui.forgotpassword.ForgotPasswordFragment"
         android:label="@string/forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.km.parcelorganizer.ui.resetpassword.ResetPasswordFragment"
+        android:label="@string/reset_password"
+        tools:layout="@layout/fragment_reset_password">
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="parcelorganizer.nl/reset-password?token={token}" />
+    </fragment>
 </navigation>
