@@ -17,59 +17,66 @@
 <resources>
 
     <style name="TextAppearance.MyTheme.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
-        <!--Your custom type style here-->
+        <item name="fontFamily">@font/poppins_light</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
-        <!--Your custom type style here-->
+        <item name="fontFamily">@font/poppins_light</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
-        <!--Your custom type style here-->
+        <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
-        <!--Your custom type style here-->
+        <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
-        <!--Your custom type style here-->
+        <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
-        <!--Your custom type style here-->
+        <item name="fontFamily">@font/poppins_medium</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <!--Your custom type style here-->
+        <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
-        <!--Your custom type style here-->
+        <item name="fontFamily">@font/poppins_medium</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Body1" parent="TextAppearance.MaterialComponents.Body1">
-        <!--Your custom type style here-->
+        <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Body2" parent="TextAppearance.MaterialComponents.Body2">
-        <!--Your custom type style here-->
+        <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Button" parent="TextAppearance.MaterialComponents.Button">
-        <!--Your custom type style here-->
+        <item name="fontFamily">@font/poppins_medium</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Caption" parent="TextAppearance.MaterialComponents.Caption">
-        <!--Your custom type style here-->
+        <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Overline" parent="TextAppearance.MaterialComponents.Overline">
-        <!--Your custom type style here-->
+        <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
-    <style name="TextAppearance.MyTheme.LargePopupMenu" parent="@style/TextAppearance.MaterialComponents.Subtitle1">
+    <style name="TextAppearance.MyTheme.LargePopupMenu" parent="TextAppearance.MyTheme.Body2">
         <item name="android:textColor">?colorOnSurface</item>
+    </style>
+
+    <!-- SearchView text and hint color style. -->
+    <style name="TextAppearance.MyTheme.Light.AutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:textColor">?colorControlNormal</item>
+        <item name="android:textColorHint">?colorControlNormal</item>
+        <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
 </resources>

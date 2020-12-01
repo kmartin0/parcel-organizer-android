@@ -124,6 +124,7 @@
             android:layout_marginTop="@dimen/key_line_5"
             android:checked="@{viewModel.darkTheme}"
             android:text="@string/dark_theme_label"
+            android:textAppearance="?textAppearanceBody1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toStartOf="parent"
