@@ -60,7 +60,7 @@
         </item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.MyTheme.BottomSheetDialog</item>
         <item name="materialCardViewStyle">@style/Widget.MyTheme.CardView</item>
-        <item name="autoCompleteTextViewStyle">@style/Widget.MyTheme.Light.AutoCompleteTextView
+        <item name="autoCompleteTextViewStyle">@style/TextAppearance.MyTheme.Light.AutoCompleteTextView
         </item>
         <item name="textInputStyle">@style/Widget.MyTheme.TextInputLayout.OutlinedBox</item>
         <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>

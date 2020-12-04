@@ -285,6 +285,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
     override fun getVMClass(): Class<ParcelsViewModel> = ParcelsViewModel::class.java
 
+    // Used to share the view model with the search and sort dialog fragments.
     override fun isSharedViewModel(): Boolean = true
 
     override fun onStart() {
