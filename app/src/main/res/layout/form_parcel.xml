@@ -129,9 +129,9 @@
                 setParcelStatusDropdownText="@{parcelForm.parcelStatusEnum}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:editable="false"
                 android:hint="@string/hint_status"
-                android:imeOptions="actionDone" />
+                android:imeOptions="actionDone"
+                android:inputType="none"/>
 
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

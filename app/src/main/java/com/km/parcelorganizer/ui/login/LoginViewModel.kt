@@ -28,7 +28,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     }
 
     /**
-     * Login the user using [userRepository] using [email] and [password]
+     * Login the user using [userRepository] using [loginForm] input.
      */
     fun login() {
         if (isLoading.value == false && loginForm.validateInput()) {

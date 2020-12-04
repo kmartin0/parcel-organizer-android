@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.enums.SortOrderEnum
@@ -24,7 +24,7 @@ class SortOrderBottomDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(activity as AppCompatActivity).get(ParcelsViewModel::class.java)
+        viewModel = ViewModelProvider(activity as AppCompatActivity).get(ParcelsViewModel::class.java)
         setInitialCheckedButton()
     }
 

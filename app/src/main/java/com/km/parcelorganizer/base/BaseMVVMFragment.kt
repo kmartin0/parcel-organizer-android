@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -29,10 +28,10 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
     ): View {
         binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         viewModel =
-            if (isSharedViewModel()) ViewModelProviders.of(activity as AppCompatActivity).get(
+            if (isSharedViewModel()) ViewModelProvider(activity as AppCompatActivity).get(
                 getVMClass()
             )
-            else ViewModelProviders.of(this).get(getVMClass())
+            else ViewModelProvider(this).get(getVMClass())
         binding.lifecycleOwner = activity as AppCompatActivity
         initViewModelBinding()
         return binding.root
@@ -47,14 +46,14 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
     }
 
     private fun observeLoading() {
-        viewModel.isLoading.observe(this, Observer {
+        viewModel.isLoading.observe(viewLifecycleOwner, {
             showLoading(it)
         })
     }
 
     private fun observeServiceUnavailableException() {
-        viewModel.serverUnavailableException.observe(this, Observer {
-            MaterialAlertDialogBuilder(context!!)
+        viewModel.serverUnavailableException.observe(this, {
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle(getString(R.string.error_service_unavailable_title))
                 .setIcon(R.drawable.ic_error_24dp)
                 .setMessage(getString(R.string.error_service_unavailable_message))
@@ -64,8 +63,8 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
     }
 
     private fun observeLogout() {
-        viewModel.logout.observe(this, Observer {
-            MaterialAlertDialogBuilder(context!!)
+        viewModel.logout.observe(this, {
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle(getString(R.string.error_authentication_title))
                 .setIcon(R.drawable.ic_error_24dp)
                 .setMessage(getString(R.string.error_authentication_message))
@@ -91,8 +90,8 @@ abstract class BaseMVVMFragment<T : ViewDataBinding, V : BaseViewModel> : BaseFr
     }
 
     private fun observeInternalServerError() {
-        viewModel.internalServerError.observe(this, Observer {
-            MaterialAlertDialogBuilder(context!!)
+        viewModel.internalServerError.observe(this, {
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle(getString(R.string.error_internal_title))
                 .setIcon(R.drawable.ic_error_24dp)
                 .setMessage(getString(R.string.error_internal_message))

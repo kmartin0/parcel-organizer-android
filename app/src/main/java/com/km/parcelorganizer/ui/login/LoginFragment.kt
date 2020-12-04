@@ -2,15 +2,12 @@ package com.km.parcelorganizer.ui.login
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.appbar.MaterialToolbar
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentLoginBinding
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.toolbar_default.*
 
 class LoginFragment : BaseMVVMFragment<FragmentLoginBinding, LoginViewModel>() {
 
@@ -34,7 +31,7 @@ class LoginFragment : BaseMVVMFragment<FragmentLoginBinding, LoginViewModel>() {
 
     private fun initObservers() {
         // When login is successful then navigate to the ParcelsFragment.
-        viewModel.loginSuccess.observe(this, Observer {
+        viewModel.loginSuccess.observe(this, {
             findNavController().navigate(
                 LoginFragmentDirections.actionLoginFragmentToParcelsFragment(
                     args.trackingUrl

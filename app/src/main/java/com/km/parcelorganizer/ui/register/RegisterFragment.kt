@@ -2,7 +2,6 @@ package com.km.parcelorganizer.ui.register
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.MaterialToolbar
 import com.km.parcelorganizer.R
@@ -22,10 +21,10 @@ class RegisterFragment : BaseMVVMFragment<FragmentRegisterBinding, RegisterViewM
     }
 
     private fun initObservers() {
-        viewModel.registerSuccess.observe(this, Observer {
+        viewModel.registerSuccess.observe(this, {
             onRegisterSuccess()
         })
-        viewModel.alreadyExists.observe(this, Observer {
+        viewModel.alreadyExists.observe(this, {
             tilEmail.error = getString(R.string.already_exists)
         })
     }

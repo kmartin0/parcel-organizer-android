@@ -2,12 +2,14 @@ package com.km.parcelorganizer.ui.parcels
 
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ShareCompat
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -53,7 +55,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
     }
 
     private fun setToolbarLogo() {
-        (activity!! as MainActivity?)?.supportActionBar?.let {
+        (requireActivity() as MainActivity?)?.supportActionBar?.let {
             it.setHomeAsUpIndicator(R.drawable.ic_box)
             it.setDisplayHomeAsUpEnabled(true)
         }
@@ -75,7 +77,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
     private fun initViews() {
         // Initialize the recycler view adapter, item decoration and layout manager.
         rvParcels.adapter = parcelsAdapter
-        rvParcels.addItemDecoration(ParcelsItemDecoration(context!!))
+        rvParcels.addItemDecoration(ParcelsItemDecoration(requireContext()))
         rvParcels.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
@@ -90,7 +92,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
     private fun initObservers() {
         // When parcels list from [viewModel] is changed then clear replace the items from the recycler view with it.
-        viewModel.parcels.observe(this, Observer {
+        viewModel.parcels.observe(viewLifecycleOwner, {
             parcels.clear()
             if (it != null) parcels.addAll(it)
             setEmptyStateVisibility()
@@ -98,12 +100,12 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         })
 
         // Update the menu titles when the sort and filter configuration is changed.
-        viewModel.sortAndFilterConfig.observe(this, Observer {
+        viewModel.sortAndFilterConfig.observe(viewLifecycleOwner, {
             updateMenuTitles()
         })
 
         // When parcels are being fetched hide empty state
-        viewModel.startLoadingParcels.observe(this, Observer {
+        viewModel.startLoadingParcels.observe(this, {
             parcelsEmptyStateView.visibility = View.INVISIBLE
         })
     }
@@ -152,7 +154,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
      */
     override fun onDeleteParcelClick(parcel: Parcel) {
         if (viewModel.isLoading.value == false) {
-            MaterialAlertDialogBuilder(context!!)
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle(getString(R.string.dialog_delete_parcel_title, parcel.title))
                 .setMessage(getString(R.string.dialog_delete_parcel_message, parcel.title))
                 .setPositiveButton(getString(R.string.yes)) { _, _ -> viewModel.deleteParcel(parcel) }
@@ -167,7 +169,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
     override fun onShareParcelClick(parcel: Parcel) {
         val trackingUrl = parcel.parseTrackingUrl()
         if (!trackingUrl.isNullOrEmpty()) {
-            ShareCompat.IntentBuilder.from(activity)
+            ShareCompat.IntentBuilder.from(requireActivity())
                 .setType("text/plain")
                 .setChooserTitle(R.string.share_tracking_url)
                 .setText(trackingUrl)

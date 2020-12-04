@@ -3,7 +3,6 @@ package com.km.parcelorganizer.ui.createparcel
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.appbar.MaterialToolbar
@@ -30,8 +29,8 @@ class CreateParcelFragment :
 
     private fun initViews() {
         // Initialize the options for the Parcel Status dropdown.
-        val parcelStatusList = ParcelStatusEnum.values().map { context!!.getString(it.stringResId) }
-        val adapter = ArrayAdapter(context!!, R.layout.dropdown_menu_popup_item, parcelStatusList)
+        val parcelStatusList = ParcelStatusEnum.values().map { requireContext().getString(it.stringResId) }
+        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_popup_item, parcelStatusList)
         dropdownStatus.setAdapter(adapter)
     }
 
@@ -40,7 +39,7 @@ class CreateParcelFragment :
         viewModel.setTrackingUrl(args.trackingUrl)
 
         // When a parcel has been created display a success animation and return to the previous fragment.
-        viewModel.parcelCreatedSuccess.observe(this, Observer {
+        viewModel.parcelCreatedSuccess.observe(this, {
             btnCreateParcel.isClickable = false
             lottieSuccess.playAnimation {
                 findNavController().navigateUp()

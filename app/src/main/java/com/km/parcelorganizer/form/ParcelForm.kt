@@ -4,7 +4,6 @@ import android.webkit.URLUtil
 import androidx.lifecycle.MutableLiveData
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.enums.ParcelStatusEnum
-import com.km.parcelorganizer.model.Parcel
 
 class ParcelForm {
     val title = MutableLiveData<String>()
@@ -20,10 +19,6 @@ class ParcelForm {
     val trackingUrlError = MutableLiveData<Int>()
     val additionalInformationError = MutableLiveData<Int>()
     val parcelStatusEnumError = MutableLiveData<Int>()
-
-    fun createParcelObject(): Parcel? {
-        return null
-    }
 
     /**
      * @return [Boolean] is the parcel form input correct.
@@ -163,8 +158,8 @@ class ParcelForm {
     }
 
     /**
-     * Validate the [parcelStatus] value. Set [parcelStatusError] if not valid.
-     * @return [Boolean] is [parcelStatus] not empty.
+     * Validate the [parcelStatusEnum] value. Set [parcelStatusEnumError] if not valid.
+     * @return [Boolean] is [parcelStatusEnum] not empty.
      */
     fun validateTrackingStatus(): Boolean {
         var isValid: Boolean

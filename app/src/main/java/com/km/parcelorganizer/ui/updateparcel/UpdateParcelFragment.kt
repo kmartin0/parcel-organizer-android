@@ -3,7 +3,6 @@ package com.km.parcelorganizer.ui.updateparcel
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.appbar.MaterialToolbar
@@ -29,8 +28,8 @@ class UpdateParcelFragment :
 
     private fun initViews() {
         // Set the parcel status dropdown values using ParcelStatusEnum.
-        val parcelStatusList = ParcelStatusEnum.values().map { context!!.getString(it.stringResId) }
-        val adapter = ArrayAdapter(context!!, R.layout.dropdown_menu_popup_item, parcelStatusList)
+        val parcelStatusList = ParcelStatusEnum.values().map { requireContext().getString(it.stringResId) }
+        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_popup_item, parcelStatusList)
         dropdownStatus.setAdapter(adapter)
     }
 
@@ -39,7 +38,7 @@ class UpdateParcelFragment :
         viewModel.populateParcelForm(args.parcel)
 
         // When parcel is updated successfully then display a success animation and navigate to the previous fragment.
-        viewModel.parcelUpdateSuccess.observe(this, Observer {
+        viewModel.parcelUpdateSuccess.observe(this, {
             btnUpdateParcel.isClickable = false
             lottieSuccess.playAnimation {
                 findNavController().navigateUp()

@@ -37,7 +37,7 @@ class UserProfileFragment : BaseMVVMFragment<FragmentUserProfileBinding, UserPro
     }
 
     private fun showLogoutDialog() {
-        MaterialAlertDialogBuilder(context!!)
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.dialog_logout_title))
             .setMessage(getString(R.string.dialog_logout_message))
             .setPositiveButton(getString(R.string.yes)) { _, _ -> logout() }

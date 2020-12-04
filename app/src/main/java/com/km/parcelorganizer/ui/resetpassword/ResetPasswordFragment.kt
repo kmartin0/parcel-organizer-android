@@ -2,7 +2,6 @@ package com.km.parcelorganizer.ui.resetpassword
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import com.google.android.material.appbar.MaterialToolbar
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
@@ -26,11 +25,11 @@ class ResetPasswordFragment :
     }
 
     private fun initObservers() {
-        viewModel.error.observe(this, Observer {
+        viewModel.error.observe(this, {
             tvMessage.setText(R.string.error_reset_password)
         })
 
-        viewModel.success.observe(this, Observer {
+        viewModel.success.observe(this, {
             tvMessage.setText(R.string.success_reset_password)
         })
     }

@@ -7,10 +7,9 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.km.parcelorganizer.R
@@ -32,16 +31,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        viewModel.getDarkThemeObserver().observe(this, Observer {
+        viewModel.getDarkThemeObserver().observe(this, {
             delegate.localNightMode =
                 if (it) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         })
     }
 
     private fun setupBottomNavigationView() {
-        val navHost = findNavController(R.id.navHostFragment)
+        val navHost = getNavController()
         navHost.addOnDestinationChangedListener { _, destination, _ ->
             bnvMain.visibility = when (destination.id) {
                 R.id.parcelsFragment, R.id.userProfileFragment -> View.VISIBLE
@@ -57,20 +56,22 @@ class MainActivity : AppCompatActivity() {
      */
     private fun initNavFragment() {
         var trackingUrl: String? = null
-        when {
-            intent?.action == Intent.ACTION_SEND -> {
+        when (intent?.action) {
+            Intent.ACTION_SEND -> {
                 if ("text/plain" == intent.type) {
                     trackingUrl = intent.getStringExtra(Intent.EXTRA_TEXT)
                 }
             }
         }
 
-        findNavController(R.id.navHostFragment).setGraph(
+        val navController = getNavController()
+
+        navController.setGraph(
             R.navigation.navigation_graph,
             LoginFragmentArgs(trackingUrl).toBundle()
         )
 
-        findNavController(R.id.navHostFragment).addOnDestinationChangedListener { controller, destination, _ ->
+        navController.addOnDestinationChangedListener { controller, destination, _ ->
             when (destination.id) {
                 R.id.loginFragment -> controller.graph.startDestination = R.id.loginFragment
                 R.id.parcelsFragment -> controller.graph.startDestination = R.id.parcelsFragment
@@ -78,9 +79,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        initNavFragment()
+    private fun getNavController(): NavController {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        return navHostFragment.navController
     }
 
     fun showLoading(visibility: Boolean) {
@@ -88,16 +90,21 @@ class MainActivity : AppCompatActivity() {
             if (visibility) View.VISIBLE else View.GONE
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        initNavFragment()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 //        // Have the NavigationUI look for an action or destination matching the menu
 //        // item id and navigate there if found.
 //        // Otherwise, bubble up to the parent.
-        return item.onNavDestinationSelected(findNavController(R.id.navHostFragment))
+        return item.onNavDestinationSelected(getNavController())
                 || super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return Navigation.findNavController(this, R.id.navHostFragment).navigateUp()
+        return getNavController().navigateUp()
                 || super.onSupportNavigateUp()
     }
 }

@@ -2,7 +2,6 @@ package com.km.parcelorganizer.ui.forgotpassword
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import com.google.android.material.appbar.MaterialToolbar
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
@@ -19,13 +18,13 @@ class ForgotPasswordFragment :
     }
 
     private fun initObservers() {
-        viewModel.passwordResetRequestSent.observe(this, Observer {
+        viewModel.passwordResetRequestSent.observe(this, {
             tvMessage.visibility = View.VISIBLE
         })
     }
 
     override fun initViewModelBinding() {
-        binding.viewModel = viewModel;
+        binding.viewModel = viewModel
     }
 
     override fun getVMClass(): Class<ForgotPasswordViewModel> = ForgotPasswordViewModel::class.java

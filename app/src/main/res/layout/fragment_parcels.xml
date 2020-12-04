@@ -42,7 +42,8 @@
             android:layout_marginBottom="@dimen/key_line_4"
             android:src="@drawable/ic_add_on_secondary_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/create_parcel"/>
 
         <include
             android:id="@+id/toolbarLayout"

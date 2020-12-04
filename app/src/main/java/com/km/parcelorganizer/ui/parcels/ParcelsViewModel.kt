@@ -267,7 +267,4 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
-    fun refreshLoggedInUser() {
-        loggedInUser = userRepository.getLoggedInUser()
-    }
 }

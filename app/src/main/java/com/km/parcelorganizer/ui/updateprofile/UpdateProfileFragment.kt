@@ -2,7 +2,6 @@ package com.km.parcelorganizer.ui.updateprofile
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.MaterialToolbar
 import com.km.parcelorganizer.R
@@ -21,7 +20,7 @@ class UpdateProfileFragment :
     }
 
     private fun initObservers() {
-        viewModel.profileUpdateSuccess.observe(this, Observer {
+        viewModel.profileUpdateSuccess.observe(this, {
             btnSubmit.isClickable = false
             lottieSuccess.playAnimation {
                 findNavController().navigateUp()

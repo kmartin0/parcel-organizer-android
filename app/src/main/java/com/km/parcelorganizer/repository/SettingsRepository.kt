@@ -63,7 +63,7 @@ class SettingsRepository(val context: Context) {
         get() = preferences.getBoolean(SharedPreferencesUtils.DARK_THEME, false)
         set(value) {
             preferences.edit().putBoolean(SharedPreferencesUtils.DARK_THEME, value).apply()
-            field = value;
+            field = value
         }
 
     /**

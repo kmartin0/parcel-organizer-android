@@ -2,7 +2,6 @@ package com.km.parcelorganizer.ui.changepassword
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.MaterialToolbar
 import com.km.parcelorganizer.R
@@ -21,7 +20,7 @@ class ChangePasswordFragment :
     }
 
     fun initObservers() {
-        viewModel.changePasswordSuccess.observe(this, Observer {
+        viewModel.changePasswordSuccess.observe(this, {
             lottieSuccess.playAnimation {
                 findNavController().navigateUp()
             }

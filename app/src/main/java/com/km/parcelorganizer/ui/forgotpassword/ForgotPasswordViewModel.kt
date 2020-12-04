@@ -11,7 +11,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class ForgotPasswordViewModel(application: Application) : BaseViewModel(application) {
-    private val userRepository = UserRepository(application.applicationContext);
+    private val userRepository = UserRepository(application.applicationContext)
     val forgotPasswordForm = ForgotPasswordForm()
     val passwordResetRequestSent = SingleLiveEvent<Any>()
 
@@ -24,7 +24,7 @@ class ForgotPasswordViewModel(application: Application) : BaseViewModel(applicat
                 .subscribe(object : CompletableObserver {
                     override fun onComplete() {
                         stopLoading()
-                        passwordResetRequestSent.call();
+                        passwordResetRequestSent.call()
                     }
 
                     override fun onSubscribe(d: Disposable) {
