@@ -8,22 +8,31 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.km.parcelorganizer.R
+import com.km.parcelorganizer.databinding.BottomSheetParcelSortByBinding
 import com.km.parcelorganizer.enums.ParcelSortingEnum
 import com.km.parcelorganizer.ui.parcels.ParcelsViewModel
-import kotlinx.android.synthetic.main.bottom_sheet_parcel_sort_by.*
 
 class SortByBottomDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var viewModel: ParcelsViewModel
+    private lateinit var binding: BottomSheetParcelSortByBinding
     private var initialButtonResId: Int = -1
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.bottom_sheet_parcel_sort_by, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = BottomSheetParcelSortByBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(activity as AppCompatActivity).get(ParcelsViewModel::class.java)
+        viewModel =
+            ViewModelProvider(activity as AppCompatActivity).get(ParcelsViewModel::class.java)
+
         setInitialCheckedButton()
     }
 
@@ -31,7 +40,7 @@ class SortByBottomDialogFragment : BottomSheetDialogFragment() {
      * Set the checked state for the a radio button using the sortBy attribute from sortAndFilterConfig attribute from the [viewModel].
      */
     private fun setInitialCheckedButton() {
-        rgSorting.check(
+        binding.rgSorting.check(
             when (viewModel.sortAndFilterConfig.value?.sortBy) {
                 ParcelSortingEnum.TITLE -> R.id.rbTitle
                 ParcelSortingEnum.SENDER -> R.id.rbSender
@@ -41,16 +50,16 @@ class SortByBottomDialogFragment : BottomSheetDialogFragment() {
                 null -> R.id.rbTitle
             }
         )
-        initialButtonResId = rgSorting.checkedRadioButtonId
+        initialButtonResId = binding.rgSorting.checkedRadioButtonId
     }
 
     /**
      * Change the sortBy attribute from sortAndFilterConfig of the [viewModel] to the value of the selected radio button.
      */
     private fun applySelection() {
-        if (initialButtonResId != rgSorting.checkedRadioButtonId) {
+        if (initialButtonResId != binding.rgSorting.checkedRadioButtonId) {
             viewModel.sortAndFilterConfig.value?.let {
-                it.sortBy = when (rgSorting.checkedRadioButtonId) {
+                it.sortBy = when (binding.rgSorting.checkedRadioButtonId) {
                     R.id.rbTitle -> ParcelSortingEnum.TITLE
                     R.id.rbSender -> ParcelSortingEnum.SENDER
                     R.id.rbCourier -> ParcelSortingEnum.COURIER

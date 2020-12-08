@@ -2,6 +2,7 @@ package com.km.parcelorganizer.ui.parcels
 
 import android.app.Application
 import android.content.res.Resources
+import android.util.Log
 import androidx.core.os.ConfigurationCompat
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData

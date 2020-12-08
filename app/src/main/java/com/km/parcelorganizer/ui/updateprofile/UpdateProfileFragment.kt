@@ -8,8 +8,6 @@ import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentUpdateProfileBinding
 import com.km.parcelorganizer.util.playAnimation
-import kotlinx.android.synthetic.main.fragment_update_profile.*
-import kotlinx.android.synthetic.main.toolbar_default.*
 
 class UpdateProfileFragment :
     BaseMVVMFragment<FragmentUpdateProfileBinding, UpdateProfileViewModel>() {
@@ -17,12 +15,13 @@ class UpdateProfileFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
+
     }
 
     private fun initObservers() {
         viewModel.profileUpdateSuccess.observe(this, {
-            btnSubmit.isClickable = false
-            lottieSuccess.playAnimation {
+            binding.btnSubmit.isClickable = false
+            binding.lottieSuccess.playAnimation {
                 findNavController().navigateUp()
             }
         })
@@ -36,6 +35,6 @@ class UpdateProfileFragment :
 
     override fun getLayoutId(): Int = R.layout.fragment_update_profile
 
-    override fun getToolbar(): MaterialToolbar? = defaultToolbar
+    override fun getToolbar(): MaterialToolbar = binding.toolbarLayout.defaultToolbar
 
 }

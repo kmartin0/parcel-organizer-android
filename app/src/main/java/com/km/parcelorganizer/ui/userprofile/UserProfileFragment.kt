@@ -7,7 +7,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentUserProfileBinding
-import kotlinx.android.synthetic.main.fragment_user_profile.*
 
 class UserProfileFragment : BaseMVVMFragment<FragmentUserProfileBinding, UserProfileViewModel>() {
 
@@ -17,11 +16,11 @@ class UserProfileFragment : BaseMVVMFragment<FragmentUserProfileBinding, UserPro
     }
 
     private fun initViews() {
-        btnChangeProfile.setOnClickListener { navigateToUpdateProfile() }
-        btnChangePassword.setOnClickListener { navigateToChangePassword() }
-        btnLogout.setOnClickListener { showLogoutDialog() }
+        binding.btnChangeProfile.setOnClickListener { navigateToUpdateProfile() }
+        binding.btnChangePassword.setOnClickListener { navigateToChangePassword() }
+        binding.btnLogout.setOnClickListener { showLogoutDialog() }
 
-        switchDarkTheme.setOnCheckedChangeListener { _, isChecked ->
+        binding.switchDarkTheme.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onChangeDarkTheme(
                 isChecked
             )

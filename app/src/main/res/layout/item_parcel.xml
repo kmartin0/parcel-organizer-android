@@ -15,9 +15,9 @@
             android:id="@+id/tvTitle"
             style="@style/Widget.MyTheme.ParcelItemHeader"
             android:gravity="center"
-            android:text="Garmin VivoMove HR"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintStart_toEndOf="parent"
+            android:text="Garmin VivoMovddde HR"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- === SENDER FIELDS ===-->
@@ -129,8 +129,8 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvStatus"
             style="@style/Widget.MyTheme.ParcelItemText"
-            android:layout_marginTop="@dimen/key_line_0"
             android:layout_marginStart="0dp"
+            android:layout_marginTop="@dimen/key_line_0"
             android:text="DELIVERED"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivStatus" />
@@ -138,8 +138,8 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ivEdit"
             style="@style/Widget.MyTheme.ParcelItemActionIcon"
-            android:src="@drawable/ic_edit_black_24dp"
             android:layout_marginEnd="@dimen/key_line_4"
+            android:src="@drawable/ic_edit_black_24dp"
             app:layout_constraintEnd_toStartOf="@id/ivShare"
             app:layout_constraintTop_toTopOf="@id/tvLastUpdated" />
 

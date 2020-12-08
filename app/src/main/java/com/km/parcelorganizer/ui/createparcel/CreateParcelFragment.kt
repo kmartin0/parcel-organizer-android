@@ -11,9 +11,6 @@ import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentCreateParcelBinding
 import com.km.parcelorganizer.enums.ParcelStatusEnum
 import com.km.parcelorganizer.util.playAnimation
-import kotlinx.android.synthetic.main.form_parcel.*
-import kotlinx.android.synthetic.main.fragment_create_parcel.*
-import kotlinx.android.synthetic.main.toolbar_default.*
 
 class CreateParcelFragment :
     BaseMVVMFragment<FragmentCreateParcelBinding, CreateParcelViewModel>() {
@@ -31,7 +28,7 @@ class CreateParcelFragment :
         // Initialize the options for the Parcel Status dropdown.
         val parcelStatusList = ParcelStatusEnum.values().map { requireContext().getString(it.stringResId) }
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_popup_item, parcelStatusList)
-        dropdownStatus.setAdapter(adapter)
+        binding.parcelFormLayout.dropdownStatus.setAdapter(adapter)
     }
 
     private fun initObservers() {
@@ -40,8 +37,8 @@ class CreateParcelFragment :
 
         // When a parcel has been created display a success animation and return to the previous fragment.
         viewModel.parcelCreatedSuccess.observe(this, {
-            btnCreateParcel.isClickable = false
-            lottieSuccess.playAnimation {
+            binding.btnCreateParcel.isClickable = false
+            binding.lottieSuccess.playAnimation {
                 findNavController().navigateUp()
             }
         })
@@ -49,7 +46,7 @@ class CreateParcelFragment :
 
     override fun getLayoutId(): Int = R.layout.fragment_create_parcel
 
-    override fun getToolbar(): MaterialToolbar? = defaultToolbar
+    override fun getToolbar(): MaterialToolbar = binding.toolbarLayout.defaultToolbar
 
     override fun initViewModelBinding() {
         binding.viewModel = viewModel

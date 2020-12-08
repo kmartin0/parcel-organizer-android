@@ -8,10 +8,6 @@ import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentRegisterBinding
 import com.km.parcelorganizer.util.playAnimation
-import kotlinx.android.synthetic.main.form_register.*
-import kotlinx.android.synthetic.main.fragment_register.*
-import kotlinx.android.synthetic.main.toolbar_default.*
-
 
 class RegisterFragment : BaseMVVMFragment<FragmentRegisterBinding, RegisterViewModel>() {
 
@@ -25,13 +21,13 @@ class RegisterFragment : BaseMVVMFragment<FragmentRegisterBinding, RegisterViewM
             onRegisterSuccess()
         })
         viewModel.alreadyExists.observe(this, {
-            tilEmail.error = getString(R.string.already_exists)
+            binding.registerFormLayout.tilEmail.error = getString(R.string.already_exists)
         })
     }
 
     private fun onRegisterSuccess() {
-        btnRegister.isClickable = false
-        lottieSuccess.playAnimation {
+        binding.btnRegister.isClickable = false
+        binding.lottieSuccess.playAnimation {
             findNavController().navigateUp()
         }
     }
@@ -44,6 +40,6 @@ class RegisterFragment : BaseMVVMFragment<FragmentRegisterBinding, RegisterViewM
 
     override fun getLayoutId(): Int = R.layout.fragment_register
 
-    override fun getToolbar(): MaterialToolbar? = defaultToolbar
+    override fun getToolbar(): MaterialToolbar = binding.toolbarLayout.defaultToolbar
 
 }

@@ -2,14 +2,13 @@ package com.km.parcelorganizer.ui.parcels
 
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.util.Log
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ShareCompat
+import androidx.core.view.MenuItemCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,8 +23,6 @@ import com.km.parcelorganizer.ui.MainActivity
 import com.km.parcelorganizer.ui.parcels.adapter.ParcelClickListener
 import com.km.parcelorganizer.ui.parcels.adapter.ParcelsAdapter
 import com.km.parcelorganizer.ui.parcels.adapter.ParcelsItemDecoration
-import kotlinx.android.synthetic.main.fragment_parcels.*
-import kotlinx.android.synthetic.main.toolbar_default.*
 
 /**
  * TODO: Refactor: Move the handle api error in BaseViewModel code someplace else.
@@ -51,14 +48,6 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         checkRedirectCreateParcel()
         initViews()
         initObservers()
-        setToolbarLogo()
-    }
-
-    private fun setToolbarLogo() {
-        (requireActivity() as MainActivity?)?.supportActionBar?.let {
-            it.setHomeAsUpIndicator(R.drawable.ic_box)
-            it.setDisplayHomeAsUpEnabled(true)
-        }
     }
 
     private fun checkRedirectCreateParcel() {
@@ -76,17 +65,17 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
     private fun initViews() {
         // Initialize the recycler view adapter, item decoration and layout manager.
-        rvParcels.adapter = parcelsAdapter
-        rvParcels.addItemDecoration(ParcelsItemDecoration(requireContext()))
-        rvParcels.layoutManager =
+        binding.rvParcels.adapter = parcelsAdapter
+        binding.rvParcels.addItemDecoration(ParcelsItemDecoration(requireContext()))
+        binding.rvParcels.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
         // When the floating action button is clicked navigate to CreateParcelFragment
-        fabCreateParcel.setOnClickListener { onCreateParcelClick() }
+        binding.fabCreateParcel.setOnClickListener { onCreateParcelClick() }
 
-        srlParcels.setOnRefreshListener {
+        binding.srlParcels.setOnRefreshListener {
             viewModel.refreshParcels()
-            srlParcels.isRefreshing = false
+            binding.srlParcels.isRefreshing = false
         }
     }
 
@@ -106,12 +95,12 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
         // When parcels are being fetched hide empty state
         viewModel.startLoadingParcels.observe(this, {
-            parcelsEmptyStateView.visibility = View.INVISIBLE
+            binding.parcelsEmptyStateView.root.visibility = View.INVISIBLE
         })
     }
 
     private fun setEmptyStateVisibility() {
-        parcelsEmptyStateView.visibility =
+        binding.parcelsEmptyStateView.root.visibility =
             if (parcels.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
     }
 
@@ -196,8 +185,18 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
      * Initialize the search view by setting the query text listener.
      */
     private fun initSearchView() {
-        val searchView = menu?.findItem(R.id.action_search)?.actionView as SearchView
+        val searchViewMenuItem = menu?.findItem(R.id.action_search)
+
+        val searchView = searchViewMenuItem?.actionView as SearchView
         searchView.setOnQueryTextListener(getSearchViewQueryListener())
+
+        // Restore the search text if present.
+        viewModel.sortAndFilterConfig.value?.searchQuery?.let {
+            if (it.isNotEmpty()) {
+                searchViewMenuItem.expandActionView()
+                searchView.setQuery(it, false)
+            }
+        }
     }
 
     /**
@@ -277,9 +276,9 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
 
     override fun getLayoutId(): Int = R.layout.fragment_parcels
 
-    override fun getToolbar(): MaterialToolbar? = defaultToolbar
+    override fun getToolbar(): MaterialToolbar = binding.toolbarLayout.defaultToolbar
 
-    override fun getMenuId(): Int? = R.menu.menu_parcels
+    override fun getMenuId(): Int = R.menu.menu_parcels
 
     override fun initViewModelBinding() {
         binding.viewModel = viewModel

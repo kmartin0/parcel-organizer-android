@@ -5,10 +5,10 @@ import android.graphics.PorterDuff
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.km.parcelorganizer.R
+import com.km.parcelorganizer.databinding.ItemParcelBinding
 import com.km.parcelorganizer.enums.ParcelStatusEnum
 import com.km.parcelorganizer.model.Parcel
 import com.km.parcelorganizer.util.getColorFromAttr
-import kotlinx.android.synthetic.main.item_parcel.view.*
 import java.text.SimpleDateFormat
 
 class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -20,48 +20,94 @@ class ParcelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         parcel: Parcel,
         parcelClickListener: ParcelClickListener
     ) {
-        itemView.tvTitle.text = parcel.title
-        itemView.tvSender.text = parcel.sender
-        itemView.tvCourier.text = parcel.courier
-        itemView.tvStatus.text = itemView.context.getString(parcel.parcelStatus.status.stringResId)
-        itemView.tvAdditionalInformation.text = parcel.additionalInformation
-        itemView.tvLastUpdated.text =
-            SimpleDateFormat.getDateTimeInstance().format(parcel.lastUpdated)
+        val binding = ItemParcelBinding.bind(itemView)
 
-        itemView.clItemParcel.setBackgroundColor(
-            itemView.context.getColorFromAttr(
+        setBaseInfo(binding, parcel)
+        setBackgroundColor(binding, parcel)
+        setStatusIcon(binding, parcel)
+        setShare(binding, parcel)
+        setClickListeners(binding, parcel, parcelClickListener)
+    }
+
+    private fun setBaseInfo(
+        binding: ItemParcelBinding,
+        parcel: Parcel
+    ) {
+        with(binding) {
+            tvTitle.text = parcel.title
+            tvSender.text = parcel.sender
+            tvCourier.text = parcel.courier
+            tvStatus.text =
+                itemView.context.getString(parcel.parcelStatus.status.stringResId)
+            tvAdditionalInformation.text = parcel.additionalInformation
+            tvLastUpdated.text =
+                SimpleDateFormat.getDateTimeInstance().format(parcel.lastUpdated)
+        }
+    }
+
+    private fun setBackgroundColor(
+        binding: ItemParcelBinding,
+        parcel: Parcel
+    ) {
+        with(binding) {
+            clItemParcel.setBackgroundColor(
+                itemView.context.getColorFromAttr(
+                    when (parcel.parcelStatus.status) {
+                        ParcelStatusEnum.ORDERED -> R.attr.piColorOrdered
+                        ParcelStatusEnum.SENT -> R.attr.piColorSent
+                        ParcelStatusEnum.DELIVERED -> R.attr.piColorDelivered
+                    }
+                )
+            )
+        }
+    }
+
+    private fun setStatusIcon(
+        binding: ItemParcelBinding,
+        parcel: Parcel
+    ) {
+        with(binding) {
+            ivStatus.setImageResource(
                 when (parcel.parcelStatus.status) {
-                    ParcelStatusEnum.ORDERED -> R.attr.piColorOrdered
-                    ParcelStatusEnum.SENT -> R.attr.piColorSent
-                    ParcelStatusEnum.DELIVERED -> R.attr.piColorDelivered
+                    ParcelStatusEnum.ORDERED -> R.drawable.ic_ordered
+                    ParcelStatusEnum.SENT -> R.drawable.ic_sent
+                    ParcelStatusEnum.DELIVERED -> R.drawable.ic_delivered
                 }
             )
-        )
-
-        itemView.ivStatus.setImageResource(
-            when (parcel.parcelStatus.status) {
-                ParcelStatusEnum.ORDERED -> R.drawable.ic_ordered
-                ParcelStatusEnum.SENT -> R.drawable.ic_sent
-                ParcelStatusEnum.DELIVERED -> R.drawable.ic_delivered
-            }
-        )
-
-        if (parcel.trackingUrl.isNullOrEmpty()) {
-            itemView.ivShare.isEnabled = false
-            itemView.ivShare.isFocusable = false
-            itemView.ivShare.isClickable = false
-            itemView.ivShare.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN)
-        } else {
-            itemView.ivShare.isEnabled = true
-            itemView.ivShare.isFocusable = true
-            itemView.ivShare.isClickable = true
-            itemView.ivShare.colorFilter = null
         }
+    }
 
-        itemView.setOnClickListener { parcelClickListener.onParcelClick(parcel) }
-        itemView.ivEdit.setOnClickListener { parcelClickListener.onEditParcelClick(parcel) }
-        itemView.ivDelete.setOnClickListener { parcelClickListener.onDeleteParcelClick(parcel) }
-        itemView.ivShare.setOnClickListener { parcelClickListener.onShareParcelClick(parcel) }
+    private fun setShare(
+        binding: ItemParcelBinding,
+        parcel: Parcel
+    ) {
+        with(binding) {
+            // Sets the tracking url view
+            if (parcel.trackingUrl.isNullOrEmpty()) {
+                ivShare.isEnabled = false
+                ivShare.isFocusable = false
+                ivShare.isClickable = false
+                ivShare.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN)
+            } else {
+                ivShare.isEnabled = true
+                ivShare.isFocusable = true
+                ivShare.isClickable = true
+                ivShare.colorFilter = null
+            }
+        }
+    }
+
+    private fun setClickListeners(
+        binding: ItemParcelBinding,
+        parcel: Parcel,
+        listener: ParcelClickListener
+    ) {
+        with(binding) {
+            root.setOnClickListener { listener.onParcelClick(parcel) }
+            ivEdit.setOnClickListener { listener.onEditParcelClick(parcel) }
+            ivDelete.setOnClickListener { listener.onDeleteParcelClick(parcel) }
+            ivShare.setOnClickListener { listener.onShareParcelClick(parcel) }
+        }
     }
 
 }

@@ -11,9 +11,6 @@ import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentUpdateParcelBinding
 import com.km.parcelorganizer.enums.ParcelStatusEnum
 import com.km.parcelorganizer.util.playAnimation
-import kotlinx.android.synthetic.main.form_parcel.*
-import kotlinx.android.synthetic.main.fragment_update_parcel.*
-import kotlinx.android.synthetic.main.toolbar_default.*
 
 class UpdateParcelFragment :
     BaseMVVMFragment<FragmentUpdateParcelBinding, UpdateParcelViewModel>() {
@@ -30,7 +27,7 @@ class UpdateParcelFragment :
         // Set the parcel status dropdown values using ParcelStatusEnum.
         val parcelStatusList = ParcelStatusEnum.values().map { requireContext().getString(it.stringResId) }
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_popup_item, parcelStatusList)
-        dropdownStatus.setAdapter(adapter)
+        binding.parcelFormLayout.dropdownStatus.setAdapter(adapter)
     }
 
     private fun initObservers() {
@@ -39,8 +36,8 @@ class UpdateParcelFragment :
 
         // When parcel is updated successfully then display a success animation and navigate to the previous fragment.
         viewModel.parcelUpdateSuccess.observe(this, {
-            btnUpdateParcel.isClickable = false
-            lottieSuccess.playAnimation {
+            binding.btnUpdateParcel.isClickable = false
+            binding.lottieSuccess.playAnimation {
                 findNavController().navigateUp()
             }
         })
@@ -55,6 +52,6 @@ class UpdateParcelFragment :
 
     override fun getLayoutId(): Int = R.layout.fragment_update_parcel
 
-    override fun getToolbar(): MaterialToolbar? = defaultToolbar
+    override fun getToolbar(): MaterialToolbar = binding.toolbarLayout.defaultToolbar
 
 }

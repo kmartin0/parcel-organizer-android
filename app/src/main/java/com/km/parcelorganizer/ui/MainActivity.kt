@@ -2,32 +2,41 @@ package com.km.parcelorganizer.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.findFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.km.parcelorganizer.R
+import com.km.parcelorganizer.databinding.ActivityMainBinding
 import com.km.parcelorganizer.ui.login.LoginFragment
 import com.km.parcelorganizer.ui.login.LoginFragmentArgs
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        initViewBinding()
         initViewModel()
         initNavFragment()
         setupBottomNavigationView()
+    }
+
+    private fun initViewBinding() {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     private fun initViewModel() {
@@ -40,14 +49,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigationView() {
-        val navHost = getNavController()
+        val navHost = navController
         navHost.addOnDestinationChangedListener { _, destination, _ ->
-            bnvMain.visibility = when (destination.id) {
+            binding.bnvMain.visibility = when (destination.id) {
                 R.id.parcelsFragment, R.id.userProfileFragment -> View.VISIBLE
                 else -> View.GONE
             }
         }
-        NavigationUI.setupWithNavController(bnvMain, navHost)
+        NavigationUI.setupWithNavController(binding.bnvMain, navHost)
     }
 
     /**
@@ -55,6 +64,10 @@ class MainActivity : AppCompatActivity() {
      * If the app was opened using a send intent then add the plain text, meant for sharing a tracking url as args.
      */
     private fun initNavFragment() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        navController = navHostFragment.navController
+
         var trackingUrl: String? = null
         when (intent?.action) {
             Intent.ACTION_SEND -> {
@@ -63,8 +76,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        val navController = getNavController()
 
         navController.setGraph(
             R.navigation.navigation_graph,
@@ -77,12 +88,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.parcelsFragment -> controller.graph.startDestination = R.id.parcelsFragment
             }
         }
-    }
-
-    private fun getNavController(): NavController {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
-        return navHostFragment.navController
     }
 
     fun showLoading(visibility: Boolean) {
@@ -99,12 +104,12 @@ class MainActivity : AppCompatActivity() {
 //        // Have the NavigationUI look for an action or destination matching the menu
 //        // item id and navigate there if found.
 //        // Otherwise, bubble up to the parent.
-        return item.onNavDestinationSelected(getNavController())
+        return item.onNavDestinationSelected(navController)
                 || super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return getNavController().navigateUp()
+        return navController.navigateUp()
                 || super.onSupportNavigateUp()
     }
 }

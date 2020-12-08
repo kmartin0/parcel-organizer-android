@@ -8,8 +8,6 @@ import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentChangePasswordBinding
 import com.km.parcelorganizer.util.playAnimation
-import kotlinx.android.synthetic.main.fragment_change_password.*
-import kotlinx.android.synthetic.main.toolbar_default.*
 
 class ChangePasswordFragment :
     BaseMVVMFragment<FragmentChangePasswordBinding, ChangePasswordViewModel>() {
@@ -19,9 +17,10 @@ class ChangePasswordFragment :
         initObservers()
     }
 
-    fun initObservers() {
+    private fun initObservers() {
+
         viewModel.changePasswordSuccess.observe(this, {
-            lottieSuccess.playAnimation {
+            binding.lottieSuccess.playAnimation {
                 findNavController().navigateUp()
             }
         })
@@ -35,6 +34,6 @@ class ChangePasswordFragment :
 
     override fun getLayoutId(): Int = R.layout.fragment_change_password
 
-    override fun getToolbar(): MaterialToolbar? = defaultToolbar
+    override fun getToolbar(): MaterialToolbar = binding.toolbarLayout.defaultToolbar
 
 }

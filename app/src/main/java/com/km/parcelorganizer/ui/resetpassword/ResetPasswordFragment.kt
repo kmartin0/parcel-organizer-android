@@ -6,8 +6,6 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentResetPasswordBinding
-import kotlinx.android.synthetic.main.fragment_reset_password.*
-import kotlinx.android.synthetic.main.toolbar_default.*
 
 class ResetPasswordFragment :
     BaseMVVMFragment<FragmentResetPasswordBinding, ResetPasswordViewModel>() {
@@ -26,11 +24,11 @@ class ResetPasswordFragment :
 
     private fun initObservers() {
         viewModel.error.observe(this, {
-            tvMessage.setText(R.string.error_reset_password)
+            binding.tvMessage.setText(R.string.error_reset_password)
         })
 
         viewModel.success.observe(this, {
-            tvMessage.setText(R.string.success_reset_password)
+            binding.tvMessage.setText(R.string.success_reset_password)
         })
     }
 
@@ -42,5 +40,5 @@ class ResetPasswordFragment :
 
     override fun getLayoutId(): Int = R.layout.fragment_reset_password
 
-    override fun getToolbar(): MaterialToolbar? = defaultToolbar
+    override fun getToolbar(): MaterialToolbar = binding.toolbarLayout.defaultToolbar
 }

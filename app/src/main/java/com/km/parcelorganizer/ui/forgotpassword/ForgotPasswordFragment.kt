@@ -6,8 +6,6 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentForgotPasswordBinding
-import kotlinx.android.synthetic.main.fragment_forgot_password.*
-import kotlinx.android.synthetic.main.toolbar_default.*
 
 class ForgotPasswordFragment :
     BaseMVVMFragment<FragmentForgotPasswordBinding, ForgotPasswordViewModel>() {
@@ -19,7 +17,7 @@ class ForgotPasswordFragment :
 
     private fun initObservers() {
         viewModel.passwordResetRequestSent.observe(this, {
-            tvMessage.visibility = View.VISIBLE
+            binding.tvMessage.visibility = View.VISIBLE
         })
     }
 
@@ -31,6 +29,6 @@ class ForgotPasswordFragment :
 
     override fun getLayoutId(): Int = R.layout.fragment_forgot_password
 
-    override fun getToolbar(): MaterialToolbar? = defaultToolbar
+    override fun getToolbar(): MaterialToolbar = binding.toolbarLayout.defaultToolbar
 
 }
