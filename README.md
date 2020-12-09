@@ -5,7 +5,6 @@ Parcel Organizer Native Android application
 ## Features
 
 - Light/dark mode.
-- Responsive design for mobile and desktop.
 - Login and Register.
 - Password recovery.
 - Update account details.
