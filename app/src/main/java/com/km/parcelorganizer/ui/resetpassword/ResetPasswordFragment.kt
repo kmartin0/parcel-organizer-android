@@ -23,11 +23,11 @@ class ResetPasswordFragment :
     }
 
     private fun initObservers() {
-        viewModel.error.observe(this, {
+        viewModel.error.observe(viewLifecycleOwner, {
             binding.tvMessage.setText(R.string.error_reset_password)
         })
 
-        viewModel.success.observe(this, {
+        viewModel.success.observe(viewLifecycleOwner, {
             binding.tvMessage.setText(R.string.success_reset_password)
         })
     }

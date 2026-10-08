@@ -24,7 +24,9 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     }
 
     private fun checkUserAlreadyLoggedIn() {
-        if (userRepository.isUserLoggedIn()) loginSuccess.call()
+        if (userRepository.isUserLoggedIn()) {
+            loginSuccess.value = Unit
+        }
     }
 
     /**
@@ -37,7 +39,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : SingleObserver<User> {
                     override fun onSuccess(t: User) {
-                        loginSuccess.call()
+                        loginSuccess.value = Unit
                         stopLoading()
                     }
 

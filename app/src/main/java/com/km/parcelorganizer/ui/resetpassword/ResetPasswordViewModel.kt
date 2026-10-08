@@ -26,7 +26,7 @@ class ResetPasswordViewModel(application: Application) : BaseViewModel(applicati
 
         token.let { token ->
             if (token.isNullOrEmpty()) {
-                error.call()
+                error.value = Unit
                 return
             }
 
@@ -37,7 +37,7 @@ class ResetPasswordViewModel(application: Application) : BaseViewModel(applicati
                     .subscribe(object : CompletableObserver {
                         override fun onComplete() {
                             stopLoading()
-                            success.call()
+                            success.value = Unit
                             resetPasswordForm.resetForm()
                         }
 
@@ -50,7 +50,7 @@ class ResetPasswordViewModel(application: Application) : BaseViewModel(applicati
                             stopLoading()
                             handleApiError(e) {
                                 when (it?.error) {
-                                    ApiErrorEnum.PERMISSION_DENIED -> error.call()
+                                    ApiErrorEnum.PERMISSION_DENIED -> error.value = Unit
                                     else -> {}
                                 }
                             }

@@ -16,7 +16,7 @@ class ForgotPasswordFragment :
     }
 
     private fun initObservers() {
-        viewModel.passwordResetRequestSent.observe(this, {
+        viewModel.passwordResetRequestSent.observe(viewLifecycleOwner, {
             binding.tvMessage.visibility = View.VISIBLE
         })
     }

@@ -19,7 +19,7 @@ class ChangePasswordFragment :
 
     private fun initObservers() {
 
-        viewModel.changePasswordSuccess.observe(this, {
+        viewModel.changePasswordSuccess.observe(viewLifecycleOwner, {
             binding.lottieSuccess.playAnimation {
                 findNavController().navigateUp()
             }

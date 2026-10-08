@@ -13,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.Locale
 
 class ParcelTrackerApi {
     companion object {
@@ -112,7 +113,11 @@ class ParcelTrackerApi {
         private fun langHeaderInterceptor(): Interceptor {
             return Interceptor {
                 val locale =
-                    ConfigurationCompat.getLocales(Resources.getSystem().configuration).get(0)
+                    ConfigurationCompat
+                        .getLocales(Resources.getSystem().configuration)
+                        .get(0)
+                        ?: Locale.getDefault()
+
                 val request = it.request()
 
                 it.proceed(

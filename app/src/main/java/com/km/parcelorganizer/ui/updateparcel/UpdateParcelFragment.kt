@@ -25,7 +25,7 @@ class UpdateParcelFragment :
 
     private fun initViews() {
         // Set the parcel status dropdown values using ParcelStatusEnum.
-        val parcelStatusList = ParcelStatusEnum.values().map { requireContext().getString(it.stringResId) }
+        val parcelStatusList = ParcelStatusEnum.entries.map { requireContext().getString(it.stringResId) }
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_popup_item, parcelStatusList)
         binding.parcelFormLayout.dropdownStatus.setAdapter(adapter)
     }
@@ -35,7 +35,7 @@ class UpdateParcelFragment :
         viewModel.populateParcelForm(args.parcel)
 
         // When parcel is updated successfully then display a success animation and navigate to the previous fragment.
-        viewModel.parcelUpdateSuccess.observe(this, {
+        viewModel.parcelUpdateSuccess.observe(viewLifecycleOwner, {
             binding.btnUpdateParcel.isClickable = false
             binding.lottieSuccess.playAnimation {
                 findNavController().navigateUp()

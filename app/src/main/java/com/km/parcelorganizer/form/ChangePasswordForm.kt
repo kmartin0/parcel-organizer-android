@@ -45,7 +45,7 @@ class ChangePasswordForm {
                     isValid = false
                     R.string.error_max_characters_45
                 }
-                it.length < 5 -> {
+                it.length < 6 -> {
                     isValid = false
                     R.string.error_min_characters_6
                 }

@@ -7,6 +7,7 @@ import com.km.parcelorganizer.model.OAuth2Credentials
 import com.km.parcelorganizer.model.User
 import com.km.parcelorganizer.util.SharedPreferencesUtils
 import io.reactivex.Single
+import androidx.core.content.edit
 
 class TokenRepository(val context: Context) {
 
@@ -17,22 +18,30 @@ class TokenRepository(val context: Context) {
     }
 
     fun getUserOAuth2Credentials(): OAuth2Credentials? {
-        SharedPreferencesUtils.getSharedPreferences(context).run {
-            val userString = getString(SharedPreferencesUtils.USER_KEY, null)
-            return Gson().fromJson(userString, User::class.java).OAuth2Credentials
-        }
+        return getStoredUser()?.OAuth2Credentials
     }
 
     fun setUserOAuth2Credentials(oAuth2Credentials: OAuth2Credentials) {
-        val user = SharedPreferencesUtils.getSharedPreferences(context).run {
-            val userString = getString(SharedPreferencesUtils.USER_KEY, null)
-            Gson().fromJson(userString, User::class.java).apply { OAuth2Credentials = oAuth2Credentials }
-        }
+        val user = getStoredUser() ?: return
 
-        SharedPreferencesUtils.getSharedPreferences(context).edit().run {
-            putString(SharedPreferencesUtils.USER_KEY, Gson().toJson(user))
-            apply()
-        }
+        user.OAuth2Credentials = oAuth2Credentials
+
+        SharedPreferencesUtils
+            .getSharedPreferences(context)
+            .edit {
+                putString(SharedPreferencesUtils.USER_KEY, Gson().toJson(user))
+            }
+    }
+
+    private fun getStoredUser(): User? {
+        val userString = SharedPreferencesUtils
+            .getSharedPreferences(context)
+            .getString(SharedPreferencesUtils.USER_KEY, null)
+            ?: return null
+
+        return runCatching {
+            Gson().fromJson(userString, User::class.java)
+        }.getOrNull()
     }
 
 }

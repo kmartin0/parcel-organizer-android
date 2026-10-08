@@ -52,14 +52,14 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
 
                 // Handle these errors globally.
                 when (apiError?.error) {
-                    ApiErrorEnum.invalid_token -> logout.call()  // Refresh Token Expired or Bad Credentials.
-                    ApiErrorEnum.invalid_grant -> if (userRepository.isUserLoggedIn()) logout.call()
+                    ApiErrorEnum.invalid_token -> logout.value = Unit  // Refresh Token Expired or Bad Credentials.
+                    ApiErrorEnum.invalid_grant -> if (userRepository.isUserLoggedIn()) logout.value = Unit
                     ApiErrorEnum.INTERNAL,
                     ApiErrorEnum.MESSAGE_NOT_READABLE,
                     ApiErrorEnum.URI_NOT_FOUND,
                     ApiErrorEnum.METHOD_NOT_ALLOWED,
                     ApiErrorEnum.UNSUPPORTED_MEDIA_TYPE,
-                    ApiErrorEnum.UNAVAILABLE -> internalServerError.call()
+                    ApiErrorEnum.UNAVAILABLE -> internalServerError.value = Unit
                     else -> {}
                 }
 
@@ -67,7 +67,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
                 apiError
             }
             is SocketTimeoutException, is ConnectException -> { // Server can't be reached.
-                serverUnavailableException.call()
+                serverUnavailableException.value = Unit
                 null
             }
             else -> null

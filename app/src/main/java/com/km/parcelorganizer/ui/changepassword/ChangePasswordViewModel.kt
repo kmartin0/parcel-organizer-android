@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 class ChangePasswordViewModel(application: Application) : BaseViewModel(application) {
     private val userRepository = UserRepository(application.applicationContext)
     val changePasswordForm = ChangePasswordForm()
-    val changePasswordSuccess = SingleLiveEvent<Any>()
+    val changePasswordSuccess = SingleLiveEvent<Unit>()
 
     fun changePassword() {
         if (isLoading.value == false && changePasswordForm.validateInput()) {
@@ -29,7 +29,7 @@ class ChangePasswordViewModel(application: Application) : BaseViewModel(applicat
                 .subscribe(object : CompletableObserver {
                     override fun onComplete() {
                         stopLoading()
-                        changePasswordSuccess.call()
+                        changePasswordSuccess.value = Unit
                     }
 
                     override fun onSubscribe(d: Disposable) {

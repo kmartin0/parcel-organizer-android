@@ -74,9 +74,6 @@
         <item name="alphaEmphasisMedium">@dimen/alpha_emphasis_medium</item>
         <item name="alphaEmphasisDisabled">@dimen/alpha_emphasis_disabled</item>
 
-        <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorPrimaryVariant</item>
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
-
         <!--Remap legacy AppCompat attributes to MaterialComponent attributes-->
         <item name="colorPrimaryDark">?colorPrimaryVariant</item>
         <item name="colorAccent">?colorSecondary</item>

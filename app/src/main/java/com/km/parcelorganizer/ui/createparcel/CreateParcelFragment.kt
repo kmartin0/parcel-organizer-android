@@ -26,7 +26,7 @@ class CreateParcelFragment :
 
     private fun initViews() {
         // Initialize the options for the Parcel Status dropdown.
-        val parcelStatusList = ParcelStatusEnum.values().map { requireContext().getString(it.stringResId) }
+        val parcelStatusList = ParcelStatusEnum.entries.map { requireContext().getString(it.stringResId) }
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_popup_item, parcelStatusList)
         binding.parcelFormLayout.dropdownStatus.setAdapter(adapter)
     }
@@ -36,7 +36,7 @@ class CreateParcelFragment :
         viewModel.setTrackingUrl(args.trackingUrl)
 
         // When a parcel has been created display a success animation and return to the previous fragment.
-        viewModel.parcelCreatedSuccess.observe(this, {
+        viewModel.parcelCreatedSuccess.observe(viewLifecycleOwner, {
             binding.btnCreateParcel.isClickable = false
             binding.lottieSuccess.playAnimation {
                 findNavController().navigateUp()

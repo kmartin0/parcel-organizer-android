@@ -17,10 +17,10 @@ class RegisterFragment : BaseMVVMFragment<FragmentRegisterBinding, RegisterViewM
     }
 
     private fun initObservers() {
-        viewModel.registerSuccess.observe(this, {
+        viewModel.registerSuccess.observe(viewLifecycleOwner, {
             onRegisterSuccess()
         })
-        viewModel.alreadyExists.observe(this, {
+        viewModel.alreadyExists.observe(viewLifecycleOwner, {
             binding.registerFormLayout.tilEmail.error = getString(R.string.already_exists)
         })
     }

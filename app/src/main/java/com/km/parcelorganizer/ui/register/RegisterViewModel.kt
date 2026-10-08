@@ -30,7 +30,7 @@ class RegisterViewModel(application: Application) : BaseViewModel(application) {
                 .subscribe(object : SingleObserver<User> {
                     override fun onSuccess(t: User) {
                         stopLoading()
-                        registerSuccess.call()
+                        registerSuccess.value = Unit
                     }
 
                     override fun onSubscribe(d: Disposable) {
@@ -42,7 +42,7 @@ class RegisterViewModel(application: Application) : BaseViewModel(application) {
                         stopLoading()
                         handleApiError(e) {
                             when (it?.error) {
-                                ApiErrorEnum.ALREADY_EXISTS -> alreadyExists.call()
+                                ApiErrorEnum.ALREADY_EXISTS -> alreadyExists.value = Unit
                                 else -> {}
                             }
                         }

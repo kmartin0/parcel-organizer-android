@@ -2,7 +2,6 @@ package com.km.parcelorganizer.ui.parcels
 
 import android.app.Application
 import android.content.res.Resources
-import android.util.Log
 import androidx.core.os.ConfigurationCompat
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,35 +20,42 @@ import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
+import java.util.Locale
 
 class ParcelsViewModel(application: Application) : BaseViewModel(application) {
 
     private val parcelRepository = ParcelRepository(application.applicationContext)
     private val settingsRepository = SettingsRepository(application.applicationContext)
     private val userRepository = UserRepository(application.applicationContext)
+
     var loggedInUser = userRepository.getLoggedInUser()
+
     private val locale: Locale by lazy {
-        ConfigurationCompat.getLocales(Resources.getSystem().configuration).get(0)
+        ConfigurationCompat
+            .getLocales(Resources.getSystem().configuration)
+            .get(0)
+            ?: Locale.getDefault()
     }
-    private var repoParcels = MutableLiveData<List<Parcel>>()
-    var parcels = MediatorLiveData<List<Parcel>>()
-    var sortAndFilterConfig = MutableLiveData<ParcelsSortAndFilterConfig>().apply {
+
+    private val repoParcels = MutableLiveData<List<Parcel>>()
+
+    val parcels = MediatorLiveData<List<Parcel>>()
+
+    val sortAndFilterConfig = MutableLiveData<ParcelsSortAndFilterConfig>().apply {
         value = settingsRepository.getSortAndFilterSettings()
     }
+
     private var sortAndFilterDisposable: Disposable? = null
-    val startLoadingParcels = SingleLiveEvent<Any>()
+
+    val startLoadingParcels = SingleLiveEvent<Unit>()
 
     private fun setupParcelSources() {
-        // Retrieve the parcels from the repository and add the value in repoParcels
         getRepoParcels()
 
-        // When the value of repoParcels is changed then sort and filter the list and set the value of parcels to it
         parcels.addSource(repoParcels) {
             sortAndFilterParcels()
         }
 
-        // When the value of sortAndFilterConfig is changed then sort and filter repoParcels and set the value of parcels to it
         parcels.addSource(sortAndFilterConfig) {
             sortAndFilterParcels()
         }
@@ -60,6 +66,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<List<Parcel>> {
+
                 override fun onSuccess(t: List<Parcel>) {
                     stopLoading()
                     repoParcels.value = t
@@ -68,7 +75,7 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
                 override fun onSubscribe(d: Disposable) {
                     disposables.add(d)
                     startLoading()
-                    startLoadingParcels.call()
+                    startLoadingParcels.value = Unit
                 }
 
                 override fun onError(e: Throwable) {
@@ -79,50 +86,55 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     }
 
     /**
-     * Delete the [parcel] from the [parcelRepository]
+     * Delete the [parcel] from the [parcelRepository].
      */
     fun deleteParcel(parcel: Parcel) {
-        parcelRepository.deleteParcel(parcel.id)
+        val disposable = parcelRepository.deleteParcel(parcel.id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
-                disposables.add(it)
                 startLoading()
             }
-            .doOnComplete {
-                stopLoading()
-                refreshParcels()
-            }
-            .doOnError {
-                stopLoading()
-                handleApiError(it)
-            }
-            .subscribe()
+            .subscribe(
+                {
+                    stopLoading()
+                    refreshParcels()
+                },
+                {
+                    stopLoading()
+                    handleApiError(it)
+                }
+            )
+
+        disposables.add(disposable)
     }
 
     /**
-     * Sorts and filters the [repoParcels] list and stores the result in [parcels]
+     * Sorts and filters the [repoParcels] list and stores the result in [parcels].
      */
     private fun sortAndFilterParcels() {
+        val repoParcels = repoParcels.value ?: return
+        val config = sortAndFilterConfig.value ?: return
+
         Single.fromCallable {
             sortParcels(
-                filterParcels(
-                    repoParcels.value,
-                    sortAndFilterConfig.value
-                ), sortAndFilterConfig.value
+                filterParcels(repoParcels, config),
+                config
             )
         }
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : SingleObserver<List<Parcel>?> {
+            .subscribe(object : SingleObserver<List<Parcel>> {
+
                 override fun onSuccess(t: List<Parcel>) {
                     stopLoading()
-                    this@ParcelsViewModel.parcels.value = t
+                    parcels.value = t
                 }
 
                 override fun onSubscribe(d: Disposable) {
                     sortAndFilterDisposable?.dispose()
                     sortAndFilterDisposable = d
+                    disposables.add(d)
                     startLoading()
                 }
 
@@ -134,127 +146,124 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
     }
 
     /**
-     * @return List<Parcel> Sorted parcels list using [sortAndFilterConfig] for sorting options.
+     * @return Sorted parcels list using [sortAndFilterConfig] for sorting options.
      */
     private fun sortParcels(
-        parcels: List<Parcel>?,
-        sortAndFilterConfig: ParcelsSortAndFilterConfig?
-    ): List<Parcel>? {
-        // Return the parcels list if no parcels or sorting configuration is provided.
-        // Otherwise use the sortBy attribute of the sortAndFilterConfig to determine by which attribute the list
-        // should be sorted. Then use the sortOrder attribute to determine the sort order.
-        return if (parcels == null || sortAndFilterConfig == null) parcels
-        else when (sortAndFilterConfig.sortBy) {
+        parcels: List<Parcel>,
+        sortAndFilterConfig: ParcelsSortAndFilterConfig
+    ): List<Parcel> {
+        return when (sortAndFilterConfig.sortBy) {
             ParcelSortingEnum.TITLE -> {
                 when (sortAndFilterConfig.sortOrder) {
-                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.title.toLowerCase(locale) }
-                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending {
-                        it.title.toLowerCase(
-                            locale
-                        )
-                    }
+                    SortOrderEnum.ASCENDING ->
+                        parcels.sortedBy { it.title.lowercase(locale) }
+
+                    SortOrderEnum.DESCENDING ->
+                        parcels.sortedByDescending { it.title.lowercase(locale) }
                 }
             }
+
             ParcelSortingEnum.SENDER -> {
                 when (sortAndFilterConfig.sortOrder) {
-                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.sender?.toLowerCase(locale) }
-                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending {
-                        it.sender?.toLowerCase(
-                            locale
-                        )
-                    }
+                    SortOrderEnum.ASCENDING ->
+                        parcels.sortedBy { it.sender?.lowercase(locale) }
+
+                    SortOrderEnum.DESCENDING ->
+                        parcels.sortedByDescending { it.sender?.lowercase(locale) }
                 }
             }
+
             ParcelSortingEnum.COURIER -> {
                 when (sortAndFilterConfig.sortOrder) {
-                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.courier?.toLowerCase(locale) }
-                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending {
-                        it.courier?.toLowerCase(
-                            locale
-                        )
-                    }
+                    SortOrderEnum.ASCENDING ->
+                        parcels.sortedBy { it.courier?.lowercase(locale) }
+
+                    SortOrderEnum.DESCENDING ->
+                        parcels.sortedByDescending { it.courier?.lowercase(locale) }
                 }
             }
+
             ParcelSortingEnum.DATE -> {
                 when (sortAndFilterConfig.sortOrder) {
-                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.lastUpdated }
-                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.lastUpdated }
+                    SortOrderEnum.ASCENDING ->
+                        parcels.sortedBy { it.lastUpdated }
+
+                    SortOrderEnum.DESCENDING ->
+                        parcels.sortedByDescending { it.lastUpdated }
                 }
             }
+
             ParcelSortingEnum.STATUS -> {
                 when (sortAndFilterConfig.sortOrder) {
-                    SortOrderEnum.ASCENDING -> parcels.sortedBy { it.parcelStatus.status }
-                    SortOrderEnum.DESCENDING -> parcels.sortedByDescending { it.parcelStatus.status }
+                    SortOrderEnum.ASCENDING ->
+                        parcels.sortedBy { it.parcelStatus.status }
+
+                    SortOrderEnum.DESCENDING ->
+                        parcels.sortedByDescending { it.parcelStatus.status }
                 }
             }
         }
     }
 
     /**
-     * @return List<Parcel> Filtered parcels list using [sortAndFilterConfig] for filter options.
+     * @return Filtered parcels list using [sortAndFilterConfig] for filter options.
      */
     private fun filterParcels(
-        parcels: List<Parcel>?,
-        sortAndFilterConfig: ParcelsSortAndFilterConfig?
-    ): List<Parcel>? {
-        // Return the parcels list if no parcels or sorting configuration is provided.
-        // If no search query is provided only filter by parcel status.
-        // Otherwise filter by search query and parcel status.
-        return if (parcels == null || sortAndFilterConfig == null) parcels
-        else if (sortAndFilterConfig.searchQuery.isNullOrBlank()) filterParcelStatus(
-            parcels,
-            sortAndFilterConfig
-        )
-        else {
-            parcels.filter { parcel ->
-                when (sortAndFilterConfig.searchBy) { // Find the attribute to filter by. Then use the searchQuery and parcel status to filter.
-                    ParcelSearchingEnum.TITLE -> {
-                        sortAndFilterConfig.isParcelStatusSelected(parcel) &&
-                                parcel.title.toLowerCase(locale).contains(
-                                    sortAndFilterConfig.searchQuery!!.toLowerCase(
-                                        locale
-                                    )
-                                )
-                    }
-                    ParcelSearchingEnum.SENDER -> {
-                        if (parcel.sender.isNullOrBlank()) false
-                        else sortAndFilterConfig.isParcelStatusSelected(parcel) &&
-                                parcel.sender!!.toLowerCase(locale).contains(
-                                    sortAndFilterConfig.searchQuery!!.toLowerCase(
-                                        locale
-                                    )
-                                )
-                    }
-                    ParcelSearchingEnum.COURIER -> {
-                        if (parcel.courier.isNullOrBlank()) false
-                        else sortAndFilterConfig.isParcelStatusSelected(parcel) &&
-                                parcel.courier!!.toLowerCase(locale).contains(
-                                    sortAndFilterConfig.searchQuery!!.toLowerCase(
-                                        locale
-                                    )
-                                )
-                    }
-                }
+        parcels: List<Parcel>,
+        sortAndFilterConfig: ParcelsSortAndFilterConfig
+    ): List<Parcel> {
+        val searchQuery = sortAndFilterConfig.searchQuery
+
+        if (searchQuery.isNullOrBlank()) {
+            return filterParcelStatus(
+                parcels,
+                sortAndFilterConfig
+            )
+        }
+
+        val normalizedSearchQuery = searchQuery.lowercase(locale)
+
+        return parcels.filter { parcel ->
+            if (!sortAndFilterConfig.isParcelStatusSelected(parcel)) {
+                return@filter false
+            }
+
+            when (sortAndFilterConfig.searchBy) {
+                ParcelSearchingEnum.TITLE ->
+                    parcel.title
+                        .lowercase(locale)
+                        .contains(normalizedSearchQuery)
+
+                ParcelSearchingEnum.SENDER ->
+                    parcel.sender
+                        ?.lowercase(locale)
+                        ?.contains(normalizedSearchQuery)
+                        ?: false
+
+                ParcelSearchingEnum.COURIER ->
+                    parcel.courier
+                        ?.lowercase(locale)
+                        ?.contains(normalizedSearchQuery)
+                        ?: false
             }
         }
     }
 
     /**
-     * @return List<Parcel> Filtered parcels list by Parcel Status.
+     * @return Parcels filtered by parcel status.
      */
     private fun filterParcelStatus(
-        parcels: List<Parcel>?,
-        sortAndFilterConfig: ParcelsSortAndFilterConfig?
-    ): List<Parcel>? {
-        return if (parcels == null || sortAndFilterConfig == null) parcels
-        else {
-            parcels.filter { parcel ->
-                sortAndFilterConfig.isParcelStatusSelected(parcel)
-            }
+        parcels: List<Parcel>,
+        sortAndFilterConfig: ParcelsSortAndFilterConfig
+    ): List<Parcel> {
+        return parcels.filter { parcel ->
+            sortAndFilterConfig.isParcelStatusSelected(parcel)
         }
     }
 
-    fun setSortingAndFilterConfig(sortAndFilterConfig: ParcelsSortAndFilterConfig) {
+    fun setSortingAndFilterConfig(
+        sortAndFilterConfig: ParcelsSortAndFilterConfig
+    ) {
         settingsRepository.setSortAndFilterSettings(sortAndFilterConfig)
         this.sortAndFilterConfig.value = sortAndFilterConfig
     }
@@ -263,9 +272,10 @@ class ParcelsViewModel(application: Application) : BaseViewModel(application) {
         if (isLoading.value == false) {
             parcels.removeSource(repoParcels)
             parcels.removeSource(sortAndFilterConfig)
+
             setupParcelSources()
+
             loggedInUser = userRepository.getLoggedInUser()
         }
     }
-
 }

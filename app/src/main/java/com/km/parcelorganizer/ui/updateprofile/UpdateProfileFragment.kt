@@ -19,7 +19,7 @@ class UpdateProfileFragment :
     }
 
     private fun initObservers() {
-        viewModel.profileUpdateSuccess.observe(this, {
+        viewModel.profileUpdateSuccess.observe(viewLifecycleOwner, {
             binding.btnSubmit.isClickable = false
             binding.lottieSuccess.playAnimation {
                 findNavController().navigateUp()

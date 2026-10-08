@@ -17,21 +17,28 @@ import io.reactivex.schedulers.Schedulers
 class UpdateProfileViewModel(application: Application) : BaseViewModel(application) {
     private val userRepository = UserRepository(application.applicationContext)
     private val userToUpdate = userRepository.getLoggedInUser()
-    val profileUpdateSuccess = SingleLiveEvent<Any>()
+    val profileUpdateSuccess = SingleLiveEvent<Unit>()
 
     val updateProfileForm = UpdateProfileForm().apply {
         email.value = userToUpdate?.email
         name.value = userToUpdate?.name
     }
 
+    init {
+        if (userToUpdate == null) {
+            logout.value = Unit
+        }
+    }
+
     fun updateProfile() {
-        if (isLoading.value == false && updateProfileForm.validateInput(
-                userToUpdate?.email,
-                userToUpdate?.name
-            )
+        val user = userToUpdate ?: return
+
+        if (
+            isLoading.value == false &&
+            updateProfileForm.validateInput(user.email, user.name)
         ) {
             userRepository.updateUser(
-                userToUpdate!!.id,
+                user.id,
                 updateProfileForm.email.value!!,
                 updateProfileForm.name.value!!,
                 updateProfileForm.password.value!!
@@ -41,10 +48,11 @@ class UpdateProfileViewModel(application: Application) : BaseViewModel(applicati
                 .subscribe(object : SingleObserver<User> {
                     override fun onSuccess(t: User) {
                         stopLoading()
-                        profileUpdateSuccess.call()
+                        profileUpdateSuccess.value = Unit
                     }
 
                     override fun onSubscribe(d: Disposable) {
+                        disposables.add(d)
                         startLoading()
                     }
 

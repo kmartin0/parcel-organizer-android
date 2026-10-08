@@ -94,7 +94,7 @@ class ParcelsFragment : BaseMVVMFragment<FragmentParcelsBinding, ParcelsViewMode
         })
 
         // When parcels are being fetched hide empty state
-        viewModel.startLoadingParcels.observe(this, {
+        viewModel.startLoadingParcels.observe(viewLifecycleOwner, {
             binding.parcelsEmptyStateView.root.visibility = View.INVISIBLE
         })
     }

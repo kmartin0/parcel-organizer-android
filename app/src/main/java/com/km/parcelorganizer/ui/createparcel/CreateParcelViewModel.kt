@@ -41,7 +41,7 @@ class CreateParcelViewModel(application: Application) : BaseViewModel(applicatio
                     .subscribe(object : SingleObserver<Parcel> {
                         override fun onSuccess(t: Parcel) {
                             stopLoading()
-                            parcelCreatedSuccess.call()
+                            parcelCreatedSuccess.value = Unit
                         }
 
                         override fun onSubscribe(d: Disposable) {

@@ -53,7 +53,7 @@ class UpdateParcelViewModel(application: Application) : BaseViewModel(applicatio
                     .subscribe(object : SingleObserver<Parcel> {
                         override fun onSuccess(t: Parcel) {
                             stopLoading()
-                            parcelUpdateSuccess.call()
+                            parcelUpdateSuccess.value = Unit
                         }
 
                         override fun onSubscribe(d: Disposable) {

@@ -9,6 +9,7 @@ import com.km.parcelorganizer.model.User
 import com.km.parcelorganizer.util.SharedPreferencesUtils
 import io.reactivex.Completable
 import io.reactivex.Single
+import androidx.core.content.edit
 
 class UserRepository(val context: Context) {
 
@@ -65,9 +66,8 @@ class UserRepository(val context: Context) {
      * Store [user] in Shared Preferences.
      */
     private fun persistUser(user: User) {
-        SharedPreferencesUtils.getSharedPreferences(context).edit().run {
+        SharedPreferencesUtils.getSharedPreferences(context).edit {
             putString(SharedPreferencesUtils.USER_KEY, Gson().toJson(user))
-            apply()
         }
     }
 
@@ -75,27 +75,26 @@ class UserRepository(val context: Context) {
      * Clear user from Shared Preferences.
      */
     fun logoutUser() {
-        SharedPreferencesUtils.getSharedPreferences(context).edit().run {
+        SharedPreferencesUtils.getSharedPreferences(context).edit {
             remove(SharedPreferencesUtils.USER_KEY)
-            apply()
         }
     }
 
-    /**
-     * @return Boolean if Shared Preferences contains a [User]
-     */
     fun isUserLoggedIn(): Boolean {
-        return SharedPreferencesUtils.getSharedPreferences(context)
-            .contains(SharedPreferencesUtils.USER_KEY)
+        return getLoggedInUser()?.OAuth2Credentials != null
     }
 
     /**
-     * @return User? user object from Shared Preferences.
+     * @return Stored user, or null if no valid user session exists.
      */
     fun getLoggedInUser(): User? {
-        SharedPreferencesUtils.getSharedPreferences(context).run {
-            val userString = getString(SharedPreferencesUtils.USER_KEY, null)
-            return Gson().fromJson(userString, User::class.java)
-        }
+        val userString = SharedPreferencesUtils
+            .getSharedPreferences(context)
+            .getString(SharedPreferencesUtils.USER_KEY, null)
+            ?: return null
+
+        return runCatching {
+            Gson().fromJson(userString, User::class.java)
+        }.getOrNull()
     }
 }
