@@ -1,15 +1,19 @@
 package com.km.parcelorganizer.repository
 
 import android.content.Context
+import androidx.core.content.edit
 import com.google.gson.Gson
 import com.km.parcelorganizer.api.ParcelTrackerApi
-import com.km.parcelorganizer.api.request.*
+import com.km.parcelorganizer.api.request.ChangePasswordRequestBody
+import com.km.parcelorganizer.api.request.ForgotPasswordRequestBody
+import com.km.parcelorganizer.api.request.RegisterUserRequestBody
+import com.km.parcelorganizer.api.request.ResetPasswordRequestBody
+import com.km.parcelorganizer.api.request.UpdateUserRequestBody
 import com.km.parcelorganizer.model.OAuth2Credentials
 import com.km.parcelorganizer.model.User
 import com.km.parcelorganizer.util.SharedPreferencesUtils
 import io.reactivex.Completable
 import io.reactivex.Single
-import androidx.core.content.edit
 
 class UserRepository(val context: Context) {
 

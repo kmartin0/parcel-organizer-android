@@ -1,6 +1,12 @@
 package com.km.parcelorganizer.api
 
-import com.km.parcelorganizer.api.request.*
+import com.km.parcelorganizer.api.request.ChangePasswordRequestBody
+import com.km.parcelorganizer.api.request.ForgotPasswordRequestBody
+import com.km.parcelorganizer.api.request.RegisterParcelRequestBody
+import com.km.parcelorganizer.api.request.RegisterUserRequestBody
+import com.km.parcelorganizer.api.request.ResetPasswordRequestBody
+import com.km.parcelorganizer.api.request.UpdateParcelRequestBody
+import com.km.parcelorganizer.api.request.UpdateUserRequestBody
 import com.km.parcelorganizer.enums.ParcelStatusEnum
 import com.km.parcelorganizer.model.OAuth2Credentials
 import com.km.parcelorganizer.model.Parcel
@@ -8,7 +14,15 @@ import com.km.parcelorganizer.model.ParcelStatus
 import com.km.parcelorganizer.model.User
 import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface ParcelTrackerApiService {
 

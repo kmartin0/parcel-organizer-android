@@ -3,7 +3,7 @@ package com.km.parcelorganizer.model
 import android.os.Parcelable
 import android.webkit.URLUtil
 import kotlinx.android.parcel.Parcelize
-import java.util.*
+import java.util.Date
 
 @Parcelize
 data class Parcel(

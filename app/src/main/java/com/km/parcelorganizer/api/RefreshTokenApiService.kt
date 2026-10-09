@@ -2,7 +2,9 @@ package com.km.parcelorganizer.api
 
 import com.km.parcelorganizer.model.OAuth2Credentials
 import io.reactivex.Single
-import retrofit2.http.*
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.POST
 
 interface RefreshTokenApiService {
 

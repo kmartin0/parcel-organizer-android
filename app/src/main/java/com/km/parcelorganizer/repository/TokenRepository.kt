@@ -1,13 +1,13 @@
 package com.km.parcelorganizer.repository
 
 import android.content.Context
+import androidx.core.content.edit
 import com.google.gson.Gson
 import com.km.parcelorganizer.api.ParcelTrackerApi
 import com.km.parcelorganizer.model.OAuth2Credentials
 import com.km.parcelorganizer.model.User
 import com.km.parcelorganizer.util.SharedPreferencesUtils
 import io.reactivex.Single
-import androidx.core.content.edit
 
 class TokenRepository(val context: Context) {
 

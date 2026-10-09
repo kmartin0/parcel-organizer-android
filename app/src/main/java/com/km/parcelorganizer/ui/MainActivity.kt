@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isGone
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +22,6 @@ import com.km.parcelorganizer.R
 import com.km.parcelorganizer.databinding.ActivityMainBinding
 import com.km.parcelorganizer.ui.login.LoginFragment
 import com.km.parcelorganizer.ui.login.LoginFragmentArgs
-import androidx.core.view.isGone
 
 class MainActivity : AppCompatActivity() {
 

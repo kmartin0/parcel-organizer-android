@@ -2,13 +2,14 @@ package com.km.parcelorganizer.ui.parcels
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ShareCompat
-import androidx.core.view.MenuItemCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +20,6 @@ import com.km.parcelorganizer.R
 import com.km.parcelorganizer.base.BaseMVVMFragment
 import com.km.parcelorganizer.databinding.FragmentParcelsBinding
 import com.km.parcelorganizer.model.Parcel
-import com.km.parcelorganizer.ui.MainActivity
 import com.km.parcelorganizer.ui.parcels.adapter.ParcelClickListener
 import com.km.parcelorganizer.ui.parcels.adapter.ParcelsAdapter
 import com.km.parcelorganizer.ui.parcels.adapter.ParcelsItemDecoration

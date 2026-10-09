@@ -8,7 +8,13 @@ import com.km.parcelorganizer.BuildConfig
 import com.km.parcelorganizer.api.error.ApiError
 import com.km.parcelorganizer.enums.ApiErrorEnum
 import com.km.parcelorganizer.repository.TokenRepository
-import okhttp3.*
+import okhttp3.Authenticator
+import okhttp3.Credentials
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.Route
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
