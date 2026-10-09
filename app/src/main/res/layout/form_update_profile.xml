@@ -6,7 +6,7 @@
 
         <variable
             name="updateProfileForm"
-            type="com.km.parcelorganizer.form.UpdateProfileForm" />
+            type="nl.kmartin.parcelorganizer.form.UpdateProfileForm" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.km.parcelorganizer.ui.updateprofile.UpdateProfileViewModel" />
+            type="nl.kmartin.parcelorganizer.ui.updateprofile.UpdateProfileViewModel" />
     </data>
 
     <LinearLayout

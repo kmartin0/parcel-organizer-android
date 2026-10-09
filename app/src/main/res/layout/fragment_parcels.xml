@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.km.parcelorganizer.ui.parcels.ParcelsViewModel" />
+            type="nl.kmartin.parcelorganizer.ui.parcels.ParcelsViewModel" />
     </data>
 
 

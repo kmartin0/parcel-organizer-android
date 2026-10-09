@@ -6,7 +6,7 @@
 
         <variable
             name="registerForm"
-            type="com.km.parcelorganizer.form.RegisterForm" />
+            type="nl.kmartin.parcelorganizer.form.RegisterForm" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -15,7 +15,7 @@
         android:theme="@style/Theme.MyApp"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name="com.km.parcelorganizer.ui.MainActivity"
+            android:name="nl.kmartin.parcelorganizer.ui.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

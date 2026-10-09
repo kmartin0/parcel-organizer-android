@@ -8,11 +8,11 @@ def localProperties = new Properties()
 localProperties.load(new FileInputStream(rootProject.file('local.properties')))
 
 android {
-    namespace = 'com.km.parcelorganizer'
+    namespace = 'nl.kmartin.parcelorganizer'
     compileSdk = 37
 
     defaultConfig {
-        applicationId = 'com.km.parcelorganizer'
+        applicationId = 'nl.km.parcelorganizer'
         minSdk = 26
         targetSdk = 37
         versionCode = 1

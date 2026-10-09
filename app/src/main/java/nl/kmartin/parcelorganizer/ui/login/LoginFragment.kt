@@ -1,0 +1,49 @@
+package nl.kmartin.parcelorganizer.ui.login
+
+import android.os.Bundle
+import android.view.View
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import nl.kmartin.parcelorganizer.R
+import nl.kmartin.parcelorganizer.base.BaseMVVMFragment
+import nl.kmartin.parcelorganizer.databinding.FragmentLoginBinding
+
+class LoginFragment : BaseMVVMFragment<FragmentLoginBinding, LoginViewModel>() {
+
+    private val args: LoginFragmentArgs by navArgs()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews()
+        initObservers()
+    }
+
+    private fun initViews() {
+        binding.btnRegister.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
+        binding.btnForgotPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+        }
+    }
+
+    private fun initObservers() {
+        viewModel.loginSuccess.observe(viewLifecycleOwner) {
+            findNavController().navigate(
+                LoginFragmentDirections.actionLoginFragmentToParcelsFragment(
+                    args.trackingUrl
+                )
+            )
+        }
+    }
+
+    override fun initViewModelBinding() {
+        binding.viewModel = viewModel
+    }
+
+    override fun getVMClass(): Class<LoginViewModel> = LoginViewModel::class.java
+
+    override fun getLayoutId(): Int = R.layout.fragment_login
+
+}
